@@ -5,9 +5,7 @@ import {CreateStockComponent} from './components/create-stock/create-stock.compo
 
 const routes: Routes = [
   {
-    path: '',
-    children: [
-    ]
+    path: '', component: AppComponent
   },
   {path: 'create', component: CreateStockComponent}
 ];

@@ -19,7 +19,8 @@
     </md-grid-list>
     <md-card-actions>
       <a md-raised-button *ngIf="stockName" (click)="createStock(stockName)">Создать</a>
-      <!-- <a md-raised-button *ngIf="stockName" routerLink='/create'>Создать</a> -->
+      <!-- <a md-raised-button *ngIf="stockName" [routerLink]="['/create']">Создать</a> -->
     </md-card-actions>
   </md-card>
 </div>
+<router-outlet></router-outlet>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from './data.service';
-import { Router } from '@angular/router';
+// import { Router } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -24,7 +25,7 @@ export class AppComponent {
 
   createStock(stockName){
     console.log(stockName);
-    this.router.navigate(['/create']);
+    this.router.navigate(['/create', {stockName}]);
 
   }
 
