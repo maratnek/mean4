@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from './data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,7 @@ export class AppComponent {
   name = '';
 
   // Create an instance of the DataService through dependency injection
-  constructor(private _dataService: DataService) {
+  constructor(private _dataService: DataService, private router: Router) {
 
     // Access the Data Service's getUsers() method we defined
     this._dataService.getUsers()
@@ -23,6 +24,7 @@ export class AppComponent {
 
   createStock(stockName){
     console.log(stockName);
+    this.router.navigate(['/create']);
 
   }
 

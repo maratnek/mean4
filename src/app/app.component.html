@@ -1,25 +1,25 @@
-<md-card>
+<div class="center-align">
+  <md-card>
 
-  <md-card-header>
-    <h1>Создайте склад</h1>
-  </md-card-header>
+    <md-card-header>
+      <h1>Создайте склад</h1>
+    </md-card-header>
 
-  <md-grid-list cols="2" rowHeight="3:1">
-    <md-grid-tile>
-      <md-card-content>
-        <md-input-container>
-          <input type="text" mdInput [(ngModel)]="stockName" #ctrl ="ngModel"  required placeholder="Название склада">
-        </md-input-container>
-      </md-card-content>
-    </md-grid-tile>
-    <md-grid-tile>
-      <h2>{{stockName}}</h2>
-      <br>
-      <br>
-      <fa name="building" animation=""></fa>
-    </md-grid-tile>
-  </md-grid-list>
-  <md-card-actions>
-    <a md-raised-button *ngIf="stockName" (click)="createStock(stockName)">Создать</a>
-  </md-card-actions>
-</md-card>
+    <md-grid-list cols="2" rowHeight="3:1">
+      <md-grid-tile>
+        <md-card-content>
+          <md-input-container>
+            <input type="text" mdInput [(ngModel)]="stockName" #ctrl ="ngModel"  required placeholder="Название склада">
+          </md-input-container>
+        </md-card-content>
+      </md-grid-tile>
+      <md-grid-tile>
+        <h2>{{stockName}}</h2>
+      </md-grid-tile>
+    </md-grid-list>
+    <md-card-actions>
+      <a md-raised-button *ngIf="stockName" (click)="createStock(stockName)">Создать</a>
+      <!-- <a md-raised-button *ngIf="stockName" routerLink='/create'>Создать</a> -->
+    </md-card-actions>
+  </md-card>
+</div>

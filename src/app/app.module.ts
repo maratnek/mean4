@@ -13,10 +13,12 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome/angular-font-awes
 // Angular material
 import {MaterialModule} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { CreateStockComponent } from './components/create-stock/create-stock.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CreateStockComponent
   ],
   imports: [
     AngularFontAwesomeModule,
