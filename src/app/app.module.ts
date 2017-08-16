@@ -7,7 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 
-import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome';
+import { AngularFontAwesomeModule } from 'angular-font-awesome/angular-font-awesome';
 
 
 // Angular material
@@ -19,13 +19,13 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     AppComponent
   ],
   imports: [
+    AngularFontAwesomeModule,
     BrowserModule,
     AppRoutingModule,
     HttpModule,
     MaterialModule,
     BrowserAnimationsModule,
     FormsModule,
-    Angular2FontawesomeModule
   ],
   providers: [DataService],
   bootstrap: [AppComponent]
