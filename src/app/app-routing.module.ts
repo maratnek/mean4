@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {AppComponent} from './app.component';
 import {CreateStockComponent} from './components/create-stock/create-stock.component';
+import {MainStockComponent} from './components/main-stock/main-stock.component';
 
 const routes: Routes = [
-  {
-    path: '', component: AppComponent
-  },
-  {path: 'create', component: CreateStockComponent}
+  {path: '', redirectTo: '/create', pathMatch: 'full'},
+  {path: 'create', component: CreateStockComponent},
+  {path: 'main', component: MainStockComponent}
 ];
 
 @NgModule({

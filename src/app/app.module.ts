@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { DataService } from './data.service';
+import { StockService } from './services/stock.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,11 +14,18 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome/angular-font-awes
 import {MaterialModule} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { CreateStockComponent } from './components/create-stock/create-stock.component';
+import { MainStockComponent } from './components/main-stock/main-stock.component';
+import { StockComponent } from './components/stock/stock.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    CreateStockComponent
+    CreateStockComponent,
+    MainStockComponent,
+    StockComponent,
+    NavbarComponent
   ],
   imports: [
     AngularFontAwesomeModule,
@@ -29,7 +36,7 @@ import { CreateStockComponent } from './components/create-stock/create-stock.com
     BrowserAnimationsModule,
     FormsModule,
   ],
-  providers: [DataService],
+  providers: [StockService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

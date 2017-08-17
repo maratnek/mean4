@@ -26,10 +26,24 @@ let response = {
     message: null
 };
 
-// Get users
-router.get('/users', (req, res) => {
+// create stock table
+router.get('/create', (req,res) => {
+  connection((db)=>{
+      console.log('create');
+      db.stock.insert({name: 'stock name'})
+      .then(()=>{
+        res.json('success');
+      })
+      .catch((err) => {
+          sendError(err, res);
+      });
+  });
+});
+
+// Get goods
+router.get('/goods', (req, res) => {
     connection((db) => {
-        db.collection('users')
+        db.collection('goods')
             .find()
             .toArray()
             .then((users) => {

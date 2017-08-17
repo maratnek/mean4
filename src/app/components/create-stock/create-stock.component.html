@@ -1,3 +1,38 @@
-<p>
-  create-stock works!
-</p>
+<md-card>
+
+  <md-card-header>
+    <h1>Создайте склад</h1>
+  </md-card-header>
+
+  <md-grid-list cols="2" rowHeight="3:1">
+    <md-grid-tile>
+      <md-card-content>
+        <md-input-container>
+          <input type="text" mdInput [(ngModel)]="stockName" #ctrl ="ngModel"  required placeholder="Название склада">
+        </md-input-container>
+      </md-card-content>
+    </md-grid-tile>
+    <md-grid-tile>
+      <h1>{{stockName}}</h1>
+    </md-grid-tile>
+  </md-grid-list>
+  <md-card-actions>
+    <a md-raised-button *ngIf="stockName" (click)="createStock(stockName)">Создать</a>
+    <!-- <a md-raised-button *ngIf="stockName" [routerLink]="['/create']">Создать</a> -->
+  </md-card-actions>
+</md-card>
+
+
+<md-card *ngIf="success">
+
+  <md-card-header>
+    <h1>Определите конфигурацию для склада: {{stockName}}</h1>
+  </md-card-header>
+
+  <p>
+    Создается новый склад. Конфигурация основной таблицы.
+    Или выберети конфигурацию по умолчанию
+  </p>
+  <a md-raised-button routerLink='/main'>По умолчанию</a>
+
+</md-card>
