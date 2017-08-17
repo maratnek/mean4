@@ -30,7 +30,7 @@ let response = {
 router.get('/create', (req,res) => {
   connection((db)=>{
       console.log('create');
-      db.stock.insert({name: 'stock name'})
+      db.stock.insertOne({name: 'stock name'})
       .then(()=>{
         res.json('success');
       })
