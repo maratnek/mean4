@@ -26,17 +26,34 @@ let response = {
     message: null
 };
 
-// create stock table
+// create new stock
 router.get('/create', (req,res) => {
   connection((db)=>{
       console.log('create');
-      db.stock.insertOne({name: 'stock name'})
+      db.collection('stock')
+      .insert({name: 'stock name new'})
       .then(()=>{
-        res.json('success');
+        // res.json('success');
+        db.collection('stock').find().toArray().then((stock)=>{
+          console.log(stock);
+          response.data = stock;
+          res.json(response);
+        })
+        .catch( err => sendError(err,res) );
       })
-      .catch((err) => {
-          sendError(err, res);
-      });
+      .catch( (err) => sendError(err, res) );
+  });
+});
+
+// Get stocks
+router.get('/stocks', (req,res) => {
+  connection((db)=>{
+        db.collection('stock').find().toArray().then((stock)=>{
+          console.log(stock);
+          response.data = stock.map(stock => stock.name);
+          res.json(response);
+        })
+        .catch( err => sendError(err,res) );
   });
 });
 
@@ -47,7 +64,6 @@ router.get('/goods', (req, res) => {
             .find()
             .toArray()
             .then((users) => {
-              console.log('my test mongo');
                 response.data = users;
                 res.json(response);
             })

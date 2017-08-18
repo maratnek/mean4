@@ -1,6 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import url('https://fonts.googleapis.com/css?family=Roboto');
 
 body {
   background-image: url('/assets/img/pexels-photo-stock.jpeg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
+  background-blend-mode: luminosity;
+  background-color: rgb(88, 49, 35);
+  font-family: 'Roboto', sans-serif;
+
+  width: 80%;
+  margin: auto;
 }

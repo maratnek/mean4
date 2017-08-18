@@ -8,6 +8,7 @@ const routes: Routes = [
   {path: '', redirectTo: '/create', pathMatch: 'full'},
   {path: 'create', component: CreateStockComponent},
   {path: 'main', component: MainStockComponent}
+  // {path: 'stock', redirectTo: '/main', pathMatch: 'full'}
 ];
 
 @NgModule({

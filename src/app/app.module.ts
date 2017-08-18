@@ -12,6 +12,7 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome/angular-font-awes
 
 // Angular material
 import {MaterialModule} from '@angular/material';
+import {CdkTableModule} from '@angular/cdk';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { CreateStockComponent } from './components/create-stock/create-stock.component';
 import { MainStockComponent } from './components/main-stock/main-stock.component';
@@ -33,6 +34,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     AppRoutingModule,
     HttpModule,
     MaterialModule,
+    CdkTableModule,
     BrowserAnimationsModule,
     FormsModule,
   ],

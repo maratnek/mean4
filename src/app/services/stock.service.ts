@@ -10,7 +10,7 @@ export class StockService {
   constructor(private _http: Http) { }
 
   getStock() {
-    return this._http.get("/api/stock")
+    return this._http.get("/api/stocks")
       .map(result => this.result = result.json().data);
   }
 
