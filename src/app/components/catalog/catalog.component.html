@@ -3,8 +3,29 @@
   <div class="my-card">
     <md-card>
       <h1>Добавление нового товара</h1>
+
       <md-input-container>
-        <input mdInput required placeholder="Наименование товара">
+        <input mdInput required type="text" name="name" placeholder="Наименование товара">
+      </md-input-container>
+
+      <md-select placeholder="Единица измерения" name="measure">
+        <md-option *ngFor="let measure of measures" [value]="measure.ms">
+          {{measure.ms}}
+        </md-option>
+      </md-select>
+
+      <fa name="truck"></fa>
+      <md-input-container>
+        <input mdInput name="suppliers" placeholder="Поставщики">
+      </md-input-container>
+
+      <md-input-container>
+        <input mdInput name="suppliers" placeholder="Сектор хранения">
+      </md-input-container>
+
+      <md-input-container class="example-full-width">
+        <input mdInput #postalCode maxlength="10" type="number" disabled placeholder="Штрих код" value="0000000000">
+        <md-hint align="end">{{postalCode.value.length}} / 5</md-hint>
       </md-input-container>
 
       <table class="example-full-width" cellspacing="0">
@@ -25,7 +46,7 @@
           <md-hint align="end">{{postalCode.value.length}} / 5</md-hint>
         </md-input-container></td>
       </tr></table>
-      
+
       <md-card-actions>
         <button  md-raised-button  type="submit"  name="button">Добавить</button>
       </md-card-actions>

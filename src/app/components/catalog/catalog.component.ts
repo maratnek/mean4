@@ -7,6 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CatalogComponent implements OnInit {
 
+  measures = [
+    {name: "Вес", ms: "кг."},
+    {name: "Длина", ms: "метр"},
+    {name: "Количество", ms: "шт."}
+  ]
+
   constructor() { }
 
   ngOnInit() {
