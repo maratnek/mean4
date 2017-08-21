@@ -12,7 +12,6 @@ import { Observable } from 'rxjs/Observable';
 export class CreateStockComponent implements OnInit {
 
   create: boolean = false;
-  // name = '';
 
   stockName = '';
   success: boolean = false;
@@ -23,6 +22,7 @@ export class CreateStockComponent implements OnInit {
   ngOnInit() {
   }
 
+  // check db on exist and create new stock in collection
   createStock(stockName){
     this._dataService.createStock(stockName, (err) => {
       if (err) console.log('Не удалось создать склад: ', stockName);
@@ -31,6 +31,19 @@ export class CreateStockComponent implements OnInit {
           console.log('Склад ', stockName, ' создан');
           console.log('Сконфигурируте');
       }
+    });
+  }
+
+  createStockConfig(){
+    const goods = {
+      name: this.stockName,
+      measure: true,
+      count: true,
+      datatime: true,
+      sost: true
+    };
+    this._dataService.configStock(goods, (err)=> {
+      console.log(err);
     });
   }
 

@@ -20,7 +20,11 @@ export class MainStockComponent implements OnInit {
 
   ngOnInit() {
     this.dataSource = new ExampleDataSource(this.exampleDatabase);
-    this.dataSource.connect();
+    setTimeout(()=>{
+      this.dataSource.connect();
+    },
+      30
+    );
   }
 }
 

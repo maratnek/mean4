@@ -14,10 +14,18 @@ export class StockService {
       .map(result => this.result = result.json().data);
   }
 
-  createStock(name:string, calback){
-    this._http.get("create-stock")
-      .map(result => this.result = result.json().data);
-    calback(this.result);
+  createStock(name:string, callback){
+    this._http.get("/api/create?name=" + name)
+      .subscribe(result => callback(!result.ok) );
+  }
+
+  configStock(config, callback){
+    this._http.post("/api/stock-config",config)
+      .subscribe(result => callback(!result.ok) );
+  }
+
+  createNewGlossary(glossary){
+    console.log('new glossary');
   }
 
   defaultConfig() {

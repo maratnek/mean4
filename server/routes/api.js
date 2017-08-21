@@ -26,22 +26,41 @@ let response = {
     message: null
 };
 
+// create stock configuration
+router.post('/stock-config', (req,res) => {
+  connection((db)=>{
+      console.log(req.query);
+  });
+});
+
 // create new stock
 router.get('/create', (req,res) => {
   connection((db)=>{
-      console.log('create');
-      db.collection('stock')
-      .insert({name: 'stock name new'})
-      .then(()=>{
-        // res.json('success');
-        db.collection('stock').find().toArray().then((stock)=>{
-          console.log(stock);
-          response.data = stock;
-          res.json(response);
-        })
-        .catch( err => sendError(err,res) );
-      })
-      .catch( (err) => sendError(err, res) );
+      console.log(req.query.name);
+      if (!req.query.name.length)
+        return;
+      query = {name: req.query.name};
+
+      db.collection('stock').find(query).toArray(
+        (err, result) => {
+          if(result.length!=0) {
+            res.sendStatus(500);
+          } else {
+            db.collection('stock')
+            .insert({name: req.query.name})
+            .then(()=>{
+              res.sendStatus(200);
+              db.collection('stock').find().toArray().then((stock)=>{
+                console.log(stock);
+                response.data = stock;
+              })
+              .catch( err => sendError(err,res) );
+            })
+            .catch( (err) => sendError(err, res) );
+          }
+        }
+      );
+
   });
 });
 
