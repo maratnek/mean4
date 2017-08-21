@@ -24,12 +24,8 @@ export class StockService {
       .subscribe(result => callback(!result.ok) );
   }
 
-  createNewGlossary(glossary){
+  createNewElemCatalog(glossary){
     console.log('new glossary');
-  }
-
-  defaultConfig() {
-    console.log('Create stock for the default config');
   }
 
 }

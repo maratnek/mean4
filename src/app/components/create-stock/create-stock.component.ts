@@ -11,19 +11,23 @@ import { Observable } from 'rxjs/Observable';
 })
 export class CreateStockComponent implements OnInit {
 
+  // Define a users property to hold our user data
+  stock: Array<any>;
   create: boolean = false;
+  name = '';
 
-  stockName = '';
+  stockName: string = '';
   success: boolean = false;
   // Create an instance of the DataService through dependency injection
-  constructor(private _dataService: StockService) {
+  constructor(private _dataService: StockService, private router: Router) {
+    this._dataService.getStock()
+        .subscribe(res => this.stock = res);
   }
 
   ngOnInit() {
   }
 
-  // check db on exist and create new stock in collection
-  createStock(stockName){
+  createStockName(stockName){
     this._dataService.createStock(stockName, (err) => {
       if (err) console.log('Не удалось создать склад: ', stockName);
       else {
@@ -34,17 +38,29 @@ export class CreateStockComponent implements OnInit {
     });
   }
 
+  private correctName(){
+    if (this.stockName.length)
+      return true;
+    return false;
+  }
+
   createStockConfig(){
-    const goods = {
-      name: this.stockName,
-      measure: true,
-      count: true,
-      datatime: true,
-      sost: true
-    };
-    this._dataService.configStock(goods, (err)=> {
-      console.log(err);
-    });
+    console.log('create stock config');
+    if (this.correctName()) {
+      let config = {
+        name: this.stockName,
+        price: true
+      };
+      this._dataService.configStock(config, (err) => {
+        if (err) console.log('Не удалось создать конфигурацию для склада: ', config);
+        else {
+          console.log('Склад сконфигурирован: config', config);
+          this.router.navigate(['/catalog']);
+        }
+      });
+    } else {
+      console.log('Некорректное имя для Склада');
+    }
   }
 
 

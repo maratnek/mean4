@@ -14,12 +14,12 @@
             </md-input-container>
           </md-card-content>
         </md-grid-tile>
-        <md-grid-til=e>
+        <md-grid-tile>
           <h1>{{stockName}}</h1>
         </md-grid-tile>
       </md-grid-list>
       <md-card-actions>
-        <a md-raised-button *ngIf="stockName" (click)="createStock(stockName)">Создать</a>
+        <a md-raised-button *ngIf="stockName" (keyup.enter)="createStockName(stockName)" (click)="createStockName(stockName)">Создать</a>
         <!-- <a md-raised-button *ngIf="stockName" [routerLink]="['/create']">Создать</a> -->
       </md-card-actions>
     </md-card>
@@ -41,7 +41,7 @@
       </p>
     </md-card-content>
     <md-card-actions>
-      <a md-raised-button routerLink='/main'>По умолчанию</a>
+      <a md-raised-button (keyup.enter)='createStockConfig()' (click)='createStockConfig()'>По умолчанию</a>
     </md-card-actions>
 
     </md-card>

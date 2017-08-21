@@ -1,17 +1,18 @@
 <nav class="navbar">
 
   <ul>
-    <li><a routerLink='/main'>Склад</a></li>
-    <li><a routerLink='/main'>Словари</a></li>
-    <li><a routerLink='/main'>Производство</a></li>
+    <li>{{stockName}}</li>
+    <li><a routerLink='/main' routerLinkActive="active">Склад</a></li>
+    <li><a routerLink='/catalog' routerLinkActive="active">Каталог товаров</a></li>
+    <li><a routerLink='/production' routerLinkActive="active">Производство</a></li>
     <div class="right">
       <button md-icon-button [mdMenuTriggerFor]="menu">
         <md-icon>more_vert</md-icon>
       </button>
       <md-menu #menu="mdMenu">
-        <a md-menu-item routerLink='/main'>Склад</a>
-        <a md-menu-item routerLink='/main'>Словари</a>
-        <a md-menu-item routerLink='/main'>Производство</a>
+        <a md-menu-item routerLink='/main' routerLinkActive="active">Склад</a>
+        <a md-menu-item routerLink='/catalog' routerLinkActive="active">Каталог товаров</a>
+        <a md-menu-item routerLink='/production' routerLinkActive="active">Производство</a>
       </md-menu>
     </div>
 </ul>

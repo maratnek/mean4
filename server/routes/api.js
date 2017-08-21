@@ -29,7 +29,10 @@ let response = {
 // create stock configuration
 router.post('/stock-config', (req,res) => {
   connection((db)=>{
-      console.log(req.query);
+    console.log('post stock config');
+      console.log(req.body.name);
+      console.log(req.body.price);
+      res.sendStatus(200);
   });
 });
 
@@ -49,10 +52,11 @@ router.get('/create', (req,res) => {
             db.collection('stock')
             .insert({name: req.query.name})
             .then(()=>{
-              res.sendStatus(200);
               db.collection('stock').find().toArray().then((stock)=>{
                 console.log(stock);
                 response.data = stock;
+                res.json(response);
+                // res.sendStatus(200);
               })
               .catch( err => sendError(err,res) );
             })
@@ -90,6 +94,27 @@ router.get('/goods', (req, res) => {
                 sendError(err, res);
             });
     });
+});
+
+// Library goods -- catalog
+router.get('catalog',(req, res)=>{
+  cosole.log(req.query);
+  connection((db) => {
+      db.collection('catalog')
+          .find()
+          .toArray()
+          .then((catalog) => {
+              response.data = catalog;
+              res.json(response);
+          })
+          .catch((err) => {
+              sendError(err, res);
+          });
+  });
+});
+
+router.post('catalog',(req, res)=>{
+  cosole.log(req.query);
 });
 
 module.exports = router;

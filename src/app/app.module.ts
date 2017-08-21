@@ -18,6 +18,8 @@ import { CreateStockComponent } from './components/create-stock/create-stock.com
 import { MainStockComponent } from './components/main-stock/main-stock.component';
 import { StockComponent } from './components/stock/stock.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { CatalogComponent } from './components/catalog/catalog.component';
+import { ProductionComponent } from './components/production/production.component';
 
 
 @NgModule({
@@ -26,7 +28,9 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     CreateStockComponent,
     MainStockComponent,
     StockComponent,
-    NavbarComponent
+    NavbarComponent,
+    CatalogComponent,
+    ProductionComponent
   ],
   imports: [
     AngularFontAwesomeModule,
