@@ -24,6 +24,11 @@ export class StockService {
       .subscribe(result => callback(!result.ok) );
   }
 
+  addCatalog(catalog, callback){
+    this._http.post("/api/add-catalog", catalog)
+      .subscribe(result => callback(!result.ok));
+  }
+
   createNewElemCatalog(glossary){
     console.log('new glossary');
   }

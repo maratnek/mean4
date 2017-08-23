@@ -1,0 +1,17 @@
+.my-fab {
+  position: absolute;
+  left: 20px;
+  top: 30px;
+}
+
+.my-spacer {
+  flex: 1 1 auto;
+
+}
+
+md-toolbar md-toolbar-row:hover {
+  transition: 0.3s linear;
+  background-color: white;
+  color: #583123;
+  cursor: pointer;
+}

@@ -6,6 +6,7 @@ import { StockService } from './services/stock.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AngularFontAwesomeModule } from 'angular-font-awesome/angular-font-awesome';
 
@@ -41,6 +42,7 @@ import { ProductionComponent } from './components/production/production.componen
     CdkTableModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule
   ],
   providers: [StockService],
   bootstrap: [AppComponent]

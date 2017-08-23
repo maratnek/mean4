@@ -35,6 +35,27 @@ router.post('/stock-config', (req,res) => {
       res.sendStatus(200);
   });
 });
+// add new catalog
+router.post('/add-catalog', (req,res) => {
+  connection((db)=>{
+    console.log('post add catalog');
+      console.log(req.body);
+      console.log(req.body);
+      res.sendStatus(200);
+  });
+});
+
+// Get catalogs
+router.get('/catalogs', (req,res) => {
+  connection((db)=>{
+        db.collection('catalog').find().toArray().then((elem)=>{
+          console.log(elem);
+          response.data = elem;
+          res.json(response);
+        })
+        .catch( err => sendError(err,res) );
+  });
+});
 
 // create new stock
 router.get('/create', (req,res) => {

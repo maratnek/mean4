@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, NgControl } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { StockService } from '../../services/stock.service';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
 
@@ -19,36 +20,31 @@ export class CatalogComponent implements OnInit {
   ];
   catalog: any = {};
 
-  stateCtrl: FormControl;
+  stateControl: FormControl;
   filteredStates: any;
-  states = [
-    'Alabama',
-    'Alaska'
-  ];
+  states = [];
 
-  constructor() {
-    this.stateCtrl = new FormControl();
-    this.filteredStates = this.stateCtrl.valueChanges
-      .startWith(null)
-      .map(nm => this.filterStates(nm));
+  constructor(private _dataService: StockService) {
   }
 
   ngOnInit() {
+    this.stateControl = new FormControl();
+
+    for (let i = 65; i < 26+65; i++)
+      this.states.push(String.fromCharCode(i));
+
+    this.filteredStates = this.stateControl.valueChanges
+    .startWith(null)
+    .map(name => this.filterStates(name));
+    this.filteredStates.map(name=>console.log(name));
+
   }
 
   onSubmit(addNewCatalog) {
-    console.log(this.catalog);
-  }
-
-  storeSectore(){
-    let data = [];
-    let str = new String("ABCD");
-    console.log(str.charAt(3));
-    // for (let i : String = "A"; i < "Z"; i++) {
-    //   console.log(i);
-    //   data.push(i);
-    // }
-    return data;
+    this._dataService.addCatalog(this.catalog, (err)=>{
+        if (err)
+          console.log('Not add new catalog!!!');
+    });
   }
 
   filterStates(val: string) {
