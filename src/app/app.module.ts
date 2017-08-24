@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { StockService } from './services/stock.service';
 
+
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
@@ -22,6 +24,39 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { CatalogComponent } from './components/catalog/catalog.component';
 import { ProductionComponent } from './components/production/production.component';
 
+import {
+  MdAutocompleteModule,
+  MdButtonModule,
+  MdButtonToggleModule,
+  MdCardModule,
+  MdCheckboxModule,
+  MdChipsModule,
+  MdCoreModule,
+  MdDatepickerModule,
+  MdDialogModule,
+  MdExpansionModule,
+  MdGridListModule,
+  MdIconModule,
+  MdInputModule,
+  MdListModule,
+  MdMenuModule,
+  MdNativeDateModule,
+  MdPaginatorModule,
+  MdProgressBarModule,
+  MdProgressSpinnerModule,
+  MdRadioModule,
+  MdRippleModule,
+  MdSelectModule,
+  MdSidenavModule,
+  MdSliderModule,
+  MdSlideToggleModule,
+  MdSnackBarModule,
+  MdSortModule,
+  MdTableModule,
+  MdTabsModule,
+  MdToolbarModule,
+  MdTooltipModule,
+} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -39,12 +74,13 @@ import { ProductionComponent } from './components/production/production.componen
     AppRoutingModule,
     HttpModule,
     MaterialModule,
+    MdSortModule,
     CdkTableModule,
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule
   ],
   providers: [StockService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

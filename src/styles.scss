@@ -2,6 +2,10 @@
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
+html {
+  // overflow-y: hidden;
+}
+
 body {
   background-image: url('/assets/img/pexels-photo-stock.jpeg');
   background-repeat: no-repeat;
@@ -11,10 +15,13 @@ body {
   background-blend-mode: luminosity;
   background-color: rgb(88, 49, 35);
   font-family: 'Roboto', sans-serif;
-  overflow: auto;
+  overflow: hidden;
 
-  width: 80%;
-  margin: auto;
+  // width: 80%;
+  margin: 0 25px;
+  @media screen and (max-width: 480px)  {
+    margin: 0;
+  }
 }
 
 .my-container {

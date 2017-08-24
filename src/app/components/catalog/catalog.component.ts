@@ -95,7 +95,7 @@ interface CatalogData {
 }
 
 /** An example database that the data source uses to retrieve data for the table. */
-class ExampleDatabase {
+export class ExampleDatabase {
   /** Stream that emits whenever the data has been modified. */
   dataChange: BehaviorSubject<CatalogData[]>;
   get data(): CatalogData[] { return this.dataChange.value; }
@@ -111,8 +111,6 @@ class ExampleDatabase {
         const copiedData = this.data.slice();
         copiedData.push(dt);
         this.dataChange.next(copiedData);
-        // console.log(this.dataChange);
-
       });
     });
   }
@@ -133,15 +131,15 @@ export class ExampleDataSource extends DataSource<any> {
 
   /** Connect function called by the table to retrieve one stream containing the data to render. */
   connect(): Observable<CatalogData[]> {
-    return this._exampleDatabase.dataChange;
-    // const displayDataChanges = [
-    //   this._exampleDatabase.dataChange,
-    //   this._sort.mdSortChange
-    // ];
-    //
-    // return Observable.merge(...displayDataChanges).map(() => {
-    //   return this.getSortedData();
-    // });
+    // return this._exampleDatabase.dataChange;
+    const displayDataChanges = [
+      this._exampleDatabase.dataChange,
+      this._sort.mdSortChange,
+    ];
+
+    return Observable.merge(...displayDataChanges).map(() => {
+      return this.getSortedData();
+    });
   }
 
   reinit(){

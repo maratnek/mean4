@@ -1,5 +1,5 @@
 <div class="my-container">
-    <md-sidenav-container class="my-container-height">
+  <md-sidenav-container class="my-sidenav-container">
     <md-sidenav #sidenav mode="side" opened="true">
       <button *ngIf="sidenav.opened" md-mini-fab class="my-fab" (click)="sidenav.toggle()">
         <fa  name="times"></fa>
@@ -20,35 +20,35 @@
       <fa  name="bars"></fa>
     </button>
 
-    <div class="my-sidenav-content">
+    <div class="my-scrolling-content">
       <div *ngIf="menuToolbarActive === 1" class="">
         <h1>Каталог товаров</h1>
-        <div class="table-container mat-elevation-z9">
+        <div class="table-container mat-elevation-z8">
           <md-table #table [dataSource]="dataSource" mdSort>
 
             <!--- Note that these columns can be defined in any order.
-                  The actual rendered columns are set as a property on the row definition" -->
+            The actual rendered columns are set as a property on the row definition" -->
 
             <!-- ID Column -->
             <ng-container cdkColumnDef="catalogName">
-              <md-header-cell *cdkHeaderCellDef> Имя </md-header-cell>
+              <md-header-cell *cdkHeaderCellDef md-sort-header> Имя </md-header-cell>
               <md-cell *cdkCellDef="let row"> {{row.name}} </md-cell>
             </ng-container>
 
             <!-- Progress Column -->
             <ng-container cdkColumnDef="measure">
-              <md-header-cell *cdkHeaderCellDef> Ед.Изм. </md-header-cell>
+              <md-header-cell *cdkHeaderCellDef md-sort-header> Ед.Изм. </md-header-cell>
               <md-cell *cdkCellDef="let row"> {{row.measure}} </md-cell>
             </ng-container>
 
             <!-- Name Column -->
             <ng-container cdkColumnDef="price">
-              <md-header-cell *cdkHeaderCellDef> Цена </md-header-cell>
+              <md-header-cell *cdkHeaderCellDef md-sort-header> Цена </md-header-cell>
               <md-cell *cdkCellDef="let row"> {{row.price}} </md-cell>
             </ng-container>
 
             <ng-container cdkColumnDef="storePlace">
-              <md-header-cell *cdkHeaderCellDef> Место Хр. </md-header-cell>
+              <md-header-cell *cdkHeaderCellDef md-sort-header> Место Хр. </md-header-cell>
               <md-cell *cdkCellDef="let row"> {{row.storePlace}} </md-cell>
             </ng-container>
 
@@ -122,6 +122,6 @@
         </md-card>
       </div>
     </div>
-</md-sidenav-container>
+  </md-sidenav-container>
 
 </div>
