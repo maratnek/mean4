@@ -6,13 +6,9 @@ import 'rxjs/add/operator/map';
 export class StockService {
 
   result:any;
+  stockName: String = '';
 
   constructor(private _http: Http) { }
-
-  getStock() {
-    return this._http.get("/api/stocks")
-      .map(result => this.result = result.json().data);
-  }
 
   createStock(name:string, callback){
     this._http.get("/api/create?name=" + name)
@@ -29,8 +25,14 @@ export class StockService {
       .subscribe(result => callback(!result.ok));
   }
 
-  createNewElemCatalog(glossary){
-    console.log('new glossary');
+  getStock() {
+    return this._http.get("/api/stocks")
+      .map(result => this.result = result.json().data);
+  }
+
+  getCatalogs() {
+    return this._http.get("/api/catalogs")
+      .map(result => this.result = result.json().data);
   }
 
 }

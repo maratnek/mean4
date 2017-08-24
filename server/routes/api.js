@@ -26,6 +26,8 @@ let response = {
     message: null
 };
 
+
+
 // create stock configuration
 router.post('/stock-config', (req,res) => {
   connection((db)=>{
@@ -33,27 +35,6 @@ router.post('/stock-config', (req,res) => {
       console.log(req.body.name);
       console.log(req.body.price);
       res.sendStatus(200);
-  });
-});
-// add new catalog
-router.post('/add-catalog', (req,res) => {
-  connection((db)=>{
-    console.log('post add catalog');
-      console.log(req.body);
-      console.log(req.body);
-      res.sendStatus(200);
-  });
-});
-
-// Get catalogs
-router.get('/catalogs', (req,res) => {
-  connection((db)=>{
-        db.collection('catalog').find().toArray().then((elem)=>{
-          console.log(elem);
-          response.data = elem;
-          res.json(response);
-        })
-        .catch( err => sendError(err,res) );
   });
 });
 
@@ -118,24 +99,33 @@ router.get('/goods', (req, res) => {
 });
 
 // Library goods -- catalog
-router.get('catalog',(req, res)=>{
-  cosole.log(req.query);
-  connection((db) => {
-      db.collection('catalog')
-          .find()
-          .toArray()
-          .then((catalog) => {
-              response.data = catalog;
-              res.json(response);
-          })
-          .catch((err) => {
-              sendError(err, res);
-          });
+router.get('/catalogs', (req,res) => {
+  connection((db)=>{
+        db.collection('catalog').find().toArray().then((data)=>{
+          console.log(data);
+          response.data = data;
+          res.json(response);
+        })
+        .catch( err => sendError(err,res) );
   });
 });
 
-router.post('catalog',(req, res)=>{
-  cosole.log(req.query);
+router.post('/add-catalog',(req,res) => {
+  connection((db)=>{
+    console.log('post catalog');
+      console.log(req.body);
+      db.collection('catalog')
+      .insert(req.body)
+      .then(()=>{
+        db.collection('catalog').find().toArray().then((data)=>{
+          console.log(data);
+          // response.data = data;
+          // res.json(response);
+          res.sendStatus(200);
+        })
+        .catch( err => sendError(err,res) );
+      })
+  });
 });
 
 module.exports = router;

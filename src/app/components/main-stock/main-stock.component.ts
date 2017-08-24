@@ -51,6 +51,7 @@ export class ExampleDatabase {
   constructor() {
     // Fill up the database with 100 users.
     for (let i = 0; i < 100; i++) { this.addUser(); }
+    console.log(this.dataChange);
   }
 
   /** Adds a new user to the database. */
