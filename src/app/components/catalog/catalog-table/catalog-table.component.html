@@ -1,0 +1,47 @@
+<div class="container">
+  <h1>Каталог товаров</h1>
+  <div class="example-loading-shade" *ngIf="dataSource.isLoadingResults || dataSource.isRateLimitReached">
+    <md-spinner *ngIf="dataSource.isLoadingResults"></md-spinner>
+    <div class="example-rate-limit-reached" *ngIf="dataSource.isRateLimitReached">
+      GitHub's API rate limit has been reached. It will be reset in one minute.
+    </div>
+  </div>
+  <div class="table-container mat-elevation-z8">
+    <md-table #table [dataSource]="dataSource" mdSort  mdSortActive="created" mdSortDisableClear mdSortDirection="asc">
+
+      <!--- Note that these columns can be defined in any order.
+      The actual rendered columns are set as a property on the row definition" -->
+
+      <!-- ID Column -->
+      <ng-container cdkColumnDef="catalogName">
+        <md-header-cell *cdkHeaderCellDef md-sort-header> Имя </md-header-cell>
+        <md-cell *cdkCellDef="let row"> {{row.name}} </md-cell>
+      </ng-container>
+
+      <!-- Progress Column -->
+      <ng-container cdkColumnDef="measure">
+        <md-header-cell *cdkHeaderCellDef md-sort-header> Ед.Изм. </md-header-cell>
+        <md-cell *cdkCellDef="let row"> {{row.measure}} </md-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container cdkColumnDef="price">
+        <md-header-cell *cdkHeaderCellDef md-sort-header> Цена </md-header-cell>
+        <md-cell *cdkCellDef="let row"> {{row.price}} </md-cell>
+      </ng-container>
+
+      <ng-container cdkColumnDef="storePlace">
+        <md-header-cell *cdkHeaderCellDef md-sort-header> Место Хр. </md-header-cell>
+        <md-cell *cdkCellDef="let row"> {{row.storePlace}} </md-cell>
+      </ng-container>
+
+      <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
+      <md-row *cdkRowDef="let row; columns: displayedColumns;"></md-row>
+      <md-paginator [length]="dataSource.resultsLength"
+      [pageSize]="30">
+    </md-paginator>
+  </md-table>
+
+</div>
+
+</div>

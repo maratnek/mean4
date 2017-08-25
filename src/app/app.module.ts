@@ -57,6 +57,8 @@ import {
   MdToolbarModule,
   MdTooltipModule,
 } from '@angular/material';
+import { CatalogFormComponent } from './components/catalog/catalog-form/catalog-form.component';
+import { CatalogTableComponent } from './components/catalog/catalog-table/catalog-table.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +68,9 @@ import {
     StockComponent,
     NavbarComponent,
     CatalogComponent,
-    ProductionComponent
+    ProductionComponent,
+    CatalogFormComponent,
+    CatalogTableComponent
   ],
   imports: [
     AngularFontAwesomeModule,
