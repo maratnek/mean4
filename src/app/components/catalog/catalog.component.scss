@@ -65,10 +65,13 @@
   padding: 0px;
   .my-toolbar-row {
     padding: 10px;
+    transition: 0.3s linear;
     &:hover {
       transition: 0.3s linear;
       background-color: white;
       color: #583123;
+      border: 4px #583123 solid;
+      border-left: none;
       cursor: pointer;
     }
   }

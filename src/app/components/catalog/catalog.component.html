@@ -20,42 +20,9 @@
       <fa  name="bars"></fa>
     </button>
 
-    <div class="my-scrolling-content">
+    <div class="">
       <div *ngIf="menuToolbarActive === 1" class="">
-        <h1>Каталог товаров</h1>
-        <div class="table-container mat-elevation-z8">
-          <md-table #table [dataSource]="dataSource" mdSort>
-
-            <!--- Note that these columns can be defined in any order.
-            The actual rendered columns are set as a property on the row definition" -->
-
-            <!-- ID Column -->
-            <ng-container cdkColumnDef="catalogName">
-              <md-header-cell *cdkHeaderCellDef md-sort-header> Имя </md-header-cell>
-              <md-cell *cdkCellDef="let row"> {{row.name}} </md-cell>
-            </ng-container>
-
-            <!-- Progress Column -->
-            <ng-container cdkColumnDef="measure">
-              <md-header-cell *cdkHeaderCellDef md-sort-header> Ед.Изм. </md-header-cell>
-              <md-cell *cdkCellDef="let row"> {{row.measure}} </md-cell>
-            </ng-container>
-
-            <!-- Name Column -->
-            <ng-container cdkColumnDef="price">
-              <md-header-cell *cdkHeaderCellDef md-sort-header> Цена </md-header-cell>
-              <md-cell *cdkCellDef="let row"> {{row.price}} </md-cell>
-            </ng-container>
-
-            <ng-container cdkColumnDef="storePlace">
-              <md-header-cell *cdkHeaderCellDef md-sort-header> Место Хр. </md-header-cell>
-              <md-cell *cdkCellDef="let row"> {{row.storePlace}} </md-cell>
-            </ng-container>
-
-            <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
-            <md-row *cdkRowDef="let row; columns: displayedColumns;"></md-row>
-          </md-table>
-        </div>
+        <catalog-table></catalog-table>
       </div>
 
       <div *ngIf="menuToolbarActive === 2" class="my-card">

@@ -1,46 +1,99 @@
 <div class="container">
   <h1>Каталог товаров</h1>
-  <div class="example-loading-shade" *ngIf="dataSource.isLoadingResults || dataSource.isRateLimitReached">
-    <md-spinner *ngIf="dataSource.isLoadingResults"></md-spinner>
-    <div class="example-rate-limit-reached" *ngIf="dataSource.isRateLimitReached">
-      GitHub's API rate limit has been reached. It will be reset in one minute.
+  <div class="example-container mat-elevation-z8">
+    <!-- <div class="example-loading-shade" *ngIf="dataSource.isLoadingResults || dataSource.isRateLimitReached">
+      <md-spinner *ngIf="dataSource.isLoadingResults"></md-spinner>
+      <div class="example-rate-limit-reached" *ngIf="dataSource.isRateLimitReached">
+        GitHub's API rate limit has been reached. It will be reset in one minute.
+      </div>
+    </div> -->
+
+    <div class="example-header" [style.display]="selection.isEmpty() ? '' : 'none'">
+      <md-input-container floatPlaceholder="never">
+        <input mdInput #filter placeholder="Filter users">
+      </md-input-container>
     </div>
+    <div class="example-header example-selection-header"
+      *ngIf="!selection.isEmpty()">
+      {{selection.selected.length}}
+      {{selection.selected.length == 1 ? 'user' : 'users'}}
+      selected
+    </div>
+
+    <md-table #table [dataSource]="dataSource" mdSort>
+    <!-- mdSortActive="created" mdSortDisableClear mdSortDirection="asc"> -->
+
+    <!-- Checkbox Column -->
+    <ng-container cdkColumnDef="select">
+      <md-header-cell *cdkHeaderCellDef>
+        <md-checkbox (change)="$event ? masterToggle() : null"
+                     [checked]="isAllSelected()"
+                     [indeterminate]="selection.hasValue() && !isAllSelected()">
+        </md-checkbox>
+      </md-header-cell>
+      <md-cell *cdkCellDef="let row">
+        <md-checkbox (click)="$event.stopPropagation()"
+                     (change)="$event ? selection.toggle(row.name) : null"
+                     [checked]="selection.isSelected(row.name)">
+        </md-checkbox>
+      </md-cell>
+    </ng-container>
+
+    <ng-container cdkColumnDef="name">
+      <md-header-cell *cdkHeaderCellDef md-sort-header> Имя </md-header-cell>
+      <md-cell *cdkCellDef="let row"> {{row.name}} </md-cell>
+    </ng-container>
+
+    <ng-container cdkColumnDef="measure">
+      <md-header-cell *cdkHeaderCellDef md-sort-header> Ед.Изм. </md-header-cell>
+      <md-cell *cdkCellDef="let row"> {{row.measure}} </md-cell>
+    </ng-container>
+
+    <ng-container cdkColumnDef="price">
+      <md-header-cell *cdkHeaderCellDef md-sort-header> Цена </md-header-cell>
+      <md-cell *cdkCellDef="let row"> {{row.price}} </md-cell>
+    </ng-container>
+
+    <ng-container cdkColumnDef="storePlace">
+      <md-header-cell *cdkHeaderCellDef md-sort-header> Место Хр. </md-header-cell>
+      <md-cell *cdkCellDef="let row"> {{row.storePlace}} </md-cell>
+    </ng-container>
+
+    <ng-container cdkColumnDef="delete">
+      <md-header-cell *cdkHeaderCellDef></md-header-cell>
+      <md-cell *cdkCellDef="let row" align="center">
+        <button md-icon-button>
+          <fa style="color:red" name="trash-o"></fa>
+        </button>
+      </md-cell>
+    </ng-container>
+
+    <ng-container cdkColumnDef="edit">
+      <md-header-cell *cdkHeaderCellDef></md-header-cell>
+      <md-cell *cdkCellDef="let row">
+        <button md-icon-button>
+          <fa style="color:green" name="pencil"></fa>
+        </button>
+      </md-cell>
+    </ng-container>
+
+    <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
+    <md-row *cdkRowDef="let row; columns: displayedColumns;"
+      [class.example-selected-row]="selection.isSelected(row.name)"
+      (click)="selection.toggle(row.name)">
+    </md-row>
+</md-table>
+  <div class="example-no-results"
+       [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
+       Нет данных по данному фильтру.
   </div>
-  <div class="table-container mat-elevation-z8">
-    <md-table #table [dataSource]="dataSource" mdSort  mdSortActive="created" mdSortDisableClear mdSortDirection="asc">
 
-      <!--- Note that these columns can be defined in any order.
-      The actual rendered columns are set as a property on the row definition" -->
-
-      <!-- ID Column -->
-      <ng-container cdkColumnDef="catalogName">
-        <md-header-cell *cdkHeaderCellDef md-sort-header> Имя </md-header-cell>
-        <md-cell *cdkCellDef="let row"> {{row.name}} </md-cell>
-      </ng-container>
-
-      <!-- Progress Column -->
-      <ng-container cdkColumnDef="measure">
-        <md-header-cell *cdkHeaderCellDef md-sort-header> Ед.Изм. </md-header-cell>
-        <md-cell *cdkCellDef="let row"> {{row.measure}} </md-cell>
-      </ng-container>
-
-      <!-- Name Column -->
-      <ng-container cdkColumnDef="price">
-        <md-header-cell *cdkHeaderCellDef md-sort-header> Цена </md-header-cell>
-        <md-cell *cdkCellDef="let row"> {{row.price}} </md-cell>
-      </ng-container>
-
-      <ng-container cdkColumnDef="storePlace">
-        <md-header-cell *cdkHeaderCellDef md-sort-header> Место Хр. </md-header-cell>
-        <md-cell *cdkCellDef="let row"> {{row.storePlace}} </md-cell>
-      </ng-container>
-
-      <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
-      <md-row *cdkRowDef="let row; columns: displayedColumns;"></md-row>
-      <md-paginator [length]="dataSource.resultsLength"
-      [pageSize]="30">
-    </md-paginator>
-  </md-table>
+  <md-paginator #paginator
+                [length]="dataSource.filteredData.length"
+                [pageIndex]="0"
+                [pageSize]="5"
+                [pageSizeOptions]="[5, 10, 25, 100]">
+  </md-paginator>
 
 </div>
 

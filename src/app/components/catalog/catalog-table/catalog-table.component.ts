@@ -1,10 +1,11 @@
 import { StockService } from '../../../services/stock.service';
 
-import {Component, ViewChild, OnInit} from '@angular/core';
+import {Component, ViewChild, OnInit, ElementRef} from '@angular/core';
 import {Http, Response} from '@angular/http';
 import {DataSource} from '@angular/cdk';
-import {MdPaginator, MdSort} from '@angular/material';
+import {MdPaginator, MdSort, SelectionModel} from '@angular/material';
 import {Observable} from 'rxjs/Observable';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/first';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/catch';
@@ -13,25 +14,64 @@ import 'rxjs/add/observable/merge';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/interval';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/fromEvent';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/debounceTime';
 
 @Component({
   selector: 'catalog-table',
   templateUrl: './catalog-table.component.html',
   styleUrls: ['./catalog-table.component.scss']
 })
-export class CatalogTableComponent implements OnInit {
-  displayedColumns = ['catalogName', 'measure', 'price', 'storePlace'];
+export class CatalogTableComponent {
+  displayedColumns = ['name', 'measure', 'price', 'storePlace','delete','edit'];
+  selection = new SelectionModel<string>(true, []);
   dataSource: CatalogDataSource | null;
+  catalog: BehaviorSubject<CatalogData[]> = new BehaviorSubject<CatalogData[]>([]);
 
   @ViewChild(MdSort) sort: MdSort;
   @ViewChild(MdPaginator) paginator: MdPaginator;
+  @ViewChild('filter') filter: ElementRef;
 
   ngOnInit() {
-    this.dataSource = new CatalogDataSource(this._dataService, this.sort, this.paginator);
+    this._dataService.getCatalogs().subscribe({
+      next: value => this.catalog.next(value)
+    });
+    this.dataSource = new CatalogDataSource(this.catalog, this.sort, this.paginator);
+    Observable.fromEvent(this.filter.nativeElement, 'keyup')
+    .debounceTime(150)
+    .distinctUntilChanged()
+    .subscribe(() => {
+      if (!this.dataSource) { return; }
+      this.dataSource.filter = this.filter.nativeElement.value;
+    });
   }
 
   constructor(private _dataService: StockService) {
-    setTimeout(() => this.dataSource.connect(), 1000)
+    // setTimeout(() => this.dataSource.connect(), 1)
+  }
+
+  isAllSelected(): boolean {
+    if (!this.dataSource) { return false; }
+    if (this.selection.isEmpty()) { return false; }
+
+    if (this.filter.nativeElement.value) {
+      return this.selection.selected.length == this.dataSource.renderedData.length;
+    } else {
+      return this.selection.selected.length == this.catalog.value.length;
+      }
+  }
+
+  masterToggle() {
+    if (!this.dataSource) { return; }
+
+    if (this.isAllSelected()) {
+      this.selection.clear();
+    } else if (this.filter.nativeElement.value) {
+      this.dataSource.renderedData.forEach(data => this.selection.select(data.name));
+    } else {
+      this.catalog.value.forEach(data => this.selection.select(data.name));
+    }
   }
 
 }
@@ -44,26 +84,37 @@ export class CatalogTableComponent implements OnInit {
  }
 
 export class CatalogDataSource extends DataSource<any> {
-  resultsLength: number = 0;
-  isLoadingResults: boolean;
-  isRateLimitReached: boolean;
-  catalog: Observable<CatalogData[]>;
-  constructor(private _dataService: StockService, private _sort: MdSort, private _paginator: MdPaginator) {
-    super();
-  }
+   _filterChange = new BehaviorSubject('');
+  get filter(): string { return this._filterChange.value; }
+  set filter(filter: string) { this._filterChange.next(filter); }
+  filteredData: CatalogData[] = [];
+  renderedData: CatalogData[] = [];
 
+  resultsLength: number = 0;
+  isLoadingResults: boolean = false;
+  isRateLimitReached: boolean;
+  // catalog: Observable<CatalogData[]>;
+
+  constructor(
+              // private _dataService: StockService,
+              private catalog: BehaviorSubject<CatalogData[]>,
+              private _sort: MdSort,
+              private _paginator: MdPaginator) {
+    super();
+    this._filterChange.subscribe(() => this._paginator.pageIndex = 0);
+  }
 
   /** Connect function called by the table to retrieve one stream containing the data to render. */
   connect(): Observable<CatalogData[]> {
-    this.catalog = this._dataService.getCatalogs();
+
+
     const displayDataChanges = [
       this.catalog,
       this._sort.mdSortChange,
+      this._filterChange,
+      this._paginator.page,
     ];
-    // If the user changes the sort order, reset back to the first page.
-    this._sort.mdSortChange.subscribe(() => {
-      this._paginator.pageIndex = 0;
-    });
+
     return Observable.merge(...displayDataChanges)
         .startWith(null)
         .switchMap(() => {
@@ -77,31 +128,33 @@ export class CatalogDataSource extends DataSource<any> {
         })
         .map(result => {
           // Flip flag to show that loading has finished.
+          this.resultsLength = result.length;
           this.isLoadingResults = false;
           return result;
         })
         .map(result => {
           if (!result) { return []; }
+          // Filter data
+          this.filteredData = result.slice().filter((item: CatalogData) => {
+            let searchStr = item.name.toLowerCase();
+            return searchStr.indexOf(this.filter.toLowerCase()) != -1;
+          });
+          // Sort filtered data
+          // const sortedData = this.sortData(this.filteredData.slice());
+          const sortedData = this.filteredData.slice();
 
-          this.isRateLimitReached = false;
-          this.resultsLength = result.json().total_count;
-
-          return this.readGithubResult(result);
+          // Grab the page's slice of the filtered sorted data.
+          const startIndex = this._paginator.pageIndex * this._paginator.pageSize;
+          this.renderedData = sortedData.splice(startIndex, this._paginator.pageSize);
+          return this.renderedData;
+          // this.isRateLimitReached = false;
+          // this.resultsLength = result.total_count;
+          // return result;
+          // return this.readGithubResult(result);
         });
   }
 
   disconnect() {}
-
-  private readGithubResult(result: Response): CatalogData[] {
-    return result.json().items.map(issue => {
-      return {
-        name: issue.name,
-        storePlace: issue.storePlace,
-        price: issue.price,
-        measure: issue.measure,
-      };
-    });
-  }
 
   getSortedData(): Observable<CatalogData[]> {
     return this.catalog.map(data => {
@@ -120,7 +173,10 @@ export class CatalogDataSource extends DataSource<any> {
 
         let valueA = isNaN(+propertyA) ? propertyA : +propertyA;
         let valueB = isNaN(+propertyB) ? propertyB : +propertyB;
-
+        if (typeof valueA === 'string' && typeof valueB === 'string'){
+            valueA = valueA.toLowerCase();
+            valueB = valueB.toLowerCase();
+        }
         return (valueA < valueB ? -1 : 1) * (this._sort.direction == 'asc' ? 1 : -1);
       });
     });

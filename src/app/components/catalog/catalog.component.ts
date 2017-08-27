@@ -9,6 +9,7 @@ import {MdSort} from '@angular/material';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/merge';
+import {CatalogTableComponent} from './catalog-table/catalog-table.component';
 
 @Component({
   selector: 'app-catalog',
@@ -17,9 +18,9 @@ import 'rxjs/add/observable/merge';
 })
 export class CatalogComponent implements OnInit {
 
-  displayedColumns = ['catalogName', 'measure', 'price', 'storePlace'];
-  exampleDatabase = new ExampleDatabase(this._dataService);
-  dataSource: ExampleDataSource | null;
+  // displayedColumns = ['catalogName', 'measure', 'price', 'storePlace'];
+  // exampleDatabase = new ExampleDatabase(this._dataService);
+  // dataSource: ExampleDataSource | null;
 
   @ViewChild(MdSort) sort: MdSort;
 
@@ -44,7 +45,7 @@ export class CatalogComponent implements OnInit {
 
   ngOnInit() {
 
-    this.dataSource = new ExampleDataSource(this.exampleDatabase, this.sort);
+    // this.dataSource = new ExampleDataSource(this.exampleDatabase, this.sort);
     // setTimeout(()=>{
     //   this.dataSource.connect();
     // },
@@ -66,7 +67,7 @@ export class CatalogComponent implements OnInit {
   }
 
   reinitTable(){
-    this.dataSource.reinit();
+    // this.dataSource.reinit();
   }
 
   onSubmit(addNewCatalog) {
@@ -131,15 +132,15 @@ export class ExampleDataSource extends DataSource<any> {
 
   /** Connect function called by the table to retrieve one stream containing the data to render. */
   connect(): Observable<CatalogData[]> {
-    // return this._exampleDatabase.dataChange;
-    const displayDataChanges = [
-      this._exampleDatabase.dataChange,
-      this._sort.mdSortChange,
-    ];
-
-    return Observable.merge(...displayDataChanges).map(() => {
-      return this.getSortedData();
-    });
+    return this._exampleDatabase.dataChange;
+    // const displayDataChanges = [
+    //   this._exampleDatabase.dataChange,
+    //   this._sort.mdSortChange,
+    // ];
+    //
+    // return Observable.merge(...displayDataChanges).map(() => {
+    //   return this.getSortedData();
+    // });
   }
 
   reinit(){
