@@ -128,4 +128,35 @@ router.post('/add-catalog',(req,res) => {
   });
 });
 
+router.get('/delete-catalog', (req,res) => {
+  connection((db)=>{
+      console.log(req.query.name);
+      if (!req.query.name.length)
+        res.sendStatus(500);
+      query = {name: req.query.name};
+
+      db.collection('catalog').remove(query).toArray(
+        (err, result) => {
+          if(result.length!=0) {
+            res.sendStatus(500);
+          } else {
+            db.collection('catalog')
+            .insert({name: req.query.name})
+            .then(()=>{
+              db.collection('stock').find().toArray().then((stock)=>{
+                console.log(stock);
+                response.data = stock;
+                res.json(response);
+                // res.sendStatus(200);
+              })
+              .catch( err => sendError(err,res) );
+            })
+            .catch( (err) => sendError(err, res) );
+          }
+        }
+      );
+
+  });
+});
+
 module.exports = router;

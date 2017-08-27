@@ -62,7 +62,8 @@
     <ng-container cdkColumnDef="delete">
       <md-header-cell *cdkHeaderCellDef></md-header-cell>
       <md-cell *cdkCellDef="let row" align="center">
-        <button md-icon-button>
+        <button md-icon-button
+         (click)="delete(row.name)">
           <fa style="color:red" name="trash-o"></fa>
         </button>
       </md-cell>

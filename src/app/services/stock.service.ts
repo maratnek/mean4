@@ -25,6 +25,11 @@ export class StockService {
       .subscribe(result => callback(!result.ok));
   }
 
+  deleteCatalog(name:string, callback){
+    this._http.get("/api/delete-catalog?name=" + name)
+      .subscribe(result => callback(!result.ok) );
+  }
+
   getStock() {
     return this._http.get("/api/stocks")
       .map(result => this.result = result.json().data);

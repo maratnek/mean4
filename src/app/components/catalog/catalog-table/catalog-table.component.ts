@@ -51,6 +51,17 @@ export class CatalogTableComponent {
     // setTimeout(() => this.dataSource.connect(), 1)
   }
 
+  delete(name) {
+    console.log('delete - ', name);
+    this._dataService.deleteCatalog(name, (err) => {
+      if (err) console.log('Не удалось удалить каталог: ', name);
+      else {
+          // this.success = true;
+          console.log('Каталог ' + name + ' успешно удален.');
+      }
+    });
+  }
+
   isAllSelected(): boolean {
     if (!this.dataSource) { return false; }
     if (this.selection.isEmpty()) { return false; }
