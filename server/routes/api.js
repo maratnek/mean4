@@ -134,27 +134,30 @@ router.get('/delete-catalog', (req,res) => {
       if (!req.query.name.length)
         res.sendStatus(500);
       query = {name: req.query.name};
-
-      db.collection('catalog').remove(query).toArray(
-        (err, result) => {
-          if(result.length!=0) {
+      db.collection('catalog').remove(query,(err, r) => {
+        if (err) console.log('error ' + r.result.n);
+        else {
+          if(r.result.n!=1) {
+            console.log('error' + r.result.n);
             res.sendStatus(500);
           } else {
-            db.collection('catalog')
-            .insert({name: req.query.name})
-            .then(()=>{
-              db.collection('stock').find().toArray().then((stock)=>{
-                console.log(stock);
-                response.data = stock;
-                res.json(response);
-                // res.sendStatus(200);
-              })
-              .catch( err => sendError(err,res) );
-            })
-            .catch( (err) => sendError(err, res) );
+            console.log('success ' + r.result.n);
+            res.sendStatus(200);
+            // db.collection('catalog')
+            // .insert({name: req.query.name})
+            // .then(()=>{
+            //   db.collection('stock').find().toArray().then((stock)=>{
+            //     console.log(stock);
+            //     response.data = stock;
+            //     res.json(response);
+            //     // res.sendStatus(200);
+            //   })
+            //   .catch( err => sendError(err,res) );
+            // })
+            // .catch( (err) => sendError(err, res) );
           }
         }
-      );
+      });
 
   });
 });
