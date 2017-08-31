@@ -9,6 +9,7 @@ import {CatalogFormComponent} from './catalog-form/catalog-form.component';
   styleUrls: ['./catalog.component.scss']
 })
 export class CatalogComponent implements OnInit {
+  catalog: any = {};
 
   isSuppliersCheck = false;
 

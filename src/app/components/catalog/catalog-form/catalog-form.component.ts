@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { StockService } from '../../../services/stock.service';
 
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -11,13 +11,15 @@ import 'rxjs';
   styleUrls: ['./catalog-form.component.scss']
 })
 export class CatalogFormComponent implements OnInit {
+  @Input() catalog: any = {};
+  @Input() edit: boolean = false;
 
   measures = [
     {name: "Вес", ms: "кг."},
     {name: "Длина", ms: "метр"},
     {name: "Количество", ms: "шт."}
   ];
-  catalog: any = {};
+  // catalog: any = {};
 
   stateControl: FormControl;
 
@@ -40,13 +42,15 @@ export class CatalogFormComponent implements OnInit {
 
   onSubmit(addNewCatalog) {
     console.log(addNewCatalog.form.valid);
-    if (addNewCatalog.form.valid)
+    if (addNewCatalog.form.valid){
+      this.catalog.edit = this.edit;
       this._dataService.addCatalog(this.catalog, (err)=>{
           if (err)
             console.log('Not add new catalog!!!');
           else
             addNewCatalog.form.reset();
       });
+    }
   }
 
   filterStates(val: string) {

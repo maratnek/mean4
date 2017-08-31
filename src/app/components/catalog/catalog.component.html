@@ -22,11 +22,11 @@
 
     <div class="my-container">
       <div [style.display]="menuToolbarActive === 1 ? '' : 'none'" class="">
-        <catalog-table></catalog-table>
+        <catalog-table (onEdit)="catalog = $event; menuToolbarActive = 2; edit = true;"></catalog-table>
       </div>
 
       <div [style.display]="menuToolbarActive === 2 ? '': 'none'" class="my-card">
-        <catalog-form></catalog-form>
+        <catalog-form [catalog]="catalog" [edit]="edit"></catalog-form>
       </div>
     </div>
   </md-sidenav-container>

@@ -1,6 +1,6 @@
 import { StockService } from '../../../services/stock.service';
 
-import {Component, ViewChild, OnInit, ElementRef} from '@angular/core';
+import {Component, ViewChild, OnInit, ElementRef, Output, EventEmitter} from '@angular/core';
 import {Http, Response} from '@angular/http';
 import {DataSource} from '@angular/cdk';
 import {MdPaginator, MdSort, SelectionModel} from '@angular/material';
@@ -24,6 +24,10 @@ import 'rxjs/add/operator/debounceTime';
   styleUrls: ['./catalog-table.component.scss']
 })
 export class CatalogTableComponent {
+
+  @Output() onEdit = new EventEmitter<CatalogData>();
+
+
   displayedColumns = ['name', 'measure', 'price', 'storePlace','delete','edit'];
   selection = new SelectionModel<string>(true, []);
   dataSource: CatalogDataSource | null;
@@ -65,8 +69,10 @@ export class CatalogTableComponent {
     });
   }
 
-  edit(_id) {
-    console.log('edit - ', _id);
+  edit(catalog) {
+    console.log('edit - ', catalog);
+    let copy = Object.assign({}, catalog);
+    this.onEdit.emit(copy);
 
     // this._dataService.editCatalog(name, (err) => {
     //   if (err) console.log('Не удалось удалить каталог: ', name);

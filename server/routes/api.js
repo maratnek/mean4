@@ -114,17 +114,33 @@ router.post('/add-catalog',(req,res) => {
   connection((db)=>{
     console.log('post catalog');
       console.log(req.body);
-      db.collection('catalog')
-      .insert(req.body)
-      .then(()=>{
-        db.collection('catalog').find().toArray().then((data)=>{
-          console.log(data);
-          // response.data = data;
-          // res.json(response);
-          res.sendStatus(200);
+      if (req.body.edit){
+        console.log('edit catalog');
+        db.collection('catalog')
+        .update({_id:req.body._id}, req.body)
+        .then(()=>{
+          db.collection('catalog').find().toArray().then((data)=>{
+            console.log(data);
+            res.sendStatus(200);
+          })
+          .catch( err => sendError(err,res) );
         })
-        .catch( err => sendError(err,res) );
-      })
+      } //edit
+      else
+      {
+        console.log('insert catalog');
+        db.collection('catalog')
+        .insert(req.body)
+        .then(()=>{
+          db.collection('catalog').find().toArray().then((data)=>{
+            console.log(data);
+            // response.data = data;
+            // res.json(response);
+            res.sendStatus(200);
+          })
+          .catch( err => sendError(err,res) );
+        })
+      }//insert
   });
 });
 
