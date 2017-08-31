@@ -35,7 +35,7 @@ export class CatalogTableComponent {
 
   ngOnInit() {
     this._dataService.getCatalogs().subscribe({
-      next: value => this.catalog.next(value)
+      next: value => {this.catalog.next(value);console.log(value);}
     });
     this.dataSource = new CatalogDataSource(this.catalog, this.sort, this.paginator);
     Observable.fromEvent(this.filter.nativeElement, 'keyup')
@@ -56,10 +56,28 @@ export class CatalogTableComponent {
     this._dataService.deleteCatalog(name, (err) => {
       if (err) console.log('Не удалось удалить каталог: ', name);
       else {
-          // this.success = true;
-          console.log('Каталог ' + name + ' успешно удален.');
+        this._dataService.getCatalogs().subscribe({
+          next: value => this.catalog.next(value)
+        });
+        // this.success = true;
+        console.log('Каталог ' + name + ' успешно удален.');
       }
     });
+  }
+
+  edit(_id) {
+    console.log('edit - ', _id);
+
+    // this._dataService.editCatalog(name, (err) => {
+    //   if (err) console.log('Не удалось удалить каталог: ', name);
+    //   else {
+    //     this._dataService.getCatalogs().subscribe({
+    //       next: value => this.catalog.next(value)
+    //     });
+    //     // this.success = true;
+    //     console.log('Каталог ' + name + ' успешно удален.');
+    //   }
+    // });
   }
 
   isAllSelected(): boolean {
@@ -70,7 +88,7 @@ export class CatalogTableComponent {
       return this.selection.selected.length == this.dataSource.renderedData.length;
     } else {
       return this.selection.selected.length == this.catalog.value.length;
-      }
+    }
   }
 
   masterToggle() {
@@ -88,6 +106,7 @@ export class CatalogTableComponent {
 }
 
  interface CatalogData {
+   _id: string;
    name: string;
    measure: string;
    price: number;

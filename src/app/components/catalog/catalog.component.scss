@@ -6,7 +6,6 @@
   top: 20px;
   &.bars {
     position: relative;
-
   }
 }
 
@@ -14,17 +13,6 @@
   flex: 1 1 auto;
 }
 
-// .my-container-lr {
-//   // width: 80%;
-//   margin: auto;
-// }
-
-// .my-sidenav-content {
-//   display: flex;
-//   height: 100%;
-//   align-items: center;
-//   justify-content: center;
-// }
 .my-sidenav-container {
   margin: auto;
   width: 100%;
@@ -41,26 +29,6 @@
   overflow: auto;
 }
 
-// .my-sidenav-content {
-  // max-width: 90%;
-  // margin: auto;
-  // right: 0;
-  // left: 0;
-  // display: block;
-  // position: absolute;
-  // height: 100%;
-  // overflow-y: auto;
-// }
-
-// md-sidenav {
-  // position: absolute;
-
-// }
-
-// .my-container-height {
-  // min-height: 80vh;
-// }
-
 .my-toolbar {
   padding: 0px;
   .my-toolbar-row {
@@ -75,16 +43,4 @@
       cursor: pointer;
     }
   }
-}
-
-.example-header {
-  min-height: 64px;
-  display: flex;
-  align-items: center;
-  padding-left: 24px;
-  font-size: 20px;
-}
-
-.mat-table {
-  overflow: auto;
 }
