@@ -1,6 +1,6 @@
+import { Component, OnInit, Output, Input, ViewChild, EventEmitter, ElementRef } from '@angular/core';
 import { StockService } from '../../../services/stock.service';
 
-import {Component, ViewChild, OnInit, ElementRef, Output, EventEmitter} from '@angular/core';
 import {Http, Response} from '@angular/http';
 import {DataSource} from '@angular/cdk';
 import {MdPaginator, MdSort, SelectionModel} from '@angular/material';
@@ -19,16 +19,16 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/debounceTime';
 
 @Component({
-  selector: 'catalog-table',
-  templateUrl: './catalog-table.component.html',
-  styleUrls: ['./catalog-table.component.scss']
+  selector: 'production-table',
+  templateUrl: './production-table.component.html',
+  styleUrls: ['./production-table.component.scss']
 })
-export class CatalogTableComponent {
+export class ProductionTableComponent implements OnInit {
 
   @Output() onEdit = new EventEmitter<CatalogData>();
 
 
-  displayedColumns = ['name', 'measure', 'price', 'storePlace','delete','edit'];
+  displayedColumns = ['select', 'name', 'storePlace','count'];
   selection = new SelectionModel<string>(true, []);
   dataSource: CatalogDataSource | null;
   catalog: BehaviorSubject<CatalogData[]> = new BehaviorSubject<CatalogData[]>([]);
@@ -39,7 +39,10 @@ export class CatalogTableComponent {
 
   ngOnInit() {
     this._dataService.getCatalogs().subscribe({
-      next: value => {this.catalog.next(value);console.log(value);}
+      next: value => {
+        value.count = 0;
+        this.catalog.next(value);console.log(value);
+      }
     });
     this.dataSource = new CatalogDataSource(this.catalog, this.sort, this.paginator);
     Observable.fromEvent(this.filter.nativeElement, 'keyup')
@@ -52,7 +55,6 @@ export class CatalogTableComponent {
   }
 
   constructor(private _dataService: StockService) {
-    // setTimeout(() => this.dataSource.connect(), 1)
   }
 
   delete(name) {
@@ -73,17 +75,6 @@ export class CatalogTableComponent {
     console.log('edit - ', catalog);
     let copy = Object.assign({}, catalog);
     this.onEdit.emit(copy);
-
-    // this._dataService.editCatalog(name, (err) => {
-    //   if (err) console.log('Не удалось удалить каталог: ', name);
-    //   else {
-    //     this._dataService.getCatalogs().subscribe({
-    //       next: value => this.catalog.next(value)
-    //     });
-    //     // this.success = true;
-    //     console.log('Каталог ' + name + ' успешно удален.');
-    //   }
-    // });
   }
 
   isAllSelected(): boolean {
@@ -111,12 +102,13 @@ export class CatalogTableComponent {
 
 }
 
- interface CatalogData {
-   _id: number;
+interface CatalogData {
+   _id: string;
    name: string;
    measure: string;
    price: number;
    storePlace: string;
+   count: number;
  }
 
 export class CatalogDataSource extends DataSource<any> {
@@ -129,10 +121,8 @@ export class CatalogDataSource extends DataSource<any> {
   resultsLength: number = 0;
   isLoadingResults: boolean = false;
   isRateLimitReached: boolean;
-  // catalog: Observable<CatalogData[]>;
 
   constructor(
-              // private _dataService: StockService,
               private catalog: BehaviorSubject<CatalogData[]>,
               private _sort: MdSort,
               private _paginator: MdPaginator) {

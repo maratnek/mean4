@@ -1,0 +1,84 @@
+<div class="">
+  <h1>Каталог товаров</h1>
+  <div class="my-container mat-elevation-z8">
+
+    <div class="example-header" [style.display]="selection.isEmpty() ? '' : 'none'">
+      <md-input-container floatPlaceholder="never">
+        <input mdInput #filter placeholder="Filter">
+      </md-input-container>
+    </div>
+    <div class="example-header example-selection-header"
+      *ngIf="!selection.isEmpty()">
+      {{selection.selected.length}}
+      {{selection.selected.length == 1 ? 'element' : 'elements'}}
+      selected
+    </div>
+
+    <md-table #table [dataSource]="dataSource" mdSort>
+    <!-- mdSortActive="created" mdSortDisableClear mdSortDirection="asc"> -->
+
+    <!-- Checkbox Column -->
+    <ng-container cdkColumnDef="select">
+      <md-header-cell *cdkHeaderCellDef>
+        <md-checkbox (change)="$event ? masterToggle() : null"
+                     [checked]="isAllSelected()"
+                     [indeterminate]="selection.hasValue() && !isAllSelected()">
+        </md-checkbox>
+      </md-header-cell>
+      <md-cell *cdkCellDef="let row">
+        <md-checkbox (click)="$event.stopPropagation()"
+                     (change)="$event ? selection.toggle(row.name) : null"
+                     [checked]="selection.isSelected(row.name)">
+        </md-checkbox>
+      </md-cell>
+    </ng-container>
+
+    <ng-container cdkColumnDef="name">
+      <md-header-cell *cdkHeaderCellDef md-sort-header> Имя </md-header-cell>
+      <md-cell *cdkCellDef="let row"> {{row.name}} </md-cell>
+    </ng-container>
+
+    <ng-container cdkColumnDef="measure">
+      <md-header-cell *cdkHeaderCellDef md-sort-header> Ед.Изм. </md-header-cell>
+      <md-cell *cdkCellDef="let row"> {{row.measure}} </md-cell>
+    </ng-container>
+
+    <ng-container cdkColumnDef="price">
+      <md-header-cell *cdkHeaderCellDef md-sort-header> Цена </md-header-cell>
+      <md-cell *cdkCellDef="let row"> {{row.price}} </md-cell>
+    </ng-container>
+
+    <ng-container cdkColumnDef="storePlace">
+      <md-header-cell *cdkHeaderCellDef md-sort-header> Место Хр. </md-header-cell>
+      <md-cell *cdkCellDef="let row"> {{row.storePlace}} </md-cell>
+    </ng-container>
+
+    <ng-container cdkColumnDef="count">
+      <md-header-cell *cdkHeaderCellDef md-sort-header>Кол-во. </md-header-cell>
+      <md-cell *cdkCellDef="let row">
+        <md-input-container align="center">
+              <input mdInput type="number" min=0 max=1000 value="0" name="count" [(ngModel)]="row.count">
+        </md-input-container>
+      </md-cell>
+    </ng-container>
+
+    <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
+    <md-row *cdkRowDef="let row; columns: displayedColumns;"
+      >
+    </md-row>
+</md-table>
+  <div class="example-no-results"
+       [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
+       Нет данных по данному фильтру.
+  </div>
+
+  <md-paginator #paginator
+                [length]="dataSource.filteredData.length"
+                [pageIndex]="0"
+                [pageSize]="5"
+                [pageSizeOptions]="[5, 10, 25, 100]">
+  </md-paginator>
+
+</div>
+
+</div>

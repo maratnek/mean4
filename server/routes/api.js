@@ -116,8 +116,10 @@ router.post('/add-catalog',(req,res) => {
       console.log(req.body);
       if (req.body.edit){
         console.log('edit catalog');
+        let id = req.body._id;
+        delete req.body._id;
         db.collection('catalog')
-        .update({_id:req.body._id}, req.body)
+        .update({_id:ObjectID(id)}, {$set:req.body})
         .then(()=>{
           db.collection('catalog').find().toArray().then((data)=>{
             console.log(data);

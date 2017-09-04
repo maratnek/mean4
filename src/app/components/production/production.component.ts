@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {CatalogTableComponent} from '../catalog/catalog-table/catalog-table.component';
+import {ProductionTableComponent} from './production-table/production-table.component';
 
 @Component({
   selector: 'app-production',

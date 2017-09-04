@@ -13,9 +13,9 @@
     </md-select>
     <br>
 
-    <md-input-container >
-      <span mdPrefix><fa name='rub'></fa></span>
-      <input mdInput type="number" name="price" [(ngModel)]="catalog.price" required placeholder="Цена" align="center">
+    <md-input-container align="center">
+      <span mdPrefix style="padding-right: 20px"><fa name='rub'></fa></span>
+      <input mdInput type="number" name="price" [(ngModel)]="catalog.price" required placeholder="Цена" align="">
       <span mdSuffix>за {{catalog.measure}}</span>
     </md-input-container>
     <br>
