@@ -39,12 +39,13 @@
     </ng-container>
 
     <ng-container mdColumnDef="count">
-      <md-header-cell *mdHeaderCellDef md-sort-header>Кол-во. </md-header-cell>
+      <md-header-cell *mdHeaderCellDef md-sort-header [style.flex]="'0 0 60px'">Кол-во. </md-header-cell>
       <md-cell *mdCellDef="let row">
-        <md-form-field [style.display]="selection.isSelected(row.name) ? '': 'none'">
-              <input mdInput
-              type="number" min=0 max=1000 value="0" name="count" [(ngModel)]="row.count">
-        </md-form-field>
+        <md-input-container  [style.display]="selection.isSelected(row.name) ? '': 'none'"
+        [style.width]="'60px'">
+          <input mdInput
+          type="number" min=0 max=1000 value="0" name="count" [(ngModel)]="row.count">
+        </md-input-container>
       </md-cell>
     </ng-container>
 
