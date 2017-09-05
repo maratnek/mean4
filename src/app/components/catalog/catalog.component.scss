@@ -9,26 +9,6 @@
   }
 }
 
-.my-spacer {
-  flex: 1 1 auto;
-}
-
-.my-sidenav-container {
-  margin: auto;
-  width: 100%;
-  height: 85vh;
-}
-
-.my-sidenav-container .mat-sidenav-content,
-.my-sidenav-container md-sidenav {
-  display: flex;
-  overflow: visible;
-}
-
-.my-scrolling-content {
-  overflow: auto;
-}
-
 .my-toolbar {
   padding: 0px;
   .my-toolbar-row {

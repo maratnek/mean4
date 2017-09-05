@@ -38,27 +38,13 @@
       <md-cell *mdCellDef="let row"> {{row.name}} </md-cell>
     </ng-container>
 
-    <ng-container mdColumnDef="measure">
-      <md-header-cell *mdHeaderCellDef md-sort-header> Ед.Изм. </md-header-cell>
-      <md-cell *mdCellDef="let row"> {{row.measure}} </md-cell>
-    </ng-container>
-
-    <ng-container mdColumnDef="price">
-      <md-header-cell *mdHeaderCellDef md-sort-header> Цена </md-header-cell>
-      <md-cell *mdCellDef="let row"> {{row.price}} </md-cell>
-    </ng-container>
-
-    <ng-container mdColumnDef="storePlace">
-      <md-header-cell *mdHeaderCellDef md-sort-header> Место Хр. </md-header-cell>
-      <md-cell *mdCellDef="let row"> {{row.storePlace}} </md-cell>
-    </ng-container>
-
     <ng-container mdColumnDef="count">
       <md-header-cell *mdHeaderCellDef md-sort-header>Кол-во. </md-header-cell>
       <md-cell *mdCellDef="let row">
-        <md-input-container align="center">
-              <input mdInput type="number" min=0 max=1000 value="0" name="count" [(ngModel)]="row.count">
-        </md-input-container>
+        <md-form-field [style.display]="selection.isSelected(row.name) ? '': 'none'">
+              <input mdInput
+              type="number" min=0 max=1000 value="0" name="count" [(ngModel)]="row.count">
+        </md-form-field>
       </md-cell>
     </ng-container>
 
