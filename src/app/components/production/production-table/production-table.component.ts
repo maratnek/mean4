@@ -47,26 +47,6 @@ export class ProductionTableComponent implements OnInit {
   constructor(private _dataService: StockService) {
   }
 
-  delete(name) {
-    console.log('delete - ', name);
-    this._dataService.deleteCatalog(name, (err) => {
-      if (err) console.log('Не удалось удалить каталог: ', name);
-      else {
-        this._dataService.getCatalogs().subscribe({
-          next: value => this.catalog.next(value)
-        });
-        // this.success = true;
-        console.log('Каталог ' + name + ' успешно удален.');
-      }
-    });
-  }
-
-  edit(catalog) {
-    console.log('edit - ', catalog);
-    let copy = Object.assign({}, catalog);
-    this.onEdit.emit(copy);
-  }
-
   isAllSelected(): boolean {
     if (!this.dataSource) { return false; }
     if (this.selection.isEmpty()) { return false; }
@@ -84,9 +64,9 @@ export class ProductionTableComponent implements OnInit {
     if (this.isAllSelected()) {
       this.selection.clear();
     } else if (this.filter.nativeElement.value) {
-      this.dataSource.renderedData.forEach(data => this.selection.select(data.name));
+      this.dataSource.renderedData.forEach(data => {this.selection.select(data.name); if (!data.count)data.count = 1;});
     } else {
-      this.catalog.value.forEach(data => this.selection.select(data.name));
+      this.catalog.value.forEach(data => {this.selection.select(data.name); if (!data.count)data.count = 1;});
     }
   }
 
