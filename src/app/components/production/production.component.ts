@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ProductionTableComponent} from './production-table/production-table.component';
+import {MdInputModule} from '@angular/material';
 
 @Component({
   selector: 'app-production',

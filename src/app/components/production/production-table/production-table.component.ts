@@ -2,21 +2,22 @@ import { Component, OnInit, Output, Input, ViewChild, EventEmitter, ElementRef }
 import { StockService } from '../../../services/stock.service';
 
 import {Http, Response} from '@angular/http';
-import {DataSource} from '@angular/cdk';
+import {DataSource} from '@angular/cdk/collections';
 import {MdPaginator, MdSort, SelectionModel} from '@angular/material';
 import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import 'rxjs/add/operator/first';
-import 'rxjs/add/operator/startWith';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/observable/merge';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/observable/interval';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/observable/fromEvent';
-import 'rxjs/add/operator/distinctUntilChanged';
-import 'rxjs/add/operator/debounceTime';
+import 'rxjs';
+// import 'rxjs/add/operator/first';
+// import 'rxjs/add/operator/startWith';
+// import 'rxjs/add/operator/catch';
+// import 'rxjs/add/operator/switchMap';
+// import 'rxjs/add/observable/merge';
+// import 'rxjs/add/observable/of';
+// import 'rxjs/add/observable/interval';
+// import 'rxjs/add/operator/map';
+// import 'rxjs/add/observable/fromEvent';
+// import 'rxjs/add/operator/distinctUntilChanged';
+// import 'rxjs/add/operator/debounceTime';
 
 @Component({
   selector: 'production-table',
@@ -28,7 +29,7 @@ export class ProductionTableComponent implements OnInit {
   @Output() onEdit = new EventEmitter<CatalogData>();
 
 
-  displayedColumns = ['select', 'name', 'storePlace','count'];
+  displayedColumns = ['select', 'name', 'count'];
   selection = new SelectionModel<string>(true, []);
   dataSource: CatalogDataSource | null;
   catalog: BehaviorSubject<CatalogData[]> = new BehaviorSubject<CatalogData[]>([]);
