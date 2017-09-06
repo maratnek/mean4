@@ -23,20 +23,22 @@ interface ProductElement {
 
 export class ProductionTableComponent implements OnInit {
 
-  dataTable:Observable<ProductElement>;
+  dataTable:BehaviorSubject<any>;
   @Output() getDataFromCatalog = new EventEmitter<any>();
   @Input() set product(isSubmit:boolean){
+    let dt = [];
     this.catalog.value.forEach(data => {
       if(this.selection.isSelected(data.name))
       {
-        this.dataTable.next({
+        dt.push({
           _id : data._id,
           name : data.name,
           count : data.count
         });
       }
     });
-    console.log(this.dataTable);
+    console.log(dt);
+    this.dataTable.from(dt);
     this.getDataFromCatalog.emit(this.dataTable);
   }
 
