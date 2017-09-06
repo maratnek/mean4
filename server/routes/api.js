@@ -113,42 +113,40 @@ router.get('/catalogs', (req,res) => {
 router.post('/add-catalog',(req,res) => {
   connection((db)=>{
     console.log('post catalog');
-      console.log(req.body);
-      if (req.body.edit){
-        console.log('edit catalog');
-        let id = req.body._id;
-        delete req.body._id;
-        db.collection('catalog')
-        .update({_id:ObjectID(id)}, {$set:req.body})
-        .then(()=>{
-          db.collection('catalog').find().toArray().then((data)=>{
-            console.log(data);
-            res.sendStatus(200);
-          })
-          .catch( err => sendError(err,res) );
+    console.log(req.body);
+    if (req.body.edit){
+      console.log('edit catalog');
+      let id = req.body._id;
+      delete req.body._id;
+      db.collection('catalog')
+      .update({_id:ObjectID(id)}, {$set:req.body})
+      .then(()=>{
+        db.collection('catalog').find().toArray().then((data)=>{
+          console.log(data);
+          res.sendStatus(200);
         })
-      } //edit
-      else
-      {
-        console.log('insert catalog');
-        db.collection('catalog')
-        .insert(req.body)
-        .then(()=>{
-          db.collection('catalog').find().toArray().then((data)=>{
-            console.log(data);
-            // response.data = data;
-            // res.json(response);
-            res.sendStatus(200);
-          })
-          .catch( err => sendError(err,res) );
+        .catch( err => sendError(err,res) );
+      })
+    } //edit
+    else
+    {
+      console.log('insert catalog');
+      db.collection('catalog')
+      .insert(req.body)
+      .then(()=>{
+        db.collection('catalog').find().toArray().then((data)=>{
+          console.log(data);
+          res.sendStatus(200);
         })
-      }//insert
+        .catch( err => sendError(err,res) );
+      })
+    }//insert
   });
 });
 
 router.get('/delete-catalog', (req,res) => {
   connection((db)=>{
-      console.log(req.query.name);
+      console.log('delete', req.query.name);
       if (!req.query.name.length)
         res.sendStatus(500);
       query = {name: req.query.name};
@@ -161,23 +159,31 @@ router.get('/delete-catalog', (req,res) => {
           } else {
             console.log('success ' + r.result.n);
             res.sendStatus(200);
-            // db.collection('catalog')
-            // .insert({name: req.query.name})
-            // .then(()=>{
-            //   db.collection('stock').find().toArray().then((stock)=>{
-            //     console.log(stock);
-            //     response.data = stock;
-            //     res.json(response);
-            //     // res.sendStatus(200);
-            //   })
-            //   .catch( err => sendError(err,res) );
-            // })
-            // .catch( (err) => sendError(err, res) );
           }
         }
       });
 
   });
+});
+
+router.post('/create-product',(req,res) => {
+  connection((db)=>{
+    console.log('create-product', req.body)
+    console.log('create-product', req.body.dataTable)
+    if (!req.body.name.length)
+      res.sendStatus(500);
+    db.collection('product').insert(req.body, (err, r) => {
+      if (err)
+          sendError(err, res);
+      else {
+        db.collection('product').find().toArray().then((data)=>{
+          console.log('find product', data.dataTable);
+          res.sendStatus(200);
+        })
+      }
+    });
+
+  })
 });
 
 module.exports = router;

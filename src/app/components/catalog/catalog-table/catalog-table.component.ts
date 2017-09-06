@@ -53,7 +53,6 @@ export class CatalogTableComponent {
   }
 
   constructor(private _dataService: StockService) {
-    // setTimeout(() => this.dataSource.connect(), 1)
   }
 
   delete(name) {
@@ -74,17 +73,6 @@ export class CatalogTableComponent {
     console.log('edit - ', catalog);
     let copy = Object.assign({}, catalog);
     this.onEdit.emit(copy);
-
-    // this._dataService.editCatalog(name, (err) => {
-    //   if (err) console.log('Не удалось удалить каталог: ', name);
-    //   else {
-    //     this._dataService.getCatalogs().subscribe({
-    //       next: value => this.catalog.next(value)
-    //     });
-    //     // this.success = true;
-    //     console.log('Каталог ' + name + ' успешно удален.');
-    //   }
-    // });
   }
 
   isAllSelected(): boolean {

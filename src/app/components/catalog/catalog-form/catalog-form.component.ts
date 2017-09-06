@@ -13,7 +13,6 @@ import 'rxjs';
 export class CatalogFormComponent implements OnInit {
   @Input() catalog: any = {};
   @Input() edit: boolean = false;
-  // @Output() onSu = new EventEmitter<CatalogData>();
 
   measures = [
     {name: "Вес", ms: "кг."},

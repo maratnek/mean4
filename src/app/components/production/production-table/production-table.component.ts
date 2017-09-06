@@ -8,14 +8,37 @@ import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import 'rxjs';
 
+
+interface ProductElement {
+  _id : string
+  name : string
+  count : number
+}
+
 @Component({
   selector: 'production-table',
   templateUrl: './production-table.component.html',
   styleUrls: ['./production-table.component.scss']
 })
+
 export class ProductionTableComponent implements OnInit {
 
-  @Output() onEdit = new EventEmitter<CatalogData>();
+  dataTable:Observable<ProductElement>;
+  @Output() getDataFromCatalog = new EventEmitter<any>();
+  @Input() set product(isSubmit:boolean){
+    this.catalog.value.forEach(data => {
+      if(this.selection.isSelected(data.name))
+      {
+        this.dataTable.next({
+          _id : data._id,
+          name : data.name,
+          count : data.count
+        });
+      }
+    });
+    console.log(this.dataTable);
+    this.getDataFromCatalog.emit(this.dataTable);
+  }
 
 
   displayedColumns = ['select', 'name', 'count'];
@@ -31,7 +54,7 @@ export class ProductionTableComponent implements OnInit {
     this._dataService.getCatalogs().subscribe({
       next: value => {
         value.map(obj => obj.count = 0);
-        this.catalog.next(value);console.log(value);
+        this.catalog.next(value);
       }
     });
     this.dataSource = new CatalogDataSource(this.catalog, this.sort, this.paginator);

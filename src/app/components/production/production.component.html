@@ -2,12 +2,18 @@
   <div class="my-height my-overflow">
     <md-card>
       <h1 align=center>Создать продукт</h1>
-      <form >
+      <form #createProduct="ngForm" (ngSubmit)="onSubmit(createProduct)" >
         <md-form-field>
-          <input mdInput type="text" name="productName" placeholder="Название продукта">
+          <input mdInput type="text" name="name" [(ngModel)]="product.name" required placeholder="Название продукта">
         </md-form-field>
+        <!-- <md-card-actions> -->
+          <button  md-raised-button [disabled]="!createProduct.form.valid"  type="submit">
+            Cоздать продукт
+          </button>
+          <button  md-raised-button  type="reset">Очистить</button>
+        <!-- </md-card-actions> -->
       </form>
-      <production-table></production-table>
+      <production-table [product]="isSubmit" (getDataFromCatalog)="dataTable = $event"></production-table>
     </md-card>
   </div>
 </div>
