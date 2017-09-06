@@ -177,7 +177,7 @@ router.post('/create-product',(req,res) => {
           sendError(err, res);
       else {
         db.collection('product').find().toArray().then((data)=>{
-          console.log('find product', data.dataTable);
+          console.log('find product %o', data);
           res.sendStatus(200);
         })
       }

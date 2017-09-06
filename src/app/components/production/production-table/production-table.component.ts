@@ -9,7 +9,7 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import 'rxjs';
 
 
-interface ProductElement {
+export interface ProductElement {
   _id : string
   name : string
   count : number
@@ -23,22 +23,23 @@ interface ProductElement {
 
 export class ProductionTableComponent implements OnInit {
 
-  dataTable:BehaviorSubject<any>;
-  @Output() getDataFromCatalog = new EventEmitter<any>();
+  dataTable:Observable<ProductElement[]>;
+  @Output() getDataFromCatalog = new EventEmitter<Observable<ProductElement[]>>();
   @Input() set product(isSubmit:boolean){
-    let dt = [];
-    this.catalog.value.forEach(data => {
-      if(this.selection.isSelected(data.name))
-      {
-        dt.push({
-          _id : data._id,
-          name : data.name,
-          count : data.count
-        });
-      }
+    this.dataTable = new Observable(observer => {
+
+      this.catalog.value.forEach(data => {
+        if(this.selection.isSelected(data.name))
+        {
+          observer.next({
+            _id : data._id,
+            name : data.name,
+            count : data.count
+          });
+        }
+      });
+      observer.complete();
     });
-    console.log(dt);
-    this.dataTable.from(dt);
     this.getDataFromCatalog.emit(this.dataTable);
   }
 
