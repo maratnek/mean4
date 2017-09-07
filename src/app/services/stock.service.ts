@@ -46,5 +46,9 @@ export class StockService {
     this._http.post("/api/create-product", dataProduct)
       .subscribe(result => callback(!result.ok));
   }
+  getProducts(){
+    return this._http.get("/api/products")
+      .map(result => this.result = result.json().data);
+  }
 
 }

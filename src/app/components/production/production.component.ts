@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {ProductionTableComponent, ProductElement} from './production-table/production-table.component';
+import {ProductCreateComponent, ProductElement} from './product-create/product-create.component';
+import {ProductTableComponent} from './product-table/product-table.component';
 import {MdInputModule} from '@angular/material';
 import {StockService} from '../../services/stock.service';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -15,6 +16,8 @@ export class ProductionComponent implements OnInit {
   dataTable: Observable<ProductElement[]>;
   isSubmit: boolean = false;
   product: any = {};
+  
+  menuToolbarActive = 1;
 
   constructor(private _dataService: StockService) { }
 

@@ -167,7 +167,7 @@ router.get('/delete-catalog', (req,res) => {
 });
 
 router.post('/create-product',(req,res) => {
-  connection((db)=>{
+  connection((db)=> {
     console.log('create-product', req.body)
     console.log('create-product', req.body.dataTable)
     if (!req.body.name.length)
@@ -177,13 +177,24 @@ router.post('/create-product',(req,res) => {
           sendError(err, res);
       else {
         db.collection('product').find().toArray().then((data)=>{
-          console.log('find product %o', data);
+          console.log('find product %j', data);
           res.sendStatus(200);
         })
       }
     });
 
   })
+});
+
+router.get('/products', (req,res) => {
+  connection((db)=>{
+        db.collection('product').find().toArray().then((data)=>{
+          console.log(data);
+          response.data = data;
+          res.json(response);
+        })
+        .catch( err => sendError(err,res) );
+  });
 });
 
 module.exports = router;

@@ -16,12 +16,12 @@ export interface ProductElement {
 }
 
 @Component({
-  selector: 'production-table',
-  templateUrl: './production-table.component.html',
-  styleUrls: ['./production-table.component.scss']
+  selector: 'product-create',
+  templateUrl: './product-create.component.html',
+  styleUrls: ['./product-create.component.scss']
 })
 
-export class ProductionTableComponent implements OnInit {
+export class ProductCreateComponent implements OnInit {
 
   dataTable:Observable<ProductElement[]>;
   @Output() getDataFromCatalog = new EventEmitter<Observable<ProductElement[]>>();

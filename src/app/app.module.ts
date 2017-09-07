@@ -59,7 +59,8 @@ import {
 } from '@angular/material';
 import { CatalogFormComponent } from './components/catalog/catalog-form/catalog-form.component';
 import { CatalogTableComponent } from './components/catalog/catalog-table/catalog-table.component';
-import { ProductionTableComponent } from './components/production/production-table/production-table.component';
+import { ProductCreateComponent } from './components/production/product-create/product-create.component';
+import { ProductTableComponent } from './components/production/product-table/product-table.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { ProductionTableComponent } from './components/production/production-tab
     ProductionComponent,
     CatalogFormComponent,
     CatalogTableComponent,
-    ProductionTableComponent
+    ProductCreateComponent,
+    ProductTableComponent
   ],
   imports: [
     AngularFontAwesomeModule,

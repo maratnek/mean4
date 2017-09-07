@@ -7,17 +7,6 @@ import {MdPaginator, MdSort, SelectionModel} from '@angular/material';
 import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import 'rxjs';
-// import 'rxjs/add/operator/first';
-// import 'rxjs/add/operator/startWith';
-// import 'rxjs/add/operator/catch';
-// import 'rxjs/add/operator/switchMap';
-// import 'rxjs/add/observable/merge';
-// import 'rxjs/add/observable/of';
-// import 'rxjs/add/observable/interval';
-// import 'rxjs/add/operator/map';
-// import 'rxjs/add/observable/fromEvent';
-// import 'rxjs/add/operator/distinctUntilChanged';
-// import 'rxjs/add/operator/debounceTime';
 
 @Component({
   selector: 'catalog-table',
@@ -27,7 +16,6 @@ import 'rxjs';
 export class CatalogTableComponent {
 
   @Output() onEdit = new EventEmitter<CatalogData>();
-
 
   displayedColumns = ['name', 'measure', 'price', 'storePlace','delete','edit'];
   selection = new SelectionModel<string>(true, []);

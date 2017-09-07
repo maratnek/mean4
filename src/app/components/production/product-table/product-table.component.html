@@ -1,0 +1,25 @@
+<md-grid-list *ngIf="load" cols="1" rowHeight="3:2">
+  <md-grid-tile>
+    <md-spinner></md-spinner>
+  </md-grid-tile>
+</md-grid-list>
+<ng-container *ngIf="!load">
+  <h3 *ngIf="!products.length">Создайте продукт используя каталог</h3>
+  <div *ngIf="products.length">
+    <h3>Продукты</h3>
+    <ng-container  *ngFor="let product of products; let ind = index;">
+      <md-card>
+        <md-card-header>{{product.name}}</md-card-header>
+        <md-card-actions>
+          <button (click)="products[ind].show = !products[ind].show" color="accent" md-fab>+</button>
+        </md-card-actions>
+        <md-card-content *ngIf="products[ind].show">
+          <div  *ngFor="let elem of product.dataTable">
+            {{elem.name}} <md-chip color="primary" selected="true">{{elem.count}}</md-chip>
+          </div>
+        </md-card-content>
+      </md-card>
+      <br>
+    </ng-container>
+  </div>
+</ng-container>
