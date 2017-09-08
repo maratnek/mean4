@@ -4,18 +4,23 @@
     <div class="my-card">
     <md-card *ngIf="!success">
 
-        <h1>Создайте склад</h1>
+        <h1>Создайте склад или выберите из существующего</h1>
 
-      <md-grid-list cols="2" rowHeight="3:1">
+      <md-grid-list cols="2">
         <md-grid-tile>
           <md-card-content>
             <md-input-container>
               <input type="text" mdInput [(ngModel)]="stockName" #ctrl ="ngModel"  required placeholder="Название склада">
             </md-input-container>
+            <h1>{{stockName}}</h1>
           </md-card-content>
         </md-grid-tile>
         <md-grid-tile>
-          <h1>{{stockName}}</h1>
+          <md-nav-list>
+            <md-list-item *ngFor="let stock of stocks">
+              <h3>{{stock}}</h3>
+            </md-list-item>
+          </md-nav-list>
         </md-grid-tile>
       </md-grid-list>
       <md-card-actions>

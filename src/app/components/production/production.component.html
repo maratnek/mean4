@@ -23,7 +23,7 @@
 
     <div class="my-container">
       <div [style.display]="menuToolbarActive === 1 ? '' : 'none'" class="">
-        <product-table  (onEdit)="catalog = $event; menuToolbarActive = 2; edit = true;"></product-table>
+        <product-table [change]="menuToolbarActive === 1"  (onEdit)="catalog = $event; menuToolbarActive = 2; edit = true;"></product-table>
       </div>
 
       <div [style.display]="menuToolbarActive === 2 ? '': 'none'" class="my-card">

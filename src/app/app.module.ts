@@ -61,6 +61,8 @@ import { CatalogFormComponent } from './components/catalog/catalog-form/catalog-
 import { CatalogTableComponent } from './components/catalog/catalog-table/catalog-table.component';
 import { ProductCreateComponent } from './components/production/product-create/product-create.component';
 import { ProductTableComponent } from './components/production/product-table/product-table.component';
+import { StockTableComponent } from './components/stock/stock-table/stock-table.component';
+import { StockIncomeComponent } from './components/stock/stock-income/stock-income.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +76,9 @@ import { ProductTableComponent } from './components/production/product-table/pro
     CatalogFormComponent,
     CatalogTableComponent,
     ProductCreateComponent,
-    ProductTableComponent
+    ProductTableComponent,
+    StockTableComponent,
+    StockIncomeComponent
   ],
   imports: [
     AngularFontAwesomeModule,

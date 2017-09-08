@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { StockService } from '../../../services/stock.service';
 import 'rxjs';
 import {Subject} from 'rxjs';
@@ -11,6 +11,12 @@ import {Subject} from 'rxjs';
 export class ProductTableComponent implements OnInit {
 
   @Output() onEdit = new EventEmitter<any>();
+  @Input() set change(isChange:boolean){
+    if (isChange){
+      console.log('change');
+      this.ngOnInit();
+    }
+  }
 
   // products: Subject<any[]> = new Subject<any[]>();
   products: any[] = [];
@@ -25,7 +31,7 @@ export class ProductTableComponent implements OnInit {
         this.products = data;
         console.log(this.products);
         setTimeout(()=>{this.load=false}, 1000);
-        this.products.map(data => data.show = true);
+        this.products.map(data => data.show = false);
        }
     );
     console.log(this.products);

@@ -2,7 +2,8 @@
 
   <ul>
     <li>{{stockName}}</li>
-    <li><a routerLink='/main' routerLinkActive="active">Склад</a></li>
+    <!-- <li><a routerLink='/main' routerLinkActive="active">Склад</a></li> -->
+    <li><a routerLink='/stock' routerLinkActive="active">Склад</a></li>
     <li><a routerLink='/catalog' routerLinkActive="active">Каталог товаров</a></li>
     <li><a routerLink='/production' routerLinkActive="active">Производство</a></li>
     <div class="right">
@@ -10,7 +11,8 @@
         <md-icon>more_vert</md-icon>
       </button>
       <md-menu #menu="mdMenu">
-        <a md-menu-item routerLink='/main' routerLinkActive="active">Склад</a>
+        <!-- <a md-menu-item routerLink='/main' routerLinkActive="active">Склад</a> -->
+        <a md-menu-item routerLink='/stock' routerLinkActive="active">Склад</a>
         <a md-menu-item routerLink='/catalog' routerLinkActive="active">Каталог товаров</a>
         <a md-menu-item routerLink='/production' routerLinkActive="active">Производство</a>
       </md-menu>

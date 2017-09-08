@@ -8,7 +8,7 @@ import { StockService } from '../../services/stock.service';
 })
 export class StockComponent implements OnInit {
 
-  stock: Array<any>;
+  stock: string = '';
 
   constructor(
     private _dataService: StockService
@@ -16,8 +16,7 @@ export class StockComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._dataService.getStock()
-        .subscribe(res => this.stock = res);
+    this.stock = this._dataService.getCurrentStock();
   }
 
 }

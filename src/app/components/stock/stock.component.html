@@ -1,3 +1,50 @@
-<p>
-  stock works!
-</p>
+<div class="my-container">
+
+  <md-sidenav-container class="my-height">
+    <md-sidenav #sidenav mode="side" opened="true">
+      <button *ngIf="sidenav.opened" md-mini-fab class="my-fab" (click)="sidenav.toggle()">
+        <fa  name="times"></fa>
+      </button>
+      <md-toolbar class="my-toolbar">
+        <md-toolbar-row class="my-toolbar-row" (click)="menuToolbarActive = 1">
+          <span>Склад</span>
+        </md-toolbar-row>
+
+        <md-toolbar-row class="my-toolbar-row" (click)="menuToolbarActive = 2; edit = false">
+          <span>Приход</span>
+        </md-toolbar-row>
+      </md-toolbar>
+
+    </md-sidenav>
+
+    <button *ngIf="!sidenav.opened" md-mini-fab class="my-fab bars" (click)="sidenav.toggle()">
+      <fa  name="bars"></fa>
+    </button>
+
+    <div class="my-container">
+      <div [style.display]="menuToolbarActive === 1 ? '' : 'none'" class="">
+        <!-- <product-table [change]="menuToolbarActive === 1"  (onEdit)="catalog = $event; menuToolbarActive = 2; edit = true;"></product-table> -->
+        <stock-table></stock-table>
+      </div>
+
+      <div [style.display]="menuToolbarActive === 2 ? '': 'none'" class="my-card">
+        <stock-income></stock-income>
+        <!-- <md-card>
+          <h1 align=center>Создать продукт</h1>
+          <form #createProduct="ngForm" (ngSubmit)="onSubmit(createProduct)" >
+            <md-form-field>
+              <input mdInput type="text" name="name" [(ngModel)]="product.name" required placeholder="Название продукта">
+            </md-form-field>
+            <!-- <md-card-actions> -->
+              <!-- <button  md-raised-button [disabled]="!createProduct.form.valid"  type="submit"> -->
+                <!-- Cоздать продукт -->
+              <!-- </button> -->
+              <!-- <button  md-raised-button  type="reset">Очистить</button> -->
+            <!-- </md-card-actions> -->
+          <!-- </form> -->
+          <!-- <product-create [product]="isSubmit" (getDataFromCatalog)="dataTable = $event"></product-create> --> -->
+        <!-- </md-card> -->
+      </div>
+    </div>
+  </md-sidenav-container>
+</div>

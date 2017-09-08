@@ -6,11 +6,20 @@ import 'rxjs/add/operator/map';
 export class StockService {
 
   result:any;
-  stockName: String = '';
+  stockName: string = '';
 
   constructor(private _http: Http) { }
 
+  getCurrentStock(){
+    return this.stockName;
+  }
+
+  setCurrentStock(stockName: string){
+    this.stockName = stockName;
+  }
+
   createStock(name:string, callback){
+    this.stockName = name;
     this._http.get("/api/create?name=" + name)
       .subscribe(result => callback(!result.ok) );
   }
@@ -18,6 +27,11 @@ export class StockService {
   configStock(config, callback){
     this._http.post("/api/stock-config",config)
       .subscribe(result => callback(!result.ok) );
+  }
+
+  getStockData() {
+    return this._http.get("/api/stock-data")
+    .map(result => this.result = result.json().data);
   }
 
   getStock() {

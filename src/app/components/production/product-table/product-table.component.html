@@ -9,14 +9,27 @@
     <h3>Продукты</h3>
     <ng-container  *ngFor="let product of products; let ind = index;">
       <md-card>
-        <md-card-header>{{product.name}}</md-card-header>
+        <md-card-header>
+          <h3>{{product.name}}</h3>
+        </md-card-header>
         <md-card-actions>
-          <button (click)="products[ind].show = !products[ind].show" color="accent" md-fab>+</button>
+          <div align="left" (click)="products[ind].show = !products[ind].show">
+            <fa name="minus-square" size="lg" [hidden]="!products[ind].show"></fa>
+            <fa name="plus-square" size="lg" [hidden]="products[ind].show"></fa>
+          </div>
         </md-card-actions>
         <md-card-content *ngIf="products[ind].show">
-          <div  *ngFor="let elem of product.dataTable">
-            {{elem.name}} <md-chip color="primary" selected="true">{{elem.count}}</md-chip>
-          </div>
+          <table>
+            <tr>
+              <th>Деталь</th>
+              <th>Кол-во</th>
+            </tr>
+
+            <tr *ngFor="let elem of product.dataTable">
+              <td>{{elem.name}}</td>
+              <td align="center"><md-chip [style.display]="'block'" color="primary" selected="true">{{elem.count}}</md-chip></td>
+            </tr>
+          </table>
         </md-card-content>
       </md-card>
       <br>

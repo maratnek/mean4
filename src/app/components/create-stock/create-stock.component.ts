@@ -12,7 +12,7 @@ import { Observable } from 'rxjs/Observable';
 export class CreateStockComponent implements OnInit {
 
   // Define a users property to hold our user data
-  stock: Array<any>;
+  stocks: Array<any> = [];
   create: boolean = false;
   name = '';
 
@@ -21,7 +21,7 @@ export class CreateStockComponent implements OnInit {
   // Create an instance of the DataService through dependency injection
   constructor(private _dataService: StockService, private router: Router) {
     this._dataService.getStock()
-        .subscribe(res => this.stock = res);
+        .subscribe(res => {this.stocks = res; console.log(res)});
   }
 
   ngOnInit() {
