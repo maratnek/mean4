@@ -24,7 +24,7 @@ export class CatalogFormComponent implements OnInit {
   stateControl: FormControl;
 
   filteredStates: any;
-  states = [];
+  states:any[] = [];
 
   constructor(private _dataService: StockService) { }
 
@@ -37,14 +37,14 @@ export class CatalogFormComponent implements OnInit {
     this.filteredStates = this.stateControl.valueChanges
       .startWith(null)
       .map(name => this.filterStates(name));
-      this.filteredStates.map(name=>console.log(name));
+      // this.filteredStates.map(name=>console.log(name));
   }
 
-  onSubmit(addNewCatalog) {
+  onSubmit(addNewCatalog:any) {
     console.log(addNewCatalog.form.valid);
     if (addNewCatalog.form.valid){
       this.catalog.edit = this.edit;
-      this._dataService.addCatalog(this.catalog, (err)=>{
+      this._dataService.addCatalog(this.catalog, (err:number)=>{
           if (err)
             console.log('Not add new catalog!!!');
           else

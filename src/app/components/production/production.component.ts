@@ -16,7 +16,7 @@ export class ProductionComponent implements OnInit {
   dataTable: Observable<ProductElement[]>;
   isSubmit: boolean = false;
   product: any = {};
-  
+
   menuToolbarActive = 1;
 
   constructor(private _dataService: StockService) { }
@@ -24,19 +24,19 @@ export class ProductionComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSubmit(createProduct){
+  onSubmit(createProduct:any){
     console.log(createProduct);
     console.log(createProduct.form.valid);
     if (createProduct.form.valid){
-      let dt = [];
+      let dt:ProductElement[] = [];
       this.dataTable.subscribe(data =>
-        dt.push(data) ,
-        ()=>console.log("Error"),
+        dt = data,
+        ()=>console.log("Error create product component"),
         ()=>{
           this.product.dataTable = dt;
           console.log(this.product);
 
-          this._dataService.createProduct(this.product, (err)=>{
+          this._dataService.createProduct(this.product, (err:number)=>{
             if (err)
             console.log('Not create new product!!!');
             else {
@@ -47,14 +47,6 @@ export class ProductionComponent implements OnInit {
         }
       );
       this.isSubmit = true;
-      // let dt:Observable<any> = this.dataTable;
-
-        // dt.subscribe(data => console.log(data));
-      // get data from table catalog
-      // setTimeout(()=>{
-      //   console.log(this.dataTable);
-      //
-      // },3000);
     }
   }
 }
