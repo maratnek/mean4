@@ -3,9 +3,11 @@ const router = express.Router();
 const MongoClient = require('mongodb').MongoClient;
 const ObjectID = require('mongodb').ObjectID;
 
+let mongoPath = 'mongodb://kentavr:novie1904@ds133004.mlab.com:33004/stock_db';
+// let mongoPath = 'mongodb://localhost:27017/mean';
 // Connect
 const connection = (closure) => {
-    return MongoClient.connect('mongodb://localhost:27017/mean', (err, db) => {
+    return MongoClient.connect(mongoPath, (err, db) => {
         if (err) return console.log(err);
 
         closure(db);
