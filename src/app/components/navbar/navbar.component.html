@@ -3,19 +3,27 @@
   <ul>
     <li>{{stockName}}</li>
     <!-- <li><a routerLink='/main' routerLinkActive="active">Склад</a></li> -->
-    <li><a routerLink='/stock' routerLinkActive="active">Склад</a></li>
-    <li><a routerLink='/catalog' routerLinkActive="active">Каталог товаров</a></li>
-    <li><a routerLink='/production' routerLinkActive="active">Производство</a></li>
+    <li *ngIf="!stockService.IsExistStock()"><a routerLink='/create' routerLinkActive="active">Cоздание склада</a></li>
+    <li *ngIf="stockService.IsExistStock()"><a routerLink='/stock' routerLinkActive="active">Склад</a></li>
+    <li *ngIf="stockService.IsExistStock()"><a routerLink='/catalog' routerLinkActive="active">Каталог товаров</a></li>
+    <li *ngIf="stockService.IsExistStock()"><a routerLink='/production' routerLinkActive="active">Производство</a></li>
     <div class="right">
-      <button md-icon-button [mdMenuTriggerFor]="menu">
-        <md-icon>more_vert</md-icon>
-      </button>
-      <md-menu #menu="mdMenu">
-        <!-- <a md-menu-item routerLink='/main' routerLinkActive="active">Склад</a> -->
-        <a md-menu-item routerLink='/stock' routerLinkActive="active">Склад</a>
-        <a md-menu-item routerLink='/catalog' routerLinkActive="active">Каталог товаров</a>
-        <a md-menu-item routerLink='/production' routerLinkActive="active">Производство</a>
-      </md-menu>
+      <li *ngIf="stockService.IsExistStock()"><a routerLink='/config' routerLinkActive="active"><fa name="cog" size="lg"></fa></a></li>
+      <li *ngIf="stockService.IsExistStock()"><a (click)="onResetStock()"><span>{{stockService.getCurrentStock()}}</span> <fa name="external-link" size="lg"></fa></a></li>
+      <div class="menu">
+        <button md-icon-button [mdMenuTriggerFor]="menu">
+          <fa name=bars size=lg></fa>
+        </button>
+        <md-menu #menu="mdMenu">
+          <!-- <a md-menu-item routerLink='/main' routerLinkActive="active">Склад</a> -->
+          <a *ngIf="!stockService.IsExistStock()" md-menu-item routerLink='/create' routerLinkActive="active">Создание склада</a>
+          <a *ngIf="stockService.IsExistStock()" md-menu-item routerLink='/stock' routerLinkActive="active">Склад</a>
+          <a *ngIf="stockService.IsExistStock()" md-menu-item routerLink='/catalog' routerLinkActive="active">Каталог товаров</a>
+          <a *ngIf="stockService.IsExistStock()" md-menu-item routerLink='/production' routerLinkActive="active">Производство</a>
+          <a *ngIf="stockService.IsExistStock()" md-menu-item routerLink='/config' routerLinkActive="active"><fa name="cog" size="lg"></fa></a>
+          <a *ngIf="stockService.IsExistStock()" md-menu-item (click)="onResetStock()"><span>{{stockService.getCurrentStock()}}</span> <fa name="external-link" size="lg"></fa></a>
+        </md-menu>
+      </div>
     </div>
 </ul>
 

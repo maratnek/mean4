@@ -24,6 +24,8 @@ webpackEmptyContext.id = "../../../../../src async recursive";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_stock_stock_component__ = __webpack_require__("../../../../../src/app/components/stock/stock.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_catalog_catalog_component__ = __webpack_require__("../../../../../src/app/components/catalog/catalog.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_production_production_component__ = __webpack_require__("../../../../../src/app/components/production/production.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_config_config_component__ = __webpack_require__("../../../../../src/app/components/config/config.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__guards_stock_guard__ = __webpack_require__("../../../../../src/app/guards/stock.guard.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppRoutingModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -38,13 +40,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
+
 var routes = [
     { path: '', redirectTo: '/create', pathMatch: 'full' },
     { path: 'create', component: __WEBPACK_IMPORTED_MODULE_2__components_create_stock_create_stock_component__["a" /* CreateStockComponent */] },
     { path: 'main', component: __WEBPACK_IMPORTED_MODULE_3__components_main_stock_main_stock_component__["a" /* MainStockComponent */] },
-    { path: 'catalog', component: __WEBPACK_IMPORTED_MODULE_5__components_catalog_catalog_component__["a" /* CatalogComponent */] },
-    { path: 'production', component: __WEBPACK_IMPORTED_MODULE_6__components_production_production_component__["a" /* ProductionComponent */] },
-    { path: 'stock', component: __WEBPACK_IMPORTED_MODULE_4__components_stock_stock_component__["a" /* StockComponent */] },
+    { path: 'catalog', component: __WEBPACK_IMPORTED_MODULE_5__components_catalog_catalog_component__["a" /* CatalogComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_8__guards_stock_guard__["a" /* StockGuard */]] },
+    { path: 'production', component: __WEBPACK_IMPORTED_MODULE_6__components_production_production_component__["a" /* ProductionComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_8__guards_stock_guard__["a" /* StockGuard */]] },
+    { path: 'stock', component: __WEBPACK_IMPORTED_MODULE_4__components_stock_stock_component__["a" /* StockComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_8__guards_stock_guard__["a" /* StockGuard */]] },
+    { path: 'config', component: __WEBPACK_IMPORTED_MODULE_7__components_config_config_component__["a" /* ConfigComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_8__guards_stock_guard__["a" /* StockGuard */]] },
 ];
 var AppRoutingModule = (function () {
     function AppRoutingModule() {
@@ -53,8 +58,8 @@ var AppRoutingModule = (function () {
 }());
 AppRoutingModule = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["b" /* NgModule */])({
-        imports: [__WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* RouterModule */].forRoot(routes)],
-        exports: [__WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* RouterModule */]]
+        imports: [__WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* RouterModule */].forRoot(routes)],
+        exports: [__WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* RouterModule */]]
     })
 ], AppRoutingModule);
 
@@ -109,7 +114,7 @@ var AppComponent = (function () {
     return AppComponent;
 }());
 AppComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_5" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* Component */])({
         selector: 'app-root',
         template: __webpack_require__("../../../../../src/app/app.component.html"),
         styles: [__webpack_require__("../../../../../src/app/app.component.scss")]
@@ -147,6 +152,8 @@ AppComponent = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_production_product_table_product_table_component__ = __webpack_require__("../../../../../src/app/components/production/product-table/product-table.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__components_stock_stock_table_stock_table_component__ = __webpack_require__("../../../../../src/app/components/stock/stock-table/stock-table.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__components_stock_stock_income_stock_income_component__ = __webpack_require__("../../../../../src/app/components/stock/stock-income/stock-income.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__components_config_config_component__ = __webpack_require__("../../../../../src/app/components/config/config.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__guards_stock_guard__ = __webpack_require__("../../../../../src/app/guards/stock.guard.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -166,6 +173,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 // Angular material
 
 // import {CdkTableModule} from '@angular/cdk';
+
+
 
 
 
@@ -200,7 +209,8 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_18__components_production_product_create_product_create_component__["a" /* ProductCreateComponent */],
             __WEBPACK_IMPORTED_MODULE_19__components_production_product_table_product_table_component__["a" /* ProductTableComponent */],
             __WEBPACK_IMPORTED_MODULE_20__components_stock_stock_table_stock_table_component__["a" /* StockTableComponent */],
-            __WEBPACK_IMPORTED_MODULE_21__components_stock_stock_income_stock_income_component__["a" /* StockIncomeComponent */]
+            __WEBPACK_IMPORTED_MODULE_21__components_stock_stock_income_stock_income_component__["a" /* StockIncomeComponent */],
+            __WEBPACK_IMPORTED_MODULE_22__components_config_config_component__["a" /* ConfigComponent */],
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_7_angular_font_awesome_angular_font_awesome__["a" /* AngularFontAwesomeModule */],
@@ -214,7 +224,7 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_6__angular_forms__["a" /* FormsModule */],
             __WEBPACK_IMPORTED_MODULE_6__angular_forms__["b" /* ReactiveFormsModule */]
         ],
-        providers: [__WEBPACK_IMPORTED_MODULE_3__services_stock_service__["a" /* StockService */]],
+        providers: [__WEBPACK_IMPORTED_MODULE_3__services_stock_service__["a" /* StockService */], __WEBPACK_IMPORTED_MODULE_23__guards_stock_guard__["a" /* StockGuard */], __WEBPACK_IMPORTED_MODULE_3__services_stock_service__["a" /* StockService */]],
         bootstrap: [__WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* AppComponent */]],
     })
 ], AppModule);
@@ -312,15 +322,15 @@ var CatalogFormComponent = (function () {
     return CatalogFormComponent;
 }());
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Input */])(),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Input */])(),
     __metadata("design:type", Object)
 ], CatalogFormComponent.prototype, "catalog", void 0);
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Input */])(),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Input */])(),
     __metadata("design:type", Boolean)
 ], CatalogFormComponent.prototype, "edit", void 0);
 CatalogFormComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_5" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* Component */])({
         selector: 'catalog-form',
         template: __webpack_require__("../../../../../src/app/components/catalog/catalog-form/catalog-form.component.html"),
         styles: [__webpack_require__("../../../../../src/app/components/catalog/catalog-form/catalog-form.component.scss")]
@@ -403,7 +413,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var CatalogTableComponent = (function () {
     function CatalogTableComponent(_dataService) {
         this._dataService = _dataService;
-        this.onEdit = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["F" /* EventEmitter */]();
+        this.onEdit = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["s" /* EventEmitter */]();
         this.displayedColumns = ['name', 'measure', 'price', 'storePlace', 'delete', 'edit'];
         this.selection = new __WEBPACK_IMPORTED_MODULE_3__angular_material__["c" /* SelectionModel */](true, []);
         this.catalog = new __WEBPACK_IMPORTED_MODULE_5_rxjs_BehaviorSubject__["BehaviorSubject"]([]);
@@ -476,23 +486,23 @@ var CatalogTableComponent = (function () {
     return CatalogTableComponent;
 }());
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_4" /* Output */])(),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["v" /* Output */])(),
     __metadata("design:type", Object)
 ], CatalogTableComponent.prototype, "onEdit", void 0);
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_8" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_3__angular_material__["d" /* MdSort */]),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_16" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_3__angular_material__["d" /* MdSort */]),
     __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__angular_material__["d" /* MdSort */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_material__["d" /* MdSort */]) === "function" && _a || Object)
 ], CatalogTableComponent.prototype, "sort", void 0);
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_8" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_3__angular_material__["e" /* MdPaginator */]),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_16" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_3__angular_material__["e" /* MdPaginator */]),
     __metadata("design:type", typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__angular_material__["e" /* MdPaginator */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_material__["e" /* MdPaginator */]) === "function" && _b || Object)
 ], CatalogTableComponent.prototype, "paginator", void 0);
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_8" /* ViewChild */])('filter'),
-    __metadata("design:type", typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__angular_core__["M" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_core__["M" /* ElementRef */]) === "function" && _c || Object)
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_16" /* ViewChild */])('filter'),
+    __metadata("design:type", typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__angular_core__["m" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_core__["m" /* ElementRef */]) === "function" && _c || Object)
 ], CatalogTableComponent.prototype, "filter", void 0);
 CatalogTableComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_5" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_14" /* Component */])({
         selector: 'catalog-table',
         template: __webpack_require__("../../../../../src/app/components/catalog/catalog-table/catalog-table.component.html"),
         styles: [__webpack_require__("../../../../../src/app/components/catalog/catalog-table/catalog-table.component.scss")]
@@ -666,7 +676,7 @@ var CatalogComponent = (function () {
     return CatalogComponent;
 }());
 CatalogComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_5" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* Component */])({
         selector: 'app-catalog',
         template: __webpack_require__("../../../../../src/app/components/catalog/catalog.component.html"),
         styles: [__webpack_require__("../../../../../src/app/components/catalog/catalog.component.scss")]
@@ -678,10 +688,71 @@ CatalogComponent = __decorate([
 
 /***/ }),
 
+/***/ "../../../../../src/app/components/config/config.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"my-container\">\n  <md-card>\n      <h3>Конфигурация для БД</h3>\n      <p>На стадии разработки</p>\n  </md-card>\n</div>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/config/config.component.scss":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/config/config.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ConfigComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var ConfigComponent = (function () {
+    function ConfigComponent() {
+    }
+    ConfigComponent.prototype.ngOnInit = function () {
+    };
+    return ConfigComponent;
+}());
+ConfigComponent = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* Component */])({
+        selector: 'app-config',
+        template: __webpack_require__("../../../../../src/app/components/config/config.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/components/config/config.component.scss")]
+    }),
+    __metadata("design:paramtypes", [])
+], ConfigComponent);
+
+//# sourceMappingURL=config.component.js.map
+
+/***/ }),
+
 /***/ "../../../../../src/app/components/create-stock/create-stock.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!-- <md-grid-list cols=\"1\" rowHeight=\"3:1\">\n  <md-grid-tile colspan=1 rowspan=1> -->\n  <div class=\"my-container\">\n    <div class=\"my-card\">\n    <md-card *ngIf=\"!success\">\n\n        <h1>Создайте склад или выберите из существующего</h1>\n\n      <md-grid-list cols=\"2\">\n        <md-grid-tile>\n          <md-card-content>\n            <md-input-container>\n              <input type=\"text\" mdInput [(ngModel)]=\"stockName\" #ctrl =\"ngModel\"  required placeholder=\"Название склада\">\n            </md-input-container>\n            <h1>{{stockName}}</h1>\n          </md-card-content>\n        </md-grid-tile>\n        <md-grid-tile>\n          <md-nav-list>\n            <md-list-item *ngFor=\"let stock of stocks\">\n              <h3>{{stock}}</h3>\n            </md-list-item>\n          </md-nav-list>\n        </md-grid-tile>\n      </md-grid-list>\n      <md-card-actions>\n        <a md-raised-button *ngIf=\"stockName\" (keyup.enter)=\"createStockName(stockName)\" (click)=\"createStockName(stockName)\">Создать</a>\n      </md-card-actions>\n    </md-card>\n</div>\n<div class=\"my-card\">\n  <!-- </md-grid-tile> -->\n\n  <!-- <md-grid-tile colspan=1 rowspan=1> -->\n\n    <md-card *ngIf=\"success\">\n\n        <h1>Определите конфигурацию для склада: {{stockName}}</h1>\n\n      <md-card-content>\n\n      <p>\n        Создается новый склад. Конфигурация основной таблицы.\n        Или выберети конфигурацию по умолчанию\n      </p>\n    </md-card-content>\n    <md-card-actions>\n      <a md-raised-button (keyup.enter)='createStockConfig()' (click)='createStockConfig()'>По умолчанию</a>\n    </md-card-actions>\n\n    </md-card>\n\n  </div>\n  </div>\n  <!-- </md-grid-tile>\n</md-grid-list> -->\n"
+module.exports = "<!-- <md-grid-list cols=\"1\" rowHeight=\"3:1\">\n  <md-grid-tile colspan=1 rowspan=1> -->\n  <div class=\"my-container\">\n    <div class=\"my-card\">\n    <md-card *ngIf=\"!success\">\n\n        <h1>Создайте склад или выберите из существующего</h1>\n\n      <md-grid-list cols=\"2\">\n        <md-grid-tile>\n          <md-card-content>\n            <md-input-container>\n              <input type=\"text\" mdInput [(ngModel)]=\"stockName\" #ctrl =\"ngModel\"  required placeholder=\"Название склада\">\n            </md-input-container>\n            <h1>{{stockName}}</h1>\n          </md-card-content>\n        </md-grid-tile>\n        <md-grid-tile>\n          <md-nav-list>\n            <md-list-item *ngFor=\"let stock of stocks\" (click)=\"EnterCurrentStock(stock)\">\n              <h3>{{stock}}</h3>\n            </md-list-item>\n          </md-nav-list>\n        </md-grid-tile>\n      </md-grid-list>\n      <md-card-actions>\n        <a md-raised-button *ngIf=\"stockName\" (keyup.enter)=\"createStockName(stockName)\" (click)=\"createStockName(stockName)\">Создать</a>\n      </md-card-actions>\n    </md-card>\n</div>\n<div class=\"my-card\">\n  <!-- </md-grid-tile> -->\n\n  <!-- <md-grid-tile colspan=1 rowspan=1> -->\n\n    <md-card *ngIf=\"success\">\n\n        <h1>Определите конфигурацию для склада: {{stockName}}</h1>\n\n      <md-card-content>\n\n      <p>\n        Создается новый склад. Конфигурация основной таблицы.\n        Или выберети конфигурацию по умолчанию\n      </p>\n    </md-card-content>\n    <md-card-actions>\n      <a md-raised-button (keyup.enter)='createStockConfig()' (click)='createStockConfig()'>По умолчанию</a>\n    </md-card-actions>\n\n    </md-card>\n\n  </div>\n  </div>\n  <!-- </md-grid-tile>\n</md-grid-list> -->\n"
 
 /***/ }),
 
@@ -755,6 +826,10 @@ var CreateStockComponent = (function () {
             }
         });
     };
+    CreateStockComponent.prototype.EnterCurrentStock = function (stock) {
+        this._dataService.setCurrentStock(stock);
+        this.router.navigate(['/stock']);
+    };
     CreateStockComponent.prototype.correctName = function () {
         if (this.stockName.length)
             return true;
@@ -784,12 +859,12 @@ var CreateStockComponent = (function () {
     return CreateStockComponent;
 }());
 CreateStockComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_5" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* Component */])({
         selector: 'app-create-stock',
         template: __webpack_require__("../../../../../src/app/components/create-stock/create-stock.component.html"),
         styles: [__webpack_require__("../../../../../src/app/components/create-stock/create-stock.component.scss")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__services_stock_service__["a" /* StockService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_stock_service__["a" /* StockService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__services_stock_service__["a" /* StockService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_stock_service__["a" /* StockService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]) === "function" && _b || Object])
 ], CreateStockComponent);
 
 var _a, _b;
@@ -876,7 +951,7 @@ var MainStockComponent = (function () {
     return MainStockComponent;
 }());
 MainStockComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_5" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* Component */])({
         selector: 'app-main-stock',
         template: __webpack_require__("../../../../../src/app/components/main-stock/main-stock.component.html"),
         styles: [__webpack_require__("../../../../../src/app/components/main-stock/main-stock.component.scss")]
@@ -955,7 +1030,7 @@ var ExampleDataSource = (function (_super) {
 /***/ "../../../../../src/app/components/navbar/navbar.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar\">\n\n  <ul>\n    <li>{{stockName}}</li>\n    <!-- <li><a routerLink='/main' routerLinkActive=\"active\">Склад</a></li> -->\n    <li><a routerLink='/stock' routerLinkActive=\"active\">Склад</a></li>\n    <li><a routerLink='/catalog' routerLinkActive=\"active\">Каталог товаров</a></li>\n    <li><a routerLink='/production' routerLinkActive=\"active\">Производство</a></li>\n    <div class=\"right\">\n      <button md-icon-button [mdMenuTriggerFor]=\"menu\">\n        <md-icon>more_vert</md-icon>\n      </button>\n      <md-menu #menu=\"mdMenu\">\n        <!-- <a md-menu-item routerLink='/main' routerLinkActive=\"active\">Склад</a> -->\n        <a md-menu-item routerLink='/stock' routerLinkActive=\"active\">Склад</a>\n        <a md-menu-item routerLink='/catalog' routerLinkActive=\"active\">Каталог товаров</a>\n        <a md-menu-item routerLink='/production' routerLinkActive=\"active\">Производство</a>\n      </md-menu>\n    </div>\n</ul>\n\n</nav>\n\n<div class=\"pad-top\"></div>\n"
+module.exports = "<nav class=\"navbar\">\n\n  <ul>\n    <li>{{stockName}}</li>\n    <!-- <li><a routerLink='/main' routerLinkActive=\"active\">Склад</a></li> -->\n    <li *ngIf=\"!stockService.IsExistStock()\"><a routerLink='/create' routerLinkActive=\"active\">Cоздание склада</a></li>\n    <li *ngIf=\"stockService.IsExistStock()\"><a routerLink='/stock' routerLinkActive=\"active\">Склад</a></li>\n    <li *ngIf=\"stockService.IsExistStock()\"><a routerLink='/catalog' routerLinkActive=\"active\">Каталог товаров</a></li>\n    <li *ngIf=\"stockService.IsExistStock()\"><a routerLink='/production' routerLinkActive=\"active\">Производство</a></li>\n    <div class=\"right\">\n      <li *ngIf=\"stockService.IsExistStock()\"><a routerLink='/config' routerLinkActive=\"active\"><fa name=\"cog\" size=\"lg\"></fa></a></li>\n      <li *ngIf=\"stockService.IsExistStock()\"><a (click)=\"onResetStock()\"><span>{{stockService.getCurrentStock()}}</span> <fa name=\"external-link\" size=\"lg\"></fa></a></li>\n      <div class=\"menu\">\n        <button md-icon-button [mdMenuTriggerFor]=\"menu\">\n          <fa name=bars size=lg></fa>\n        </button>\n        <md-menu #menu=\"mdMenu\">\n          <!-- <a md-menu-item routerLink='/main' routerLinkActive=\"active\">Склад</a> -->\n          <a *ngIf=\"!stockService.IsExistStock()\" md-menu-item routerLink='/create' routerLinkActive=\"active\">Создание склада</a>\n          <a *ngIf=\"stockService.IsExistStock()\" md-menu-item routerLink='/stock' routerLinkActive=\"active\">Склад</a>\n          <a *ngIf=\"stockService.IsExistStock()\" md-menu-item routerLink='/catalog' routerLinkActive=\"active\">Каталог товаров</a>\n          <a *ngIf=\"stockService.IsExistStock()\" md-menu-item routerLink='/production' routerLinkActive=\"active\">Производство</a>\n          <a *ngIf=\"stockService.IsExistStock()\" md-menu-item routerLink='/config' routerLinkActive=\"active\"><fa name=\"cog\" size=\"lg\"></fa></a>\n          <a *ngIf=\"stockService.IsExistStock()\" md-menu-item (click)=\"onResetStock()\"><span>{{stockService.getCurrentStock()}}</span> <fa name=\"external-link\" size=\"lg\"></fa></a>\n        </md-menu>\n      </div>\n    </div>\n</ul>\n\n</nav>\n\n<div class=\"pad-top\"></div>\n"
 
 /***/ }),
 
@@ -967,7 +1042,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".right {\n  float: right; }\n\n.navbar {\n  background-color: #583123;\n  width: 100%;\n  color: white;\n  position: fixed;\n  top: 0;\n  left: 0; }\n  .navbar ul {\n    width: 100%;\n    list-style-type: none;\n    overflow: hidden;\n    margin: 0;\n    padding: 0; }\n    .navbar ul li {\n      float: left; }\n      @media screen and (max-width: 480px) {\n        .navbar ul li {\n          display: none; } }\n      .navbar ul li a {\n        text-align: center;\n        display: block;\n        color: white;\n        text-decoration: none;\n        padding: 16px 25px;\n        transition: 0.3s linear; }\n        .navbar ul li a:hover {\n          transition: 0.3s linear;\n          background-color: white;\n          color: #583123;\n          cursor: pointer; }\n\n.active {\n  background-color: white;\n  color: #583123 !important; }\n\n.pad-top {\n  height: 50px; }\n", ""]);
+exports.push([module.i, ".right {\n  float: right; }\n\n.navbar {\n  background-color: #583123;\n  width: 100%;\n  color: white;\n  position: fixed;\n  top: 0;\n  left: 0; }\n  .navbar .min-menu {\n    display: inline; }\n    @media screen and (min-width: 699px) {\n      .navbar .min-menu {\n        display: none; } }\n  .navbar ul {\n    width: 100%;\n    list-style-type: none;\n    overflow: hidden;\n    margin: 0;\n    padding: 0; }\n    .navbar ul li {\n      float: left; }\n      @media screen and (max-width: 700px) {\n        .navbar ul li {\n          display: none; } }\n      .navbar ul li a {\n        text-align: center;\n        display: block;\n        color: white;\n        text-decoration: none;\n        padding: 16px 25px;\n        transition: 0.3s linear; }\n        .navbar ul li a:hover {\n          transition: 0.3s linear;\n          background-color: white;\n          color: #583123;\n          cursor: pointer; }\n\n.active {\n  background-color: white;\n  color: #583123 !important; }\n\n.pad-top {\n  height: 50px; }\n", ""]);
 
 // exports
 
@@ -982,6 +1057,8 @@ module.exports = module.exports.toString();
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_stock_service__ = __webpack_require__("../../../../../src/app/services/stock.service.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NavbarComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -993,22 +1070,31 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
+
 var NavbarComponent = (function () {
-    function NavbarComponent() {
+    function NavbarComponent(stockService, router) {
+        this.stockService = stockService;
+        this.router = router;
     }
     NavbarComponent.prototype.ngOnInit = function () {
+    };
+    NavbarComponent.prototype.onResetStock = function () {
+        this.stockService.setCurrentStock('');
+        this.router.navigate(['/create']);
     };
     return NavbarComponent;
 }());
 NavbarComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_5" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* Component */])({
         selector: 'app-navbar',
         template: __webpack_require__("../../../../../src/app/components/navbar/navbar.component.html"),
         styles: [__webpack_require__("../../../../../src/app/components/navbar/navbar.component.scss")]
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__services_stock_service__["a" /* StockService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_stock_service__["a" /* StockService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]) === "function" && _b || Object])
 ], NavbarComponent);
 
+var _a, _b;
 //# sourceMappingURL=navbar.component.js.map
 
 /***/ }),
@@ -1083,7 +1169,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var ProductCreateComponent = (function () {
     function ProductCreateComponent(_dataService) {
         this._dataService = _dataService;
-        this.getDataFromCatalog = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* EventEmitter */]();
+        this.getDataFromCatalog = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["s" /* EventEmitter */]();
         this.displayedColumns = ['select', 'name', 'count'];
         this.selection = new __WEBPACK_IMPORTED_MODULE_3__angular_material__["c" /* SelectionModel */](true, []);
         this.catalog = new __WEBPACK_IMPORTED_MODULE_5_rxjs_BehaviorSubject__["BehaviorSubject"]([]);
@@ -1161,28 +1247,28 @@ var ProductCreateComponent = (function () {
     return ProductCreateComponent;
 }());
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_4" /* Output */])(),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* Output */])(),
     __metadata("design:type", Object)
 ], ProductCreateComponent.prototype, "getDataFromCatalog", void 0);
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Input */])(),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Input */])(),
     __metadata("design:type", Boolean),
     __metadata("design:paramtypes", [Boolean])
 ], ProductCreateComponent.prototype, "product", null);
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_3__angular_material__["d" /* MdSort */]),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_16" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_3__angular_material__["d" /* MdSort */]),
     __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__angular_material__["d" /* MdSort */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_material__["d" /* MdSort */]) === "function" && _a || Object)
 ], ProductCreateComponent.prototype, "sort", void 0);
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_3__angular_material__["e" /* MdPaginator */]),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_16" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_3__angular_material__["e" /* MdPaginator */]),
     __metadata("design:type", typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__angular_material__["e" /* MdPaginator */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_material__["e" /* MdPaginator */]) === "function" && _b || Object)
 ], ProductCreateComponent.prototype, "paginator", void 0);
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('filter'),
-    __metadata("design:type", typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* ElementRef */]) === "function" && _c || Object)
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_16" /* ViewChild */])('filter'),
+    __metadata("design:type", typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* ElementRef */]) === "function" && _c || Object)
 ], ProductCreateComponent.prototype, "filter", void 0);
 ProductCreateComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_5" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* Component */])({
         selector: 'product-create',
         template: __webpack_require__("../../../../../src/app/components/production/product-create/product-create.component.html"),
         styles: [__webpack_require__("../../../../../src/app/components/production/product-create/product-create.component.scss")]
@@ -1350,7 +1436,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var ProductTableComponent = (function () {
     function ProductTableComponent(_dataService) {
         this._dataService = _dataService;
-        this.onEdit = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* EventEmitter */]();
+        this.onEdit = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["s" /* EventEmitter */]();
         // products: Subject<any[]> = new Subject<any[]>();
         this.products = [];
         this.load = true;
@@ -1378,16 +1464,16 @@ var ProductTableComponent = (function () {
     return ProductTableComponent;
 }());
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_4" /* Output */])(),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* Output */])(),
     __metadata("design:type", Object)
 ], ProductTableComponent.prototype, "onEdit", void 0);
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Input */])(),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Input */])(),
     __metadata("design:type", Boolean),
     __metadata("design:paramtypes", [Boolean])
 ], ProductTableComponent.prototype, "change", null);
 ProductTableComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_5" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* Component */])({
         selector: 'product-table',
         template: __webpack_require__("../../../../../src/app/components/production/product-table/product-table.component.html"),
         styles: [__webpack_require__("../../../../../src/app/components/production/product-table/product-table.component.scss")]
@@ -1488,7 +1574,7 @@ var ProductionComponent = (function () {
     return ProductionComponent;
 }());
 ProductionComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_5" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* Component */])({
         selector: 'app-production',
         template: __webpack_require__("../../../../../src/app/components/production/production.component.html"),
         styles: [__webpack_require__("../../../../../src/app/components/production/production.component.scss")]
@@ -1550,7 +1636,7 @@ var StockIncomeComponent = (function () {
     return StockIncomeComponent;
 }());
 StockIncomeComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_5" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* Component */])({
         selector: 'stock-income',
         template: __webpack_require__("../../../../../src/app/components/stock/stock-income/stock-income.component.html"),
         styles: [__webpack_require__("../../../../../src/app/components/stock/stock-income/stock-income.component.scss")]
@@ -1632,7 +1718,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var StockTableComponent = (function () {
     function StockTableComponent(_dataService) {
         this._dataService = _dataService;
-        this.onEdit = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["F" /* EventEmitter */]();
+        this.onEdit = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["s" /* EventEmitter */]();
         this.displayedColumns = ['name', 'measure', 'price', 'storePlace', 'delete', 'edit'];
         this.selection = new __WEBPACK_IMPORTED_MODULE_3__angular_material__["c" /* SelectionModel */](true, []);
         this.catalog = new __WEBPACK_IMPORTED_MODULE_5_rxjs_BehaviorSubject__["BehaviorSubject"]([]);
@@ -1705,23 +1791,23 @@ var StockTableComponent = (function () {
     return StockTableComponent;
 }());
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_4" /* Output */])(),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["v" /* Output */])(),
     __metadata("design:type", Object)
 ], StockTableComponent.prototype, "onEdit", void 0);
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_8" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_3__angular_material__["d" /* MdSort */]),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_16" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_3__angular_material__["d" /* MdSort */]),
     __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__angular_material__["d" /* MdSort */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_material__["d" /* MdSort */]) === "function" && _a || Object)
 ], StockTableComponent.prototype, "sort", void 0);
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_8" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_3__angular_material__["e" /* MdPaginator */]),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_16" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_3__angular_material__["e" /* MdPaginator */]),
     __metadata("design:type", typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__angular_material__["e" /* MdPaginator */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_material__["e" /* MdPaginator */]) === "function" && _b || Object)
 ], StockTableComponent.prototype, "paginator", void 0);
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_8" /* ViewChild */])('filter'),
-    __metadata("design:type", typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__angular_core__["M" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_core__["M" /* ElementRef */]) === "function" && _c || Object)
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_16" /* ViewChild */])('filter'),
+    __metadata("design:type", typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__angular_core__["m" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_core__["m" /* ElementRef */]) === "function" && _c || Object)
 ], StockTableComponent.prototype, "filter", void 0);
 StockTableComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_5" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_14" /* Component */])({
         selector: 'stock-table',
         template: __webpack_require__("../../../../../src/app/components/stock/stock-table/stock-table.component.html"),
         styles: [__webpack_require__("../../../../../src/app/components/stock/stock-table/stock-table.component.scss")]
@@ -1897,7 +1983,7 @@ var StockComponent = (function () {
     return StockComponent;
 }());
 StockComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_5" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* Component */])({
         selector: 'app-stock',
         template: __webpack_require__("../../../../../src/app/components/stock/stock.component.html"),
         styles: [__webpack_require__("../../../../../src/app/components/stock/stock.component.scss")]
@@ -1907,6 +1993,52 @@ StockComponent = __decorate([
 
 var _a;
 //# sourceMappingURL=stock.component.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/guards/stock.guard.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_stock_service__ = __webpack_require__("../../../../../src/app/services/stock.service.ts");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return StockGuard; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var StockGuard = (function () {
+    function StockGuard(stockService, router) {
+        this.stockService = stockService;
+        this.router = router;
+    }
+    StockGuard.prototype.canActivate = function () {
+        if (this.stockService.IsExistStock()) {
+            return true;
+        }
+        else {
+            this.router.navigate(['/create']);
+            return false;
+        }
+    };
+    return StockGuard;
+}());
+StockGuard = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Injectable */])(),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__services_stock_service__["a" /* StockService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_stock_service__["a" /* StockService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]) === "function" && _b || Object])
+], StockGuard);
+
+var _a, _b;
+//# sourceMappingURL=stock.guard.js.map
 
 /***/ }),
 
@@ -1936,6 +2068,9 @@ var StockService = (function () {
         this._http = _http;
         this.stockName = '';
     }
+    StockService.prototype.IsExistStock = function () {
+        return this.stockName.length !== 0;
+    };
     StockService.prototype.getCurrentStock = function () {
         return this.stockName;
     };

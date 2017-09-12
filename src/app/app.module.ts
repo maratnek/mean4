@@ -63,6 +63,9 @@ import { ProductCreateComponent } from './components/production/product-create/p
 import { ProductTableComponent } from './components/production/product-table/product-table.component';
 import { StockTableComponent } from './components/stock/stock-table/stock-table.component';
 import { StockIncomeComponent } from './components/stock/stock-income/stock-income.component';
+import { ConfigComponent } from './components/config/config.component';
+
+import {StockGuard} from './guards/stock.guard';
 
 @NgModule({
   declarations: [
@@ -78,7 +81,8 @@ import { StockIncomeComponent } from './components/stock/stock-income/stock-inco
     ProductCreateComponent,
     ProductTableComponent,
     StockTableComponent,
-    StockIncomeComponent
+    StockIncomeComponent,
+    ConfigComponent,
   ],
   imports: [
     AngularFontAwesomeModule,
@@ -92,7 +96,7 @@ import { StockIncomeComponent } from './components/stock/stock-income/stock-inco
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [StockService],
+  providers: [StockService, StockGuard, StockService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

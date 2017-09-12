@@ -17,7 +17,7 @@
         </md-grid-tile>
         <md-grid-tile>
           <md-nav-list>
-            <md-list-item *ngFor="let stock of stocks">
+            <md-list-item *ngFor="let stock of stocks" (click)="EnterCurrentStock(stock)">
               <h3>{{stock}}</h3>
             </md-list-item>
           </md-nav-list>

@@ -38,6 +38,11 @@ export class CreateStockComponent implements OnInit {
     });
   }
 
+  EnterCurrentStock(stock){
+    this._dataService.setCurrentStock(stock);  
+    this.router.navigate(['/stock']);
+  }
+
   private correctName(){
     if (this.stockName.length)
       return true;

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import {StockService} from '../../services/stock.service';
 
 @Component({
   selector: 'app-navbar',
@@ -8,9 +9,14 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private stockService: StockService, private router: Router) { }
 
   ngOnInit() {
+  }
+
+  onResetStock(){
+    this.stockService.setCurrentStock('');
+  	this.router.navigate(['/create']);
   }
 
 }

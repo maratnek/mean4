@@ -10,6 +10,10 @@ export class StockService {
 
   constructor(private _http: Http) { }
 
+  IsExistStock():boolean{
+    return this.stockName.length !== 0; 
+  }
+
   getCurrentStock(){
     return this.stockName;
   }
