@@ -1715,34 +1715,29 @@ var StockIncomeComponent = (function () {
     function StockIncomeComponent(_dataService) {
         this._dataService = _dataService;
         this.currentDate = new Date;
-        this.getDataFromCatalog = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["s" /* EventEmitter */]();
+        // dataTable:Observable<GoodElement[]>;
+        // @Output() getDataFromCatalog = new EventEmitter<Observable<GoodElement[]>>();
+        // @Input() set good(isSubmit:boolean){
+        //   this.dataTable = new Observable(observer => {
+        //
+        //     this.catalog.value.forEach(data => {
+        //       if(this.selection.isSelected(data.name))
+        //       {
+        //         observer.next({
+        //           _id : data._id,
+        //           name : data.name,
+        //           count : data.count
+        //         });
+        //       }
+        //     });
+        //     observer.complete();
+        //   });
+        //   this.getDataFromCatalog.emit(this.dataTable);
+        // }
         this.displayedColumns = ['select', 'name', 'count'];
         this.selection = new __WEBPACK_IMPORTED_MODULE_3__angular_material__["c" /* SelectionModel */](true, []);
         this.catalog = new __WEBPACK_IMPORTED_MODULE_5_rxjs_BehaviorSubject__["BehaviorSubject"]([]);
-        // dataTable: Observable<GoodElement[]>;
-        this.isSubmit = false;
-        this.product = {};
     }
-    Object.defineProperty(StockIncomeComponent.prototype, "good", {
-        set: function (isSubmit) {
-            var _this = this;
-            this.dataTable = new __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__["Observable"](function (observer) {
-                _this.catalog.value.forEach(function (data) {
-                    if (_this.selection.isSelected(data.name)) {
-                        observer.next({
-                            _id: data._id,
-                            name: data.name,
-                            count: data.count
-                        });
-                    }
-                });
-                observer.complete();
-            });
-            this.getDataFromCatalog.emit(this.dataTable);
-        },
-        enumerable: true,
-        configurable: true
-    });
     StockIncomeComponent.prototype.ngOnInit = function () {
         var _this = this;
         console.log(this.currentDate);
@@ -1766,24 +1761,25 @@ var StockIncomeComponent = (function () {
     StockIncomeComponent.prototype.onSubmit = function (data) {
         var _this = this;
         console.log(data);
-        console.log(data.form.valid);
         if (data.form.valid) {
             var dt_1 = [];
-            this.dataTable.subscribe(function (data) {
-                return dt_1.push(data);
-            }, function () { return console.log("Error"); }, function () {
-                _this.product.dataTable = dt_1;
-                console.log(_this.product);
-                _this._dataService.createProduct(_this.product, function (err) {
-                    if (err)
-                        console.log('Not create new product!!!');
-                    else {
-                        console.log('Create new product SUCCESS!!!');
-                        data.form.reset();
-                    }
-                });
+            this.catalog.value.forEach(function (data) {
+                if (_this.selection.isSelected(data.name))
+                    dt_1.push(data);
             });
-            this.isSubmit = true;
+            var incomeData = {};
+            incomeData.dataTable = dt_1;
+            // incomeData.date = this.currentDate;
+            incomeData.stockName = this._dataService.getCurrentStock();
+            console.log(incomeData);
+            this._dataService.incomeGoods(incomeData, function (err) {
+                if (err)
+                    console.log('Not income goods!!!');
+                else {
+                    console.log('Income new goods!!!');
+                    data.form.reset();
+                }
+            });
         }
     };
     StockIncomeComponent.prototype.changeSelected = function (row) {
@@ -1826,15 +1822,6 @@ var StockIncomeComponent = (function () {
     };
     return StockIncomeComponent;
 }());
-__decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* Output */])(),
-    __metadata("design:type", Object)
-], StockIncomeComponent.prototype, "getDataFromCatalog", void 0);
-__decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Input */])(),
-    __metadata("design:type", Boolean),
-    __metadata("design:paramtypes", [Boolean])
-], StockIncomeComponent.prototype, "good", null);
 __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_16" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_3__angular_material__["d" /* MdSort */]),
     __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__angular_material__["d" /* MdSort */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_material__["d" /* MdSort */]) === "function" && _a || Object)
@@ -1970,7 +1957,7 @@ var _a, _b, _c, _d;
 /***/ "../../../../../src/app/components/stock/stock-table/stock-table.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"\">\n  <h1>Склад {{_dataService.getCurrentStock()}}</h1>\n  <div class=\"my-container mat-elevation-z8\">\n\n    <div class=\"example-header\" [style.display]=\"selection.isEmpty() ? '' : 'none'\">\n      <md-input-container floatPlaceholder=\"never\">\n        <input mdInput #filter placeholder=\"Filter users\">\n      </md-input-container>\n    </div>\n\n    <md-table #table [dataSource]=\"dataSource\" mdSort>\n\n    <!-- Checkbox Column -->\n    <ng-container mdColumnDef=\"select\">\n      <md-header-cell *mdHeaderCellDef>\n        <md-checkbox (change)=\"$event ? masterToggle() : null\"\n                     [checked]=\"isAllSelected()\"\n                     [indeterminate]=\"selection.hasValue() && !isAllSelected()\">\n        </md-checkbox>\n      </md-header-cell>\n      <md-cell *mdCellDef=\"let row\">\n        <md-checkbox (click)=\"$event.stopPropagation()\"\n                     (change)=\"$event ? selection.toggle(row.name) : null\"\n                     [checked]=\"selection.isSelected(row.name)\">\n        </md-checkbox>\n      </md-cell>\n    </ng-container>\n\n    <ng-container mdColumnDef=\"name\">\n      <md-header-cell *mdHeaderCellDef md-sort-header> Имя </md-header-cell>\n      <md-cell *mdCellDef=\"let row\"> {{row.name}} </md-cell>\n    </ng-container>\n\n    <ng-container mdColumnDef=\"measure\">\n      <md-header-cell *mdHeaderCellDef md-sort-header> Ед.Изм. </md-header-cell>\n      <md-cell *mdCellDef=\"let row\"> {{row.measure}} </md-cell>\n    </ng-container>\n\n    <ng-container mdColumnDef=\"price\">\n      <md-header-cell *mdHeaderCellDef md-sort-header> Цена </md-header-cell>\n      <md-cell *mdCellDef=\"let row\"> {{row.price}} </md-cell>\n    </ng-container>\n\n    <ng-container mdColumnDef=\"storePlace\">\n      <md-header-cell *mdHeaderCellDef md-sort-header> Место Хр. </md-header-cell>\n      <md-cell *mdCellDef=\"let row\"> {{row.storePlace}} </md-cell>\n    </ng-container>\n\n    <ng-container mdColumnDef=\"date\">\n      <md-header-cell *mdHeaderCellDef md-sort-header> Дата пр. </md-header-cell>\n      <md-cell *mdCellDef=\"let row\"> {{row.date}} </md-cell>\n    </ng-container>\n\n    <ng-container mdColumnDef=\"delete\">\n      <md-header-cell *mdHeaderCellDef></md-header-cell>\n      <md-cell *mdCellDef=\"let row\" align=\"center\">\n        <button md-icon-button\n         (click)=\"delete(row.name)\">\n          <fa style=\"color:red\" name=\"trash-o\"></fa>\n        </button>\n      </md-cell>\n    </ng-container>\n\n    <ng-container mdColumnDef=\"edit\">\n      <md-header-cell *mdHeaderCellDef></md-header-cell>\n      <md-cell *mdCellDef=\"let row\"\n        (click)=\"edit(row)\">\n        <button md-icon-button>\n          <fa style=\"color:green\" name=\"pencil\"></fa>\n        </button>\n      </md-cell>\n    </ng-container>\n\n    <md-header-row *mdHeaderRowDef=\"displayedColumns\"></md-header-row>\n    <md-row *mdRowDef=\"let row; columns: displayedColumns;\"\n      [class.example-selected-row]=\"selection.isSelected(row.name)\"\n      (click)=\"selection.toggle(row.name)\">\n    </md-row>\n</md-table>\n  <div class=\"example-no-results\"\n       [style.display]=\"dataSource.renderedData.length == 0 ? '' : 'none'\">\n       Нет данных по данному фильтру.\n  </div>\n\n  <md-paginator #paginator\n                [length]=\"dataSource.filteredData.length\"\n                [pageIndex]=\"0\"\n                [pageSize]=\"5\"\n                [pageSizeOptions]=\"[5, 10, 25, 100]\">\n  </md-paginator>\n\n</div>\n\n</div>\n"
+module.exports = "<div class=\"\">\n  <h1>Склад {{_dataService.getCurrentStock()}}</h1>\n  <div class=\"my-container mat-elevation-z8\">\n\n    <div class=\"example-header\" [style.display]=\"selection.isEmpty() ? '' : 'none'\">\n      <md-input-container floatPlaceholder=\"never\">\n        <input mdInput #filter placeholder=\"Filter users\">\n      </md-input-container>\n    </div>\n\n    <md-table #table [dataSource]=\"dataSource\" mdSort>\n\n    <!-- Checkbox Column -->\n    <ng-container mdColumnDef=\"select\">\n      <md-header-cell *mdHeaderCellDef>\n        <md-checkbox (change)=\"$event ? masterToggle() : null\"\n                     [checked]=\"isAllSelected()\"\n                     [indeterminate]=\"selection.hasValue() && !isAllSelected()\">\n        </md-checkbox>\n      </md-header-cell>\n      <md-cell *mdCellDef=\"let row\">\n        <md-checkbox (click)=\"$event.stopPropagation()\"\n                     (change)=\"$event ? selection.toggle(row.name) : null\"\n                     [checked]=\"selection.isSelected(row.name)\">\n        </md-checkbox>\n      </md-cell>\n    </ng-container>\n\n    <ng-container mdColumnDef=\"name\">\n      <md-header-cell *mdHeaderCellDef md-sort-header> Имя </md-header-cell>\n      <md-cell *mdCellDef=\"let row\"> {{row.name}} </md-cell>\n    </ng-container>\n\n    <ng-container mdColumnDef=\"measure\">\n      <md-header-cell *mdHeaderCellDef md-sort-header> Ед.Изм. </md-header-cell>\n      <md-cell *mdCellDef=\"let row\"> {{row.measure}} </md-cell>\n    </ng-container>\n\n    <ng-container mdColumnDef=\"price\">\n      <md-header-cell *mdHeaderCellDef md-sort-header> Цена </md-header-cell>\n      <md-cell *mdCellDef=\"let row\"> {{row.price}} </md-cell>\n    </ng-container>\n\n    <ng-container mdColumnDef=\"storePlace\">\n      <md-header-cell *mdHeaderCellDef md-sort-header> Место Хр. </md-header-cell>\n      <md-cell *mdCellDef=\"let row\"> {{row.storePlace}} </md-cell>\n    </ng-container>\n\n    <ng-container mdColumnDef=\"date\">\n      <md-header-cell *mdHeaderCellDef md-sort-header> Дата пр. </md-header-cell>\n      <md-cell *mdCellDef=\"let row\"> {{row.publishedDate | date}} </md-cell>\n    </ng-container>\n\n    <ng-container mdColumnDef=\"delete\">\n      <md-header-cell *mdHeaderCellDef></md-header-cell>\n      <md-cell *mdCellDef=\"let row\" align=\"center\">\n        <button md-icon-button\n         (click)=\"delete(row.name)\">\n          <fa style=\"color:red\" name=\"trash-o\"></fa>\n        </button>\n      </md-cell>\n    </ng-container>\n\n    <ng-container mdColumnDef=\"edit\">\n      <md-header-cell *mdHeaderCellDef></md-header-cell>\n      <md-cell *mdCellDef=\"let row\"\n        (click)=\"edit(row)\">\n        <button md-icon-button>\n          <fa style=\"color:green\" name=\"pencil\"></fa>\n        </button>\n      </md-cell>\n    </ng-container>\n\n    <md-header-row *mdHeaderRowDef=\"displayedColumns\"></md-header-row>\n    <md-row *mdRowDef=\"let row; columns: displayedColumns;\"\n      [class.example-selected-row]=\"selection.isSelected(row.name)\"\n      (click)=\"selection.toggle(row.name)\">\n    </md-row>\n</md-table>\n  <div class=\"example-no-results\"\n       [style.display]=\"dataSource.renderedData.length == 0 ? '' : 'none'\">\n       Нет данных по данному фильтру.\n  </div>\n\n  <md-paginator #paginator\n                [length]=\"dataSource.filteredData.length\"\n                [pageIndex]=\"0\"\n                [pageSize]=\"5\"\n                [pageSizeOptions]=\"[5, 10, 25, 100]\">\n  </md-paginator>\n\n</div>\n\n</div>\n"
 
 /***/ }),
 
@@ -2045,7 +2032,7 @@ var StockTableComponent = (function () {
     StockTableComponent.prototype.ngOnInit = function () {
         var _this = this;
         this._dataService.getStockGoods().subscribe({
-            next: function (value) { _this.catalog.next(value); }
+            next: function (value) { _this.catalog.next(value); console.log(value); }
         });
         this.dataSource = new CatalogDataSource(this.catalog, this.sort, this.paginator);
         __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__["Observable"].fromEvent(this.filter.nativeElement, 'keyup')
@@ -2251,7 +2238,7 @@ var _a, _b, _c, _d;
 /***/ "../../../../../src/app/components/stock/stock.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"my-container\">\n\n  <md-sidenav-container class=\"my-height\">\n    <md-sidenav #sidenav mode=\"side\" opened=\"true\">\n      <button *ngIf=\"sidenav.opened\" md-mini-fab class=\"my-fab\" (click)=\"sidenav.toggle()\">\n        <fa  name=\"times\"></fa>\n      </button>\n      <md-toolbar class=\"my-toolbar\">\n        <md-toolbar-row class=\"my-toolbar-row\" (click)=\"menuToolbarActive = 1\">\n          <span>Склад</span>\n        </md-toolbar-row>\n\n        <md-toolbar-row class=\"my-toolbar-row\" (click)=\"menuToolbarActive = 2;\">\n          <span>Приход</span>\n        </md-toolbar-row>\n\n        <md-toolbar-row class=\"my-toolbar-row\" (click)=\"menuToolbarActive = 3;\">\n          <span>Выписка</span>\n        </md-toolbar-row>\n      </md-toolbar>\n\n    </md-sidenav>\n\n    <button *ngIf=\"!sidenav.opened\" md-mini-fab class=\"my-fab bars\" (click)=\"sidenav.toggle()\">\n      <fa  name=\"bars\"></fa>\n    </button>\n\n    <div class=\"my-container\">\n      <div [style.display]=\"menuToolbarActive === 1 ? '' : 'none'\" class=\"\">\n        <!-- <product-table [change]=\"menuToolbarActive === 1\"  (onEdit)=\"catalog = $event; menuToolbarActive = 2; edit = true;\"></product-table> -->\n        <stock-table></stock-table>\n      </div>\n\n      <div [style.display]=\"menuToolbarActive === 2 ? '': 'none'\" class=\"my-card\">\n        <stock-income [good]=\"isSubmit\" (getDataFromCatalog)=\"incomeGoods = $event\"></stock-income>\n      </div>\n\n      <div [style.display]=\"menuToolbarActive === 3 ? '': 'none'\" class=\"my-card\">\n        <stock-expense></stock-expense>\n      </div>\n    </div>\n  </md-sidenav-container>\n</div>\n"
+module.exports = "<div class=\"my-container\">\n\n  <md-sidenav-container class=\"my-height\">\n    <md-sidenav #sidenav mode=\"side\" opened=\"true\">\n      <button *ngIf=\"sidenav.opened\" md-mini-fab class=\"my-fab\" (click)=\"sidenav.toggle()\">\n        <fa  name=\"times\"></fa>\n      </button>\n      <md-toolbar class=\"my-toolbar\">\n        <md-toolbar-row class=\"my-toolbar-row\" (click)=\"menuToolbarActive = 1\">\n          <span>Склад</span>\n        </md-toolbar-row>\n\n        <md-toolbar-row class=\"my-toolbar-row\" (click)=\"menuToolbarActive = 2;\">\n          <span>Приход</span>\n        </md-toolbar-row>\n\n        <md-toolbar-row class=\"my-toolbar-row\" (click)=\"menuToolbarActive = 3;\">\n          <span>Выписка</span>\n        </md-toolbar-row>\n      </md-toolbar>\n\n    </md-sidenav>\n\n    <button *ngIf=\"!sidenav.opened\" md-mini-fab class=\"my-fab bars\" (click)=\"sidenav.toggle()\">\n      <fa  name=\"bars\"></fa>\n    </button>\n\n    <div class=\"my-container\">\n      <div [style.display]=\"menuToolbarActive === 1 ? '' : 'none'\" class=\"\">\n        <!-- <product-table [change]=\"menuToolbarActive === 1\"  (onEdit)=\"catalog = $event; menuToolbarActive = 2; edit = true;\"></product-table> -->\n        <stock-table></stock-table>\n      </div>\n\n      <div [style.display]=\"menuToolbarActive === 2 ? '': 'none'\" class=\"my-card\">\n        <stock-income></stock-income>\n      </div>\n\n      <div [style.display]=\"menuToolbarActive === 3 ? '': 'none'\" class=\"my-card\">\n        <stock-expense></stock-expense>\n      </div>\n    </div>\n  </md-sidenav-container>\n</div>\n"
 
 /***/ }),
 
@@ -2408,7 +2395,7 @@ var StockService = (function () {
     };
     StockService.prototype.getStockGoods = function () {
         var _this = this;
-        return this._http.get("/api/stock-goods")
+        return this._http.get("/api/stock-goods?name=" + this.stockName)
             .map(function (result) { return _this.result = result.json().data; });
     };
     StockService.prototype.incomeGoods = function (goods, callback) {

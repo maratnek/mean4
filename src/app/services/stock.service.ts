@@ -34,7 +34,7 @@ export class StockService {
   }
 
   getStockGoods() {
-    return this._http.get("/api/stock-goods")
+    return this._http.get("/api/stock-goods?name=" + this.stockName)
     .map(result => this.result = result.json().data);
   }
 

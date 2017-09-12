@@ -3,7 +3,7 @@ const router = express.Router();
 const MongoClient = require('mongodb').MongoClient;
 const ObjectID = require('mongodb').ObjectID;
 
-let mongoPath = 'mongodb://kentavr:novie1904@ds133004.mlab.com:33004/stock_db';
+const mongoPath = 'mongodb://kentavr:novie1904@ds133004.mlab.com:33004/stock_db';
 // let mongoPath = 'mongodb://localhost:27017/mean';
 // Connect
 const connection = (closure) => {
@@ -13,6 +13,16 @@ const connection = (closure) => {
         closure(db);
     });
 };
+
+const getId = (stockName, closure)=>{
+  connection(db => {
+    db.collection('stock').findOne({name:stockName}, (err, result)=>{
+        if (err) {console.log(err);return err;}
+        closure(result._id);
+    });
+  });
+}
+getId('NewStock', (objid)=>{console.log(objid)});
 
 // Error handling
 const sendError = (err, res) => {
@@ -86,12 +96,21 @@ router.get('/stocks', (req,res) => {
 
 // GOODS COLLECTION
 router.get('/stock-goods', (req, res) => {
+  console.log(req.query.name);
+  if (!req.query.name.length)
+    return;
+  query = {stockName: req.query.name};
     connection((db) => {
         db.collection('goods')
-            .find()
+            .find(query)
             .toArray()
             .then((goods) => {
-                response.data = goods;
+              let dt = [];
+              goods.map(it => {
+                 it.dataTable.map(d => {d.publishedDate = it.publishedDate; dt.push(d);});
+              });
+              console.log(dt);
+                response.data = dt;
                 res.json(response);
             })
             .catch((err) => {
@@ -102,17 +121,18 @@ router.get('/stock-goods', (req, res) => {
 
 router.post('/income-goods',(req,res) => {
   connection((db)=> {
+    req.body.publishedDate = new Date(Date.now()).toISOString();
     console.log('income-goods', req.body)
-    // db.collection('goods').insert(req.body, (err, r) => {
-    //   if (err)
-    //       sendError(err, res);
-    //   else {
-    //     db.collection('product').find().toArray().then((data)=>{
-    //       console.log('find income-goods %j', data);
-    //       res.sendStatus(200);
-    //     })
-    //   }
-    // });
+    db.collection('goods').insert(req.body, (err, r) => {
+      if (err)
+          sendError(err, res);
+      else {
+        db.collection('goods').find().toArray().then((data)=>{
+          console.log('find income-goods %j', data);
+          res.sendStatus(200);
+        })
+      }
+    });
 
   })
 });

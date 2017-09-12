@@ -23,25 +23,25 @@ export interface GoodElement {
 export class StockIncomeComponent implements OnInit {
 
   currentDate:Date = new Date;
-  dataTable:Observable<GoodElement[]>;
-  @Output() getDataFromCatalog = new EventEmitter<Observable<GoodElement[]>>();
-  @Input() set good(isSubmit:boolean){
-    this.dataTable = new Observable(observer => {
-
-      this.catalog.value.forEach(data => {
-        if(this.selection.isSelected(data.name))
-        {
-          observer.next({
-            _id : data._id,
-            name : data.name,
-            count : data.count
-          });
-        }
-      });
-      observer.complete();
-    });
-    this.getDataFromCatalog.emit(this.dataTable);
-  }
+  // dataTable:Observable<GoodElement[]>;
+  // @Output() getDataFromCatalog = new EventEmitter<Observable<GoodElement[]>>();
+  // @Input() set good(isSubmit:boolean){
+  //   this.dataTable = new Observable(observer => {
+  //
+  //     this.catalog.value.forEach(data => {
+  //       if(this.selection.isSelected(data.name))
+  //       {
+  //         observer.next({
+  //           _id : data._id,
+  //           name : data.name,
+  //           count : data.count
+  //         });
+  //       }
+  //     });
+  //     observer.complete();
+  //   });
+  //   this.getDataFromCatalog.emit(this.dataTable);
+  // }
 
 
   displayedColumns = ['select', 'name', 'count'];
@@ -74,33 +74,30 @@ export class StockIncomeComponent implements OnInit {
   constructor(private _dataService: StockService) {
   }
 
-  // dataTable: Observable<GoodElement[]>;
-  isSubmit: boolean = false;
-  product: any = {};
-
   onSubmit(data){
     console.log(data);
-    console.log(data.form.valid);
     if (data.form.valid){
       let dt = [];
-      this.dataTable.subscribe(data =>
-        dt.push(data) ,
-        ()=>console.log("Error"),
-        ()=>{
-          this.product.dataTable = dt;
-          console.log(this.product);
+      this.catalog.value.forEach(data =>
+        {
+          if(this.selection.isSelected(data.name))
+            dt.push(data);
+        }
+      );
+      let incomeData:any = {};
+      incomeData.dataTable = dt;
+      // incomeData.date = this.currentDate;
+      incomeData.stockName = this._dataService.getCurrentStock();
+      console.log(incomeData);
 
-          this._dataService.createProduct(this.product, (err)=>{
+          this._dataService.incomeGoods(incomeData, (err)=>{
             if (err)
-            console.log('Not create new product!!!');
+            console.log('Not income goods!!!');
             else {
-              console.log('Create new product SUCCESS!!!');
+              console.log('Income new goods!!!');
               data.form.reset();
             }
           });
-        }
-      );
-      this.isSubmit = true;
     }
   }
 
