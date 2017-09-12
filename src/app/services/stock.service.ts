@@ -11,7 +11,7 @@ export class StockService {
   constructor(private _http: Http) { }
 
   IsExistStock():boolean{
-    return this.stockName.length !== 0; 
+    return this.stockName.length !== 0;
   }
 
   getCurrentStock(){
@@ -33,9 +33,14 @@ export class StockService {
       .subscribe(result => callback(!result.ok) );
   }
 
-  getStockData() {
-    return this._http.get("/api/stock-data")
+  getStockGoods() {
+    return this._http.get("/api/stock-goods")
     .map(result => this.result = result.json().data);
+  }
+
+  incomeGoods(goods, callback){
+    this._http.post("/api/income-goods", goods)
+      .subscribe(result => callback(!result.ok));
   }
 
   getStock() {

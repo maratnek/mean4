@@ -1,27 +1,14 @@
 <div class="">
   <h1>Склад {{_dataService.getCurrentStock()}}</h1>
   <div class="my-container mat-elevation-z8">
-    <!-- <div class="example-loading-shade" *ngIf="dataSource.isLoadingResults || dataSource.isRateLimitReached">
-      <md-spinner *ngIf="dataSource.isLoadingResults"></md-spinner>
-      <div class="example-rate-limit-reached" *ngIf="dataSource.isRateLimitReached">
-        GitHub's API rate limit has been reached. It will be reset in one minute.
-      </div>
-    </div> -->
 
     <div class="example-header" [style.display]="selection.isEmpty() ? '' : 'none'">
       <md-input-container floatPlaceholder="never">
         <input mdInput #filter placeholder="Filter users">
       </md-input-container>
     </div>
-    <!-- <div class="example-header example-selection-header"
-      *ngIf="!selection.isEmpty()">
-      {{selection.selected.length}}
-      {{selection.selected.length == 1 ? 'user' : 'users'}}
-      selected
-    </div> -->
 
     <md-table #table [dataSource]="dataSource" mdSort>
-    <!-- mdSortActive="created" mdSortDisableClear mdSortDirection="asc"> -->
 
     <!-- Checkbox Column -->
     <ng-container mdColumnDef="select">
@@ -57,6 +44,11 @@
     <ng-container mdColumnDef="storePlace">
       <md-header-cell *mdHeaderCellDef md-sort-header> Место Хр. </md-header-cell>
       <md-cell *mdCellDef="let row"> {{row.storePlace}} </md-cell>
+    </ng-container>
+
+    <ng-container mdColumnDef="date">
+      <md-header-cell *mdHeaderCellDef md-sort-header> Дата пр. </md-header-cell>
+      <md-cell *mdCellDef="let row"> {{row.date}} </md-cell>
     </ng-container>
 
     <ng-container mdColumnDef="delete">

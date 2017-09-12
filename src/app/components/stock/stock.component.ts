@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StockService } from '../../services/stock.service';
+// import { GoodElement } from './stock-income/stock-income.component';
+// import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-stock',
@@ -8,7 +10,8 @@ import { StockService } from '../../services/stock.service';
 })
 export class StockComponent implements OnInit {
 
-  stock: string = '';
+
+  menuToolbarActive:number = 1;
 
   constructor(
     private _dataService: StockService
@@ -16,7 +19,7 @@ export class StockComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.stock = this._dataService.getCurrentStock();
   }
+
 
 }

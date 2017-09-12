@@ -17,7 +17,7 @@ export class StockTableComponent implements OnInit {
 
   @Output() onEdit = new EventEmitter<CatalogData>();
 
-  displayedColumns = ['name', 'measure', 'price', 'storePlace','delete','edit'];
+  displayedColumns = ['name', 'measure', 'price', 'storePlace','date'];
   selection = new SelectionModel<string>(true, []);
   dataSource: CatalogDataSource | null;
   catalog: BehaviorSubject<CatalogData[]> = new BehaviorSubject<CatalogData[]>([]);
@@ -27,8 +27,8 @@ export class StockTableComponent implements OnInit {
   @ViewChild('filter') filter: ElementRef;
 
   ngOnInit() {
-    this._dataService.getStockData().subscribe({
-      next: value => {this.catalog.next(value);console.log(value);}
+    this._dataService.getStockGoods().subscribe({
+      next: value => {this.catalog.next(value);}
     });
     this.dataSource = new CatalogDataSource(this.catalog, this.sort, this.paginator);
     Observable.fromEvent(this.filter.nativeElement, 'keyup')
@@ -94,6 +94,7 @@ export class StockTableComponent implements OnInit {
    measure: string;
    price: number;
    storePlace: string;
+   date: Date;
  }
 
 export class CatalogDataSource extends DataSource<any> {

@@ -66,6 +66,7 @@ import { StockIncomeComponent } from './components/stock/stock-income/stock-inco
 import { ConfigComponent } from './components/config/config.component';
 
 import {StockGuard} from './guards/stock.guard';
+import { StockExpenseComponent } from './components/stock/stock-expense/stock-expense.component';
 
 @NgModule({
   declarations: [
@@ -83,6 +84,7 @@ import {StockGuard} from './guards/stock.guard';
     StockTableComponent,
     StockIncomeComponent,
     ConfigComponent,
+    StockExpenseComponent,
   ],
   imports: [
     AngularFontAwesomeModule,

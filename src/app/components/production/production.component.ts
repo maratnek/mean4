@@ -8,7 +8,7 @@ import {Observable} from 'rxjs';
 import 'rxjs';
 
 @Component({
-  selector: 'app-production',
+  selector: 'production',
   templateUrl: './production.component.html',
   styleUrls: ['./production.component.scss']
 })
@@ -16,7 +16,7 @@ export class ProductionComponent implements OnInit {
   dataTable: Observable<ProductElement[]>;
   isSubmit: boolean = false;
   product: any = {};
-  
+
   menuToolbarActive = 1;
 
   constructor(private _dataService: StockService) { }
@@ -47,14 +47,6 @@ export class ProductionComponent implements OnInit {
         }
       );
       this.isSubmit = true;
-      // let dt:Observable<any> = this.dataTable;
-
-        // dt.subscribe(data => console.log(data));
-      // get data from table catalog
-      // setTimeout(()=>{
-      //   console.log(this.dataTable);
-      //
-      // },3000);
     }
   }
 }

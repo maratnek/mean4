@@ -84,14 +84,14 @@ router.get('/stocks', (req,res) => {
   });
 });
 
-// Get goods
-router.get('/goods', (req, res) => {
+// GOODS COLLECTION
+router.get('/stock-goods', (req, res) => {
     connection((db) => {
         db.collection('goods')
             .find()
             .toArray()
-            .then((users) => {
-                response.data = users;
+            .then((goods) => {
+                response.data = goods;
                 res.json(response);
             })
             .catch((err) => {
@@ -99,6 +99,24 @@ router.get('/goods', (req, res) => {
             });
     });
 });
+
+router.post('/income-goods',(req,res) => {
+  connection((db)=> {
+    console.log('income-goods', req.body)
+    // db.collection('goods').insert(req.body, (err, r) => {
+    //   if (err)
+    //       sendError(err, res);
+    //   else {
+    //     db.collection('product').find().toArray().then((data)=>{
+    //       console.log('find income-goods %j', data);
+    //       res.sendStatus(200);
+    //     })
+    //   }
+    // });
+
+  })
+});
+
 
 // Library goods -- catalog
 router.get('/catalogs', (req,res) => {

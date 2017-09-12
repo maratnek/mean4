@@ -10,7 +10,7 @@
     <div class="right">
       <li *ngIf="stockService.IsExistStock()"><a routerLink='/config' routerLinkActive="active"><fa name="cog" size="lg"></fa></a></li>
       <li *ngIf="stockService.IsExistStock()"><a (click)="onResetStock()"><span>{{stockService.getCurrentStock()}}</span> <fa name="external-link" size="lg"></fa></a></li>
-      <div class="menu">
+      <div class="min-menu">
         <button md-icon-button [mdMenuTriggerFor]="menu">
           <fa name=bars size=lg></fa>
         </button>

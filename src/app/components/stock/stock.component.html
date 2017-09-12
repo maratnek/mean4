@@ -10,8 +10,12 @@
           <span>Склад</span>
         </md-toolbar-row>
 
-        <md-toolbar-row class="my-toolbar-row" (click)="menuToolbarActive = 2; edit = false">
+        <md-toolbar-row class="my-toolbar-row" (click)="menuToolbarActive = 2;">
           <span>Приход</span>
+        </md-toolbar-row>
+
+        <md-toolbar-row class="my-toolbar-row" (click)="menuToolbarActive = 3;">
+          <span>Выписка</span>
         </md-toolbar-row>
       </md-toolbar>
 
@@ -28,22 +32,11 @@
       </div>
 
       <div [style.display]="menuToolbarActive === 2 ? '': 'none'" class="my-card">
-        <stock-income></stock-income>
-        <!-- <md-card>
-          <h1 align=center>Создать продукт</h1>
-          <form #createProduct="ngForm" (ngSubmit)="onSubmit(createProduct)" >
-            <md-form-field>
-              <input mdInput type="text" name="name" [(ngModel)]="product.name" required placeholder="Название продукта">
-            </md-form-field>
-            <!-- <md-card-actions> -->
-              <!-- <button  md-raised-button [disabled]="!createProduct.form.valid"  type="submit"> -->
-                <!-- Cоздать продукт -->
-              <!-- </button> -->
-              <!-- <button  md-raised-button  type="reset">Очистить</button> -->
-            <!-- </md-card-actions> -->
-          <!-- </form> -->
-          <!-- <product-create [product]="isSubmit" (getDataFromCatalog)="dataTable = $event"></product-create> --> -->
-        <!-- </md-card> -->
+        <stock-income [good]="isSubmit" (getDataFromCatalog)="incomeGoods = $event"></stock-income>
+      </div>
+
+      <div [style.display]="menuToolbarActive === 3 ? '': 'none'" class="my-card">
+        <stock-expense></stock-expense>
       </div>
     </div>
   </md-sidenav-container>
