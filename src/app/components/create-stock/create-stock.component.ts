@@ -27,8 +27,8 @@ export class CreateStockComponent implements OnInit {
   ngOnInit() {
   }
 
-  createStockName(stockName:string){
-    this._dataService.createStock(stockName, (err:any) => {
+  createStockName(stockName){
+    this._dataService.createStock(stockName, (err) => {
       if (err) console.log('Не удалось создать склад: ', stockName);
       else {
           this.success = true;
@@ -51,7 +51,7 @@ export class CreateStockComponent implements OnInit {
         name: this.stockName,
         price: true
       };
-      this._dataService.configStock(config, (err:any) => {
+      this._dataService.configStock(config, (err) => {
         if (err) console.log('Не удалось создать конфигурацию для склада: ', config);
         else {
           console.log('Склад сконфигурирован: config', config);

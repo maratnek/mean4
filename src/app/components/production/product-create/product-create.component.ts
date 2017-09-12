@@ -56,7 +56,7 @@ export class ProductCreateComponent implements OnInit {
   ngOnInit() {
     this._dataService.getCatalogs().subscribe({
       next: value => {
-        value.map((obj:any) => obj.count = 0);
+        value.map(obj => obj.count = 0);
         this.catalog.next(value);
       }
     });

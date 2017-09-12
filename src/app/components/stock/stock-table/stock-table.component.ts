@@ -43,9 +43,9 @@ export class StockTableComponent implements OnInit {
   constructor(private _dataService: StockService) {
   }
 
-  delete(name:string) {
+  delete(name) {
     console.log('delete - ', name);
-    this._dataService.deleteCatalog(name, (err:any) => {
+    this._dataService.deleteCatalog(name, (err) => {
       if (err) console.log('Не удалось удалить каталог: ', name);
       else {
         this._dataService.getCatalogs().subscribe({
@@ -57,7 +57,7 @@ export class StockTableComponent implements OnInit {
     });
   }
 
-  edit(catalog:CatalogData) {
+  edit(catalog) {
     console.log('edit - ', catalog);
     let copy = Object.assign({}, catalog);
     this.onEdit.emit(copy);
