@@ -1,56 +1,43 @@
-<!-- <md-grid-list cols="1" rowHeight="3:1">
-  <md-grid-tile colspan=1 rowspan=1> -->
   <div class="my-container">
-    <div class="my-card">
-    <md-card *ngIf="!success">
+    <div class="my-card  my-height my-overflow">
+      <md-card *ngIf="!success">
 
         <h1>Создайте склад или выберите из существующего</h1>
 
-      <md-grid-list cols="2">
-        <md-grid-tile>
-          <md-card-content>
-            <md-input-container>
-              <input type="text" mdInput [(ngModel)]="stockName" #ctrl ="ngModel"  required placeholder="Название склада">
-            </md-input-container>
-            <h1>{{stockName}}</h1>
-          </md-card-content>
-        </md-grid-tile>
-        <md-grid-tile>
-          <md-nav-list>
-            <md-list-item *ngFor="let stock of stocks" (click)="EnterCurrentStock(stock)">
-              <h3>{{stock}}</h3>
-            </md-list-item>
-          </md-nav-list>
-        </md-grid-tile>
-      </md-grid-list>
-      <md-card-actions>
-        <a md-raised-button *ngIf="stockName" (keyup.enter)="createStockName(stockName)" (click)="createStockName(stockName)">Создать</a>
-      </md-card-actions>
-    </md-card>
-</div>
-<div class="my-card">
-  <!-- </md-grid-tile> -->
+        <md-card-actions>
+          <a md-raised-button *ngIf="stockName" (keyup.enter)="createStockName(stockName)" (click)="createStockName(stockName)">Создать</a>
+        </md-card-actions>
+        <md-grid-list cols="2">
+          <md-grid-tile>
+            <md-card-content>
+              <md-input-container>
+                <input type="text" mdInput [(ngModel)]="stockName" #ctrl ="ngModel"  required placeholder="Название склада">
+              </md-input-container>
+              <h1>{{stockName}}</h1>
+            </md-card-content>
+          </md-grid-tile>
+          <md-grid-tile>
+            <md-nav-list>
+              <md-list-item *ngFor="let stock of stocks" (click)="EnterCurrentStock(stock)">
+                <h3>{{stock}}</h3>
+              </md-list-item>
+            </md-nav-list>
+          </md-grid-tile>
+        </md-grid-list>
+      </md-card>
 
-  <!-- <md-grid-tile colspan=1 rowspan=1> -->
-
-    <md-card *ngIf="success">
-
+      <md-card *ngIf="success">
         <h1>Определите конфигурацию для склада: {{stockName}}</h1>
+        <md-card-content>
+          <p>
+            Создается новый склад. Конфигурация основной таблицы.
+            Или выберети конфигурацию по умолчанию
+          </p>
+        </md-card-content>
+        <md-card-actions>
+          <a md-raised-button (keyup.enter)='createStockConfig()' (click)='createStockConfig()'>По умолчанию</a>
+        </md-card-actions>
+      </md-card>
 
-      <md-card-content>
-
-      <p>
-        Создается новый склад. Конфигурация основной таблицы.
-        Или выберети конфигурацию по умолчанию
-      </p>
-    </md-card-content>
-    <md-card-actions>
-      <a md-raised-button (keyup.enter)='createStockConfig()' (click)='createStockConfig()'>По умолчанию</a>
-    </md-card-actions>
-
-    </md-card>
-
+    </div>
   </div>
-  </div>
-  <!-- </md-grid-tile>
-</md-grid-list> -->

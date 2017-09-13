@@ -77,16 +77,15 @@ export class StockIncomeComponent implements OnInit {
   onSubmit(data){
     console.log(data);
     if (data.form.valid){
-      let dt = [];
+      let dt:any[] = [];
       this.catalog.value.forEach(data =>
         {
           if(this.selection.isSelected(data.name))
-            dt.push(data);
+            dt.push({_id: data._id, price: data.price, count: data.count});
         }
       );
       let incomeData:any = {};
       incomeData.dataTable = dt;
-      // incomeData.date = this.currentDate;
       incomeData.stockName = this._dataService.getCurrentStock();
       console.log(incomeData);
 

@@ -28,7 +28,14 @@ export class StockTableComponent implements OnInit {
 
   ngOnInit() {
     this._dataService.getStockGoods().subscribe({
-      next: value => {this.catalog.next(value);console.log(value);}
+      next: value => {
+        value.map(value2 => {
+          this._dataService.getCatalogById(value2._id).subscribe(data => {
+            console.log(data);
+            value2 = data;
+          });
+        });
+        this.catalog.next(value);console.log(value);}
     });
     this.dataSource = new CatalogDataSource(this.catalog, this.sort, this.paginator);
     Observable.fromEvent(this.filter.nativeElement, 'keyup')

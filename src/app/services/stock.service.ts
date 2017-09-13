@@ -63,6 +63,12 @@ export class StockService {
       .map(result => this.result = result.json().data);
   }
 
+  getCatalogById(_id) {
+    console.log('service', _id);
+    return this._http.get("/api/catalog?id="+_id)
+      .map(result => this.result = result.json().data);
+  }
+
   // Service for product
   createProduct(dataProduct, callback){
     console.log(dataProduct.dataTable);

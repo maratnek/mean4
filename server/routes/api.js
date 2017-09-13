@@ -150,6 +150,22 @@ router.get('/catalogs', (req,res) => {
   });
 });
 
+router.get('/catalog', (req,res) => {
+  console.log(req.query.id);
+  if (!req.query.id || !req.query.id.length)
+    sendError(err,res);
+  query = {_id: ObjectID(req.query.id)};
+  connection((db)=>{
+        db.collection('catalog').find(query).toArray().then((data)=>{
+          console.log(data);
+          response.data = data;
+          res.json(response);
+        })
+        .catch( err => sendError(err,res) );
+  });
+});
+
+
 router.post('/add-catalog',(req,res) => {
   connection((db)=>{
     console.log('post catalog');

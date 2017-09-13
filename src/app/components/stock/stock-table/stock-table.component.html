@@ -48,7 +48,7 @@
 
     <ng-container mdColumnDef="date">
       <md-header-cell *mdHeaderCellDef md-sort-header> Дата пр. </md-header-cell>
-      <md-cell *mdCellDef="let row"> {{row.publishedDate | date}} </md-cell>
+      <md-cell *mdCellDef="let row"> {{row.publishedDate | date:'short'}} </md-cell>
     </ng-container>
 
     <ng-container mdColumnDef="delete">
