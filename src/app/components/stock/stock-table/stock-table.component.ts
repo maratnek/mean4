@@ -29,13 +29,21 @@ export class StockTableComponent implements OnInit {
   ngOnInit() {
     this._dataService.getStockGoods().subscribe({
       next: value => {
-        value.map(value2 => {
-          this._dataService.getCatalogById(value2._id).subscribe(data => {
-            console.log(data);
-            value2 = data;
+        value.map(vl2 => {
+          this._dataService.getCatalogById(vl2._id).subscribe(vl3 => {
+            console.log(vl3);
+            console.log(vl2);
+            // vl3.count = vl2.count;
+            // vl3.price = vl2.price;
+            // vl3.publishedDatae = vl2.publishedDate;
+            for (let prop in vl3)
+              vl2[prop] = vl3[prop];
+            // this.catalog.value.push(vl3);
           });
         });
-        this.catalog.next(value);console.log(value);}
+        // console.log(this.catalog.value);
+        this.catalog.next(value);console.log(value);
+      }
     });
     this.dataSource = new CatalogDataSource(this.catalog, this.sort, this.paginator);
     Observable.fromEvent(this.filter.nativeElement, 'keyup')
@@ -102,6 +110,7 @@ export class StockTableComponent implements OnInit {
    price: number;
    storePlace: string;
    publishedDate: Date;
+   count: number;
  }
 
 export class CatalogDataSource extends DataSource<any> {

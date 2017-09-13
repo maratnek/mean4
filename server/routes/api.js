@@ -158,7 +158,11 @@ router.get('/catalog', (req,res) => {
   connection((db)=>{
         db.collection('catalog').find(query).toArray().then((data)=>{
           console.log(data);
-          response.data = data;
+          if (data.length == 1)
+            response.data = data[0];
+          else {
+            console.log('Error: more than one object (catalog by id)');
+          }
           res.json(response);
         })
         .catch( err => sendError(err,res) );
@@ -174,6 +178,7 @@ router.post('/add-catalog',(req,res) => {
       console.log('edit catalog');
       let id = req.body._id;
       delete req.body._id;
+      delete req.body.edit;
       db.collection('catalog')
       .update({_id:ObjectID(id)}, {$set:req.body})
       .then(()=>{
@@ -186,6 +191,7 @@ router.post('/add-catalog',(req,res) => {
     } //edit
     else
     {
+      delete req.body.edit;
       console.log('insert catalog');
       db.collection('catalog')
       .insert(req.body)

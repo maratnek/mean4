@@ -2032,12 +2032,19 @@ var StockTableComponent = (function () {
         var _this = this;
         this._dataService.getStockGoods().subscribe({
             next: function (value) {
-                value.map(function (value2) {
-                    _this._dataService.getCatalogById(value2._id).subscribe(function (data) {
-                        console.log(data);
-                        value2 = data;
+                value.map(function (vl2) {
+                    _this._dataService.getCatalogById(vl2._id).subscribe(function (vl3) {
+                        console.log(vl3);
+                        console.log(vl2);
+                        // vl3.count = vl2.count;
+                        // vl3.price = vl2.price;
+                        // vl3.publishedDatae = vl2.publishedDate;
+                        for (var prop in vl3)
+                            vl2[prop] = vl3[prop];
+                        // this.catalog.value.push(vl3);
                     });
                 });
+                // console.log(this.catalog.value);
                 _this.catalog.next(value);
                 console.log(value);
             }
