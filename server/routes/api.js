@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const MongoClient = require('mongodb').MongoClient;
 const ObjectID = require('mongodb').ObjectID;
+const co = require('co');
 
 const mongoPath = 'mongodb://kentavr:novie1904@ds133004.mlab.com:33004/stock_db';
 // let mongoPath = 'mongodb://localhost:27017/mean';
@@ -101,17 +102,41 @@ router.get('/stock-goods', (req, res) => {
     return;
   query = {stockName: req.query.name};
     connection((db) => {
+        let colCatalog = db.collection('catalog');
         db.collection('goods')
             .find(query)
             .toArray()
             .then((goods) => {
               let dt = [];
-              goods.map(it => {
-                 it.dataTable.map(d => {d.publishedDate = it.publishedDate; dt.push(d);});
+              let myPromise = new Promise((resolve,reject)=>{
+                goods.map(it => {
+                  it.dataTable.map(d => {
+                    d.publishedDate = it.publishedDate;
+                    let catalog = {};
+                    id = d._id;
+                    if (id && id.length > 0)
+                    {
+                      query = {_id: ObjectID(id)};
+                      let catPromise = co(function* (){
+                        return yield colCatalog.find(query).toArray();
+                      });
+                      catPromise.then(catalog => {
+                        console.log('Catalog', catalog);
+                        for (let prop in catalog[0])
+                          d[prop] = catalog[prop];
+                        dt.push(d);
+                        resolve(dt);
+                      });
+
+                    }
+                  });
+                });
               });
-              console.log(dt);
+              myPromise.then((data)=>{
+                console.log('Data stock',dt);
                 response.data = dt;
                 res.json(response);
+              });
             })
             .catch((err) => {
                 sendError(err, res);
@@ -149,6 +174,29 @@ router.get('/catalogs', (req,res) => {
         .catch( err => sendError(err,res) );
   });
 });
+
+function getCatalogById(id,db) {
+  let catalog = {};
+  if (id && id.length > 0)
+  {
+    query = {_id: ObjectID(id)};
+          db.collection('catalog').find(query).toArray().then(data=>{
+            if (data.length == 1)
+            {
+              catalog = Object.assign({},data[0]);
+              return catalog;
+              console.log('add data',catalog);
+            }
+            else {
+              console.log('Error: more than one object (catalog by id)');
+              throw -1;
+            }
+          })
+          .catch( err => console.log('Much more one')  );
+  }
+  console.log('catalog by id', catalog);
+  return catalog;
+}
 
 router.get('/catalog', (req,res) => {
   console.log(req.query.id);

@@ -2,34 +2,9 @@
   <h1>Склад {{_dataService.getCurrentStock()}}</h1>
   <div class="my-container mat-elevation-z8">
 
-    <div class="example-header" [style.display]="selection.isEmpty() ? '' : 'none'">
-      <md-input-container floatPlaceholder="never">
-        <input mdInput #filter placeholder="Filter users">
-      </md-input-container>
-    </div>
 
     <md-table #table [dataSource]="dataSource" mdSort>
 
-    <!-- Checkbox Column -->
-    <ng-container mdColumnDef="select">
-      <md-header-cell *mdHeaderCellDef>
-        <md-checkbox (change)="$event ? masterToggle() : null"
-                     [checked]="isAllSelected()"
-                     [indeterminate]="selection.hasValue() && !isAllSelected()">
-        </md-checkbox>
-      </md-header-cell>
-      <md-cell *mdCellDef="let row">
-        <md-checkbox (click)="$event.stopPropagation()"
-                     (change)="$event ? selection.toggle(row.name) : null"
-                     [checked]="selection.isSelected(row.name)">
-        </md-checkbox>
-      </md-cell>
-    </ng-container>
-
-    <ng-container mdColumnDef="name">
-      <md-header-cell *mdHeaderCellDef md-sort-header> Имя </md-header-cell>
-      <md-cell *mdCellDef="let row"> {{row.name}} </md-cell>
-    </ng-container>
 
     <ng-container mdColumnDef="measure">
       <md-header-cell *mdHeaderCellDef md-sort-header> Ед.Изм. </md-header-cell>
@@ -51,36 +26,11 @@
       <md-cell *mdCellDef="let row"> {{row.publishedDate | date:'short'}} </md-cell>
     </ng-container>
 
-    <ng-container mdColumnDef="delete">
-      <md-header-cell *mdHeaderCellDef></md-header-cell>
-      <md-cell *mdCellDef="let row" align="center">
-        <button md-icon-button
-         (click)="delete(row.name)">
-          <fa style="color:red" name="trash-o"></fa>
-        </button>
-      </md-cell>
-    </ng-container>
-
-    <ng-container mdColumnDef="edit">
-      <md-header-cell *mdHeaderCellDef></md-header-cell>
-      <md-cell *mdCellDef="let row"
-        (click)="edit(row)">
-        <button md-icon-button>
-          <fa style="color:green" name="pencil"></fa>
-        </button>
-      </md-cell>
-    </ng-container>
 
     <md-header-row *mdHeaderRowDef="displayedColumns"></md-header-row>
-    <md-row *mdRowDef="let row; columns: displayedColumns;"
-      [class.example-selected-row]="selection.isSelected(row.name)"
-      (click)="selection.toggle(row.name)">
+    <md-row *mdRowDef="let row; columns: displayedColumns;">
     </md-row>
 </md-table>
-  <div class="example-no-results"
-       [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
-       Нет данных по данному фильтру.
-  </div>
 
   <md-paginator #paginator
                 [length]="dataSource.filteredData.length"

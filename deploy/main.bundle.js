@@ -1956,7 +1956,7 @@ var _a, _b, _c, _d;
 /***/ "../../../../../src/app/components/stock/stock-table/stock-table.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"\">\n  <h1>Склад {{_dataService.getCurrentStock()}}</h1>\n  <div class=\"my-container mat-elevation-z8\">\n\n    <div class=\"example-header\" [style.display]=\"selection.isEmpty() ? '' : 'none'\">\n      <md-input-container floatPlaceholder=\"never\">\n        <input mdInput #filter placeholder=\"Filter users\">\n      </md-input-container>\n    </div>\n\n    <md-table #table [dataSource]=\"dataSource\" mdSort>\n\n    <!-- Checkbox Column -->\n    <ng-container mdColumnDef=\"select\">\n      <md-header-cell *mdHeaderCellDef>\n        <md-checkbox (change)=\"$event ? masterToggle() : null\"\n                     [checked]=\"isAllSelected()\"\n                     [indeterminate]=\"selection.hasValue() && !isAllSelected()\">\n        </md-checkbox>\n      </md-header-cell>\n      <md-cell *mdCellDef=\"let row\">\n        <md-checkbox (click)=\"$event.stopPropagation()\"\n                     (change)=\"$event ? selection.toggle(row.name) : null\"\n                     [checked]=\"selection.isSelected(row.name)\">\n        </md-checkbox>\n      </md-cell>\n    </ng-container>\n\n    <ng-container mdColumnDef=\"name\">\n      <md-header-cell *mdHeaderCellDef md-sort-header> Имя </md-header-cell>\n      <md-cell *mdCellDef=\"let row\"> {{row.name}} </md-cell>\n    </ng-container>\n\n    <ng-container mdColumnDef=\"measure\">\n      <md-header-cell *mdHeaderCellDef md-sort-header> Ед.Изм. </md-header-cell>\n      <md-cell *mdCellDef=\"let row\"> {{row.measure}} </md-cell>\n    </ng-container>\n\n    <ng-container mdColumnDef=\"price\">\n      <md-header-cell *mdHeaderCellDef md-sort-header> Цена </md-header-cell>\n      <md-cell *mdCellDef=\"let row\"> {{row.price}} </md-cell>\n    </ng-container>\n\n    <ng-container mdColumnDef=\"storePlace\">\n      <md-header-cell *mdHeaderCellDef md-sort-header> Место Хр. </md-header-cell>\n      <md-cell *mdCellDef=\"let row\"> {{row.storePlace}} </md-cell>\n    </ng-container>\n\n    <ng-container mdColumnDef=\"date\">\n      <md-header-cell *mdHeaderCellDef md-sort-header> Дата пр. </md-header-cell>\n      <md-cell *mdCellDef=\"let row\"> {{row.publishedDate | date:'short'}} </md-cell>\n    </ng-container>\n\n    <ng-container mdColumnDef=\"delete\">\n      <md-header-cell *mdHeaderCellDef></md-header-cell>\n      <md-cell *mdCellDef=\"let row\" align=\"center\">\n        <button md-icon-button\n         (click)=\"delete(row.name)\">\n          <fa style=\"color:red\" name=\"trash-o\"></fa>\n        </button>\n      </md-cell>\n    </ng-container>\n\n    <ng-container mdColumnDef=\"edit\">\n      <md-header-cell *mdHeaderCellDef></md-header-cell>\n      <md-cell *mdCellDef=\"let row\"\n        (click)=\"edit(row)\">\n        <button md-icon-button>\n          <fa style=\"color:green\" name=\"pencil\"></fa>\n        </button>\n      </md-cell>\n    </ng-container>\n\n    <md-header-row *mdHeaderRowDef=\"displayedColumns\"></md-header-row>\n    <md-row *mdRowDef=\"let row; columns: displayedColumns;\"\n      [class.example-selected-row]=\"selection.isSelected(row.name)\"\n      (click)=\"selection.toggle(row.name)\">\n    </md-row>\n</md-table>\n  <div class=\"example-no-results\"\n       [style.display]=\"dataSource.renderedData.length == 0 ? '' : 'none'\">\n       Нет данных по данному фильтру.\n  </div>\n\n  <md-paginator #paginator\n                [length]=\"dataSource.filteredData.length\"\n                [pageIndex]=\"0\"\n                [pageSize]=\"5\"\n                [pageSizeOptions]=\"[5, 10, 25, 100]\">\n  </md-paginator>\n\n</div>\n\n</div>\n"
+module.exports = "<div class=\"\">\n  <h1>Склад {{_dataService.getCurrentStock()}}</h1>\n  <div class=\"my-container mat-elevation-z8\">\n\n\n    <md-table #table [dataSource]=\"dataSource\" mdSort>\n\n\n    <ng-container mdColumnDef=\"measure\">\n      <md-header-cell *mdHeaderCellDef md-sort-header> Ед.Изм. </md-header-cell>\n      <md-cell *mdCellDef=\"let row\"> {{row.measure}} </md-cell>\n    </ng-container>\n\n    <ng-container mdColumnDef=\"price\">\n      <md-header-cell *mdHeaderCellDef md-sort-header> Цена </md-header-cell>\n      <md-cell *mdCellDef=\"let row\"> {{row.price}} </md-cell>\n    </ng-container>\n\n    <ng-container mdColumnDef=\"storePlace\">\n      <md-header-cell *mdHeaderCellDef md-sort-header> Место Хр. </md-header-cell>\n      <md-cell *mdCellDef=\"let row\"> {{row.storePlace}} </md-cell>\n    </ng-container>\n\n    <ng-container mdColumnDef=\"date\">\n      <md-header-cell *mdHeaderCellDef md-sort-header> Дата пр. </md-header-cell>\n      <md-cell *mdCellDef=\"let row\"> {{row.publishedDate | date:'short'}} </md-cell>\n    </ng-container>\n\n\n    <md-header-row *mdHeaderRowDef=\"displayedColumns\"></md-header-row>\n    <md-row *mdRowDef=\"let row; columns: displayedColumns;\">\n    </md-row>\n</md-table>\n\n  <md-paginator #paginator\n                [length]=\"dataSource.filteredData.length\"\n                [pageIndex]=\"0\"\n                [pageSize]=\"5\"\n                [pageSizeOptions]=\"[5, 10, 25, 100]\">\n  </md-paginator>\n\n</div>\n\n</div>\n"
 
 /***/ }),
 
@@ -1993,7 +1993,7 @@ module.exports = module.exports.toString();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs__ = __webpack_require__("../../../../rxjs/Rx.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rxjs__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return StockTableComponent; });
-/* unused harmony export CatalogDataSource */
+/* unused harmony export GenericDataSource */
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -2024,90 +2024,40 @@ var StockTableComponent = (function () {
     function StockTableComponent(_dataService) {
         this._dataService = _dataService;
         this.onEdit = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["s" /* EventEmitter */]();
-        this.displayedColumns = ['name', 'measure', 'price', 'storePlace', 'date'];
-        this.selection = new __WEBPACK_IMPORTED_MODULE_3__angular_material__["c" /* SelectionModel */](true, []);
+        this.displayedColumns = ['measure', 'price', 'storePlace', 'date'];
         this.catalog = new __WEBPACK_IMPORTED_MODULE_5_rxjs_BehaviorSubject__["BehaviorSubject"]([]);
     }
     StockTableComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this._dataService.getStockGoods().subscribe({
-            next: function (value) {
-                value.map(function (vl2) {
-                    _this._dataService.getCatalogById(vl2._id).subscribe(function (vl3) {
-                        console.log(vl3);
-                        console.log(vl2);
-                        // vl3.count = vl2.count;
-                        // vl3.price = vl2.price;
-                        // vl3.publishedDatae = vl2.publishedDate;
-                        for (var prop in vl3)
-                            vl2[prop] = vl3[prop];
-                        // this.catalog.value.push(vl3);
-                    });
-                });
-                // console.log(this.catalog.value);
-                _this.catalog.next(value);
-                console.log(value);
-            }
-        });
-        this.dataSource = new CatalogDataSource(this.catalog, this.sort, this.paginator);
-        __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__["Observable"].fromEvent(this.filter.nativeElement, 'keyup')
-            .debounceTime(150)
-            .distinctUntilChanged()
-            .subscribe(function () {
-            if (!_this.dataSource) {
-                return;
-            }
-            _this.dataSource.filter = _this.filter.nativeElement.value;
-        });
-    };
-    StockTableComponent.prototype.delete = function (name) {
-        var _this = this;
-        console.log('delete - ', name);
-        this._dataService.deleteCatalog(name, function (err) {
-            if (err)
-                console.log('Не удалось удалить каталог: ', name);
-            else {
-                _this._dataService.getCatalogs().subscribe({
-                    next: function (value) { return _this.catalog.next(value); }
-                });
-                // this.success = true;
-                console.log('Каталог ' + name + ' успешно удален.');
-            }
-        });
-    };
-    StockTableComponent.prototype.edit = function (catalog) {
-        console.log('edit - ', catalog);
-        var copy = Object.assign({}, catalog);
-        this.onEdit.emit(copy);
-    };
-    StockTableComponent.prototype.isAllSelected = function () {
-        if (!this.dataSource) {
-            return false;
+        this._dataService.getStockGoods()
+            .subscribe(function (value) {
+            // value.map(vl2 => {
+            // console.log(vl2);
+            //   this._dataService.getCatalogById(vl2._id).subscribe(vl3 => {
+            //     console.log(vl3);
+            //     console.log(vl2);
+            // vl3.count = vl2.count;
+            // vl3.price = vl2.price;
+            // vl3.publishedDatae = vl2.publishedDate;
+            //     for (let prop in vl3)
+            //       vl2[prop] = vl3[prop];
+            //   });
+            //   this.catalog.value.push(vl2);
+            // });
+            _this.catalog.next(value);
+        }, function (err) { return console.log(err); }, function () {
+            return console.log(_this.catalog.value);
         }
-        if (this.selection.isEmpty()) {
-            return false;
-        }
-        if (this.filter.nativeElement.value) {
-            return this.selection.selected.length == this.dataSource.renderedData.length;
-        }
-        else {
-            return this.selection.selected.length == this.catalog.value.length;
-        }
-    };
-    StockTableComponent.prototype.masterToggle = function () {
-        var _this = this;
-        if (!this.dataSource) {
-            return;
-        }
-        if (this.isAllSelected()) {
-            this.selection.clear();
-        }
-        else if (this.filter.nativeElement.value) {
-            this.dataSource.renderedData.forEach(function (data) { return _this.selection.select(data.name); });
-        }
-        else {
-            this.catalog.value.forEach(function (data) { return _this.selection.select(data.name); });
-        }
+        // console.log('Subscribe SUCCESS')
+        );
+        this.dataSource = new GenericDataSource(this.catalog, this.sort, this.paginator, "_id");
+        // Observable.fromEvent(this.filter.nativeElement, 'keyup')
+        // .debounceTime(150)
+        // .distinctUntilChanged()
+        // .subscribe(() => {
+        //   if (!this.dataSource) { return; }
+        //   this.dataSource.filter = this.filter.nativeElement.value;
+        // });
     };
     return StockTableComponent;
 }());
@@ -2136,16 +2086,17 @@ StockTableComponent = __decorate([
     __metadata("design:paramtypes", [typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_0__services_stock_service__["a" /* StockService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__services_stock_service__["a" /* StockService */]) === "function" && _d || Object])
 ], StockTableComponent);
 
-var CatalogDataSource = (function (_super) {
-    __extends(CatalogDataSource, _super);
+var GenericDataSource = (function (_super) {
+    __extends(GenericDataSource, _super);
     // catalog: Observable<CatalogData[]>;
-    function CatalogDataSource(
+    function GenericDataSource(
         // private _dataService: StockService,
-        catalog, _sort, _paginator) {
+        catalog, _sort, _paginator, _key) {
         var _this = _super.call(this) || this;
         _this.catalog = catalog;
         _this._sort = _sort;
         _this._paginator = _paginator;
+        _this._key = _key;
         _this._filterChange = new __WEBPACK_IMPORTED_MODULE_5_rxjs_BehaviorSubject__["BehaviorSubject"]('');
         _this.filteredData = [];
         _this.renderedData = [];
@@ -2154,14 +2105,14 @@ var CatalogDataSource = (function (_super) {
         _this._filterChange.subscribe(function () { return _this._paginator.pageIndex = 0; });
         return _this;
     }
-    Object.defineProperty(CatalogDataSource.prototype, "filter", {
+    Object.defineProperty(GenericDataSource.prototype, "filter", {
         get: function () { return this._filterChange.value; },
         set: function (filter) { this._filterChange.next(filter); },
         enumerable: true,
         configurable: true
     });
     /** Connect function called by the table to retrieve one stream containing the data to render. */
-    CatalogDataSource.prototype.connect = function () {
+    GenericDataSource.prototype.connect = function () {
         var _this = this;
         var displayDataChanges = [
             this.catalog,
@@ -2191,24 +2142,21 @@ var CatalogDataSource = (function (_super) {
             }
             // Filter data
             _this.filteredData = result.slice().filter(function (item) {
-                var searchStr = item.name.toLowerCase();
+                var getStr = function (str) { return str; };
+                var searchStr = getStr(item[_this._key]);
+                searchStr = searchStr.toLowerCase();
                 return searchStr.indexOf(_this.filter.toLowerCase()) != -1;
             });
             // Sort filtered data
             // const sortedData = this.sortData(this.filteredData.slice());
             var sortedData = _this.filteredData.slice();
-            // Grab the page's slice of the filtered sorted data.
             var startIndex = _this._paginator.pageIndex * _this._paginator.pageSize;
             _this.renderedData = sortedData.splice(startIndex, _this._paginator.pageSize);
             return _this.renderedData;
-            // this.isRateLimitReached = false;
-            // this.resultsLength = result.total_count;
-            // return result;
-            // return this.readGithubResult(result);
         });
     };
-    CatalogDataSource.prototype.disconnect = function () { };
-    CatalogDataSource.prototype.getSortedData = function () {
+    GenericDataSource.prototype.disconnect = function () { };
+    GenericDataSource.prototype.getSortedData = function () {
         var _this = this;
         return this.catalog.map(function (data) {
             if (!_this._sort.active || _this._sort.direction == '') {
@@ -2217,20 +2165,13 @@ var CatalogDataSource = (function (_super) {
             return data.sort(function (a, b) {
                 var propertyA = '';
                 var propertyB = '';
-                switch (_this._sort.active) {
-                    case 'name':
-                        _a = [a.name, b.name], propertyA = _a[0], propertyB = _a[1];
-                        break;
-                    case 'measure':
-                        _b = [a.measure, b.measure], propertyA = _b[0], propertyB = _b[1];
-                        break;
-                    case 'price':
-                        _c = [a.price, b.price], propertyA = _c[0], propertyB = _c[1];
-                        break;
-                    case 'storePlace':
-                        _d = [a.storePlace, b.storePlace], propertyA = _d[0], propertyB = _d[1];
-                        break;
-                }
+                _a = [a[_this._sort.active], b[_this._sort.active]], propertyA = _a[0], propertyB = _a[1];
+                // switch (this._sort.active) {
+                //   case 'name': [propertyA, propertyB] = [a.name, b.name]; break;
+                //   case 'measure': [propertyA, propertyB] = [a.measure, b.measure]; break;
+                //   case 'price': [propertyA, propertyB] = [a.price, b.price]; break;
+                //   case 'storePlace': [propertyA, propertyB] = [a.storePlace, b.storePlace]; break;
+                // }
                 var valueA = isNaN(+propertyA) ? propertyA : +propertyA;
                 var valueB = isNaN(+propertyB) ? propertyB : +propertyB;
                 if (typeof valueA === 'string' && typeof valueB === 'string') {
@@ -2238,11 +2179,11 @@ var CatalogDataSource = (function (_super) {
                     valueB = valueB.toLowerCase();
                 }
                 return (valueA < valueB ? -1 : 1) * (_this._sort.direction == 'asc' ? 1 : -1);
-                var _a, _b, _c, _d;
+                var _a;
             });
         });
     };
-    return CatalogDataSource;
+    return GenericDataSource;
 }(__WEBPACK_IMPORTED_MODULE_2__angular_cdk_collections__["b" /* DataSource */]));
 
 var _a, _b, _c, _d;
