@@ -57,20 +57,16 @@
           <ng-container mdColumnDef="count">
             <md-header-cell *mdHeaderCellDef md-sort-header [style.flex]="'0 0 60px'">Кол-во. </md-header-cell>
             <md-cell *mdCellDef="let row" [style.flex]="'0 0 60px'">
-              <!-- <md-form-field [style.display]="selection.isSelected(row.name) ? '': 'none'"> -->
               <md-input-container  [style.display]="selection.isSelected(row.name) ? '': 'none'"
               [style.width]="'60px'">
                 <input mdInput
                 type="number" min=0 max=1000 value="0" name="count" [(ngModel)]="row.count">
               </md-input-container>
-              <!-- </md-form-field> -->
             </md-cell>
           </ng-container>
 
           <md-header-row *mdHeaderRowDef="displayedColumns"></md-header-row>
-          <md-row *mdRowDef="let row; columns: displayedColumns;"
-            >
-          </md-row>
+          <md-row *mdRowDef="let row; columns: displayedColumns;"></md-row>
       </md-table>
         <div class="example-no-results"
              [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">

@@ -10,7 +10,7 @@ import 'rxjs';
 
 interface Data {
   _id: number;
-  // name: string;
+  name: string;
   measure: string;
   price: number;
   storePlace: string;
@@ -29,7 +29,7 @@ export class StockTableComponent implements OnInit {
 
   displayedColumns = ['name','count','measure', 'price', 'storePlace','date'];
   // selection = new SelectionModel<string>(true, []);
-  dataSource: GenericDataSource<Data, "_id"> | null;
+  dataSource: GenericDataSource<Data, "name"> | null;
   catalog: BehaviorSubject<Data[]> = new BehaviorSubject<Data[]>([]);
 
   @ViewChild(MdSort) sort: MdSort;
@@ -39,14 +39,14 @@ export class StockTableComponent implements OnInit {
   ngOnInit() {
     this._dataService.getStockGoods()
     .subscribe({next:value => this.catalog.next(value)});
-    this.dataSource = new GenericDataSource(this.catalog, this.sort, this.paginator, "_id");
-    // Observable.fromEvent(this.filter.nativeElement, 'keyup')
-    // .debounceTime(150)
-    // .distinctUntilChanged()
-    // .subscribe(() => {
-    //   if (!this.dataSource) { return; }
-    //   this.dataSource.filter = this.filter.nativeElement.value;
-    // });
+    this.dataSource = new GenericDataSource(this.catalog, this.sort, this.paginator, "name");
+    Observable.fromEvent(this.filter.nativeElement, 'keyup')
+    .debounceTime(150)
+    .distinctUntilChanged()
+    .subscribe(() => {
+      if (!this.dataSource) { return; }
+      this.dataSource.filter = this.filter.nativeElement.value;
+    });
   }
 
   constructor(private _dataService: StockService) {

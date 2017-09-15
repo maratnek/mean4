@@ -2,6 +2,11 @@
   <h1>Склад {{_dataService.getCurrentStock()}}</h1>
   <div class="my-container mat-elevation-z8">
 
+    <div class="example-header">
+      <md-input-container floatPlaceholder="never">
+        <input mdInput #filter placeholder="Filter">
+      </md-input-container>
+    </div>
 
     <md-table #table [dataSource]="dataSource" mdSort>
 
@@ -35,11 +40,14 @@
         <md-cell *mdCellDef="let row"> {{row.publishedDate | date:'short'}} </md-cell>
       </ng-container>
 
-
       <md-header-row *mdHeaderRowDef="displayedColumns"></md-header-row>
-      <md-row *mdRowDef="let row; columns: displayedColumns;">
-      </md-row>
+      <md-row *mdRowDef="let row; columns: displayedColumns;"></md-row>
     </md-table>
+
+    <div class="example-no-results"
+         [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
+         Нет данных по данному фильтру.
+    </div>
 
     <md-paginator #paginator
     [length]="dataSource.filteredData.length"
