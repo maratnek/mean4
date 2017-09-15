@@ -27,7 +27,7 @@ export class StockTableComponent implements OnInit {
 
   @Output() onEdit = new EventEmitter<Data>();
 
-  displayedColumns = ['measure', 'price', 'storePlace','date'];
+  displayedColumns = ['name','count','measure', 'price', 'storePlace','date'];
   // selection = new SelectionModel<string>(true, []);
   dataSource: GenericDataSource<Data, "_id"> | null;
   catalog: BehaviorSubject<Data[]> = new BehaviorSubject<Data[]>([]);
@@ -38,26 +38,7 @@ export class StockTableComponent implements OnInit {
 
   ngOnInit() {
     this._dataService.getStockGoods()
-    .subscribe(value => {
-      // value.map(vl2 => {
-      // console.log(vl2);
-      //   this._dataService.getCatalogById(vl2._id).subscribe(vl3 => {
-      //     console.log(vl3);
-      //     console.log(vl2);
-          // vl3.count = vl2.count;
-          // vl3.price = vl2.price;
-          // vl3.publishedDatae = vl2.publishedDate;
-      //     for (let prop in vl3)
-      //       vl2[prop] = vl3[prop];
-      //   });
-      //   this.catalog.value.push(vl2);
-      // });
-      this.catalog.next(value);
-    },
-      (err)=>console.log(err),
-      ()=>console.log(this.catalog.value)
-      // console.log('Subscribe SUCCESS')
-  );
+    .subscribe({next:value => this.catalog.next(value)});
     this.dataSource = new GenericDataSource(this.catalog, this.sort, this.paginator, "_id");
     // Observable.fromEvent(this.filter.nativeElement, 'keyup')
     // .debounceTime(150)

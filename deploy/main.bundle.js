@@ -1956,7 +1956,7 @@ var _a, _b, _c, _d;
 /***/ "../../../../../src/app/components/stock/stock-table/stock-table.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"\">\n  <h1>Склад {{_dataService.getCurrentStock()}}</h1>\n  <div class=\"my-container mat-elevation-z8\">\n\n\n    <md-table #table [dataSource]=\"dataSource\" mdSort>\n\n\n    <ng-container mdColumnDef=\"measure\">\n      <md-header-cell *mdHeaderCellDef md-sort-header> Ед.Изм. </md-header-cell>\n      <md-cell *mdCellDef=\"let row\"> {{row.measure}} </md-cell>\n    </ng-container>\n\n    <ng-container mdColumnDef=\"price\">\n      <md-header-cell *mdHeaderCellDef md-sort-header> Цена </md-header-cell>\n      <md-cell *mdCellDef=\"let row\"> {{row.price}} </md-cell>\n    </ng-container>\n\n    <ng-container mdColumnDef=\"storePlace\">\n      <md-header-cell *mdHeaderCellDef md-sort-header> Место Хр. </md-header-cell>\n      <md-cell *mdCellDef=\"let row\"> {{row.storePlace}} </md-cell>\n    </ng-container>\n\n    <ng-container mdColumnDef=\"date\">\n      <md-header-cell *mdHeaderCellDef md-sort-header> Дата пр. </md-header-cell>\n      <md-cell *mdCellDef=\"let row\"> {{row.publishedDate | date:'short'}} </md-cell>\n    </ng-container>\n\n\n    <md-header-row *mdHeaderRowDef=\"displayedColumns\"></md-header-row>\n    <md-row *mdRowDef=\"let row; columns: displayedColumns;\">\n    </md-row>\n</md-table>\n\n  <md-paginator #paginator\n                [length]=\"dataSource.filteredData.length\"\n                [pageIndex]=\"0\"\n                [pageSize]=\"5\"\n                [pageSizeOptions]=\"[5, 10, 25, 100]\">\n  </md-paginator>\n\n</div>\n\n</div>\n"
+module.exports = "<div class=\"\">\n  <h1>Склад {{_dataService.getCurrentStock()}}</h1>\n  <div class=\"my-container mat-elevation-z8\">\n\n\n    <md-table #table [dataSource]=\"dataSource\" mdSort>\n\n      <ng-container mdColumnDef=\"name\">\n        <md-header-cell *mdHeaderCellDef md-sort-header> Имя </md-header-cell>\n        <md-cell *mdCellDef=\"let row\"> {{row.name}} </md-cell>\n      </ng-container>\n\n      <ng-container mdColumnDef=\"count\">\n        <md-header-cell *mdHeaderCellDef md-sort-header> Кол-во </md-header-cell>\n        <md-cell *mdCellDef=\"let row\"> {{row.count}} </md-cell>\n      </ng-container>\n\n      <ng-container mdColumnDef=\"measure\">\n        <md-header-cell *mdHeaderCellDef md-sort-header> Ед.Изм. </md-header-cell>\n        <md-cell *mdCellDef=\"let row\"> {{row.measure}} </md-cell>\n      </ng-container>\n\n      <ng-container mdColumnDef=\"price\">\n        <md-header-cell *mdHeaderCellDef md-sort-header> Цена </md-header-cell>\n        <md-cell *mdCellDef=\"let row\"> {{row.price}} </md-cell>\n      </ng-container>\n\n      <ng-container mdColumnDef=\"storePlace\">\n        <md-header-cell *mdHeaderCellDef md-sort-header> Место Хр. </md-header-cell>\n        <md-cell *mdCellDef=\"let row\"> {{row.storePlace}} </md-cell>\n      </ng-container>\n\n      <ng-container mdColumnDef=\"date\">\n        <md-header-cell *mdHeaderCellDef md-sort-header> Дата пр. </md-header-cell>\n        <md-cell *mdCellDef=\"let row\"> {{row.publishedDate | date:'short'}} </md-cell>\n      </ng-container>\n\n\n      <md-header-row *mdHeaderRowDef=\"displayedColumns\"></md-header-row>\n      <md-row *mdRowDef=\"let row; columns: displayedColumns;\">\n      </md-row>\n    </md-table>\n\n    <md-paginator #paginator\n    [length]=\"dataSource.filteredData.length\"\n    [pageIndex]=\"0\"\n    [pageSize]=\"5\"\n    [pageSizeOptions]=\"[5, 10, 25, 100]\">\n  </md-paginator>\n\n</div>\n\n</div>\n"
 
 /***/ }),
 
@@ -2024,30 +2024,13 @@ var StockTableComponent = (function () {
     function StockTableComponent(_dataService) {
         this._dataService = _dataService;
         this.onEdit = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["s" /* EventEmitter */]();
-        this.displayedColumns = ['measure', 'price', 'storePlace', 'date'];
+        this.displayedColumns = ['name', 'count', 'measure', 'price', 'storePlace', 'date'];
         this.catalog = new __WEBPACK_IMPORTED_MODULE_5_rxjs_BehaviorSubject__["BehaviorSubject"]([]);
     }
     StockTableComponent.prototype.ngOnInit = function () {
         var _this = this;
         this._dataService.getStockGoods()
-            .subscribe(function (value) {
-            // value.map(vl2 => {
-            // console.log(vl2);
-            //   this._dataService.getCatalogById(vl2._id).subscribe(vl3 => {
-            //     console.log(vl3);
-            //     console.log(vl2);
-            // vl3.count = vl2.count;
-            // vl3.price = vl2.price;
-            // vl3.publishedDatae = vl2.publishedDate;
-            //     for (let prop in vl3)
-            //       vl2[prop] = vl3[prop];
-            //   });
-            //   this.catalog.value.push(vl2);
-            // });
-            _this.catalog.next(value);
-        }, function (err) { return console.log(err); }, function () { return console.log(_this.catalog.value); }
-        // console.log('Subscribe SUCCESS')
-        );
+            .subscribe({ next: function (value) { return _this.catalog.next(value); } });
         this.dataSource = new GenericDataSource(this.catalog, this.sort, this.paginator, "_id");
         // Observable.fromEvent(this.filter.nativeElement, 'keyup')
         // .debounceTime(150)

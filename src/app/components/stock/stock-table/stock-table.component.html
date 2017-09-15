@@ -5,38 +5,47 @@
 
     <md-table #table [dataSource]="dataSource" mdSort>
 
+      <ng-container mdColumnDef="name">
+        <md-header-cell *mdHeaderCellDef md-sort-header> Имя </md-header-cell>
+        <md-cell *mdCellDef="let row"> {{row.name}} </md-cell>
+      </ng-container>
 
-    <ng-container mdColumnDef="measure">
-      <md-header-cell *mdHeaderCellDef md-sort-header> Ед.Изм. </md-header-cell>
-      <md-cell *mdCellDef="let row"> {{row.measure}} </md-cell>
-    </ng-container>
+      <ng-container mdColumnDef="count">
+        <md-header-cell *mdHeaderCellDef md-sort-header> Кол-во </md-header-cell>
+        <md-cell *mdCellDef="let row"> {{row.count}} </md-cell>
+      </ng-container>
 
-    <ng-container mdColumnDef="price">
-      <md-header-cell *mdHeaderCellDef md-sort-header> Цена </md-header-cell>
-      <md-cell *mdCellDef="let row"> {{row.price}} </md-cell>
-    </ng-container>
+      <ng-container mdColumnDef="measure">
+        <md-header-cell *mdHeaderCellDef md-sort-header> Ед.Изм. </md-header-cell>
+        <md-cell *mdCellDef="let row"> {{row.measure}} </md-cell>
+      </ng-container>
 
-    <ng-container mdColumnDef="storePlace">
-      <md-header-cell *mdHeaderCellDef md-sort-header> Место Хр. </md-header-cell>
-      <md-cell *mdCellDef="let row"> {{row.storePlace}} </md-cell>
-    </ng-container>
+      <ng-container mdColumnDef="price">
+        <md-header-cell *mdHeaderCellDef md-sort-header> Цена </md-header-cell>
+        <md-cell *mdCellDef="let row"> {{row.price}} </md-cell>
+      </ng-container>
 
-    <ng-container mdColumnDef="date">
-      <md-header-cell *mdHeaderCellDef md-sort-header> Дата пр. </md-header-cell>
-      <md-cell *mdCellDef="let row"> {{row.publishedDate | date:'short'}} </md-cell>
-    </ng-container>
+      <ng-container mdColumnDef="storePlace">
+        <md-header-cell *mdHeaderCellDef md-sort-header> Место Хр. </md-header-cell>
+        <md-cell *mdCellDef="let row"> {{row.storePlace}} </md-cell>
+      </ng-container>
+
+      <ng-container mdColumnDef="date">
+        <md-header-cell *mdHeaderCellDef md-sort-header> Дата пр. </md-header-cell>
+        <md-cell *mdCellDef="let row"> {{row.publishedDate | date:'short'}} </md-cell>
+      </ng-container>
 
 
-    <md-header-row *mdHeaderRowDef="displayedColumns"></md-header-row>
-    <md-row *mdRowDef="let row; columns: displayedColumns;">
-    </md-row>
-</md-table>
+      <md-header-row *mdHeaderRowDef="displayedColumns"></md-header-row>
+      <md-row *mdRowDef="let row; columns: displayedColumns;">
+      </md-row>
+    </md-table>
 
-  <md-paginator #paginator
-                [length]="dataSource.filteredData.length"
-                [pageIndex]="0"
-                [pageSize]="5"
-                [pageSizeOptions]="[5, 10, 25, 100]">
+    <md-paginator #paginator
+    [length]="dataSource.filteredData.length"
+    [pageIndex]="0"
+    [pageSize]="5"
+    [pageSizeOptions]="[5, 10, 25, 100]">
   </md-paginator>
 
 </div>

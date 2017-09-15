@@ -110,30 +110,22 @@ router.get('/stock-goods', (req, res) => {
               let dt = [];
               let myPromise = new Promise((resolve,reject)=>{
                 goods.map(it => {
-                  it.dataTable.map(d => {
+                  it.dataTable.map((d, index) => {
                     d.publishedDate = it.publishedDate;
                     // let catalog = {};
                     id = d._id;
                     if (id && id.length > 0)
                     {
                       query = {_id: ObjectID(id)};
-                      let yes = false;
-                      let gen = co(function* (){
-                        colCatalog.find(query).toArray().then(it => {
-                          console.log('Catalog',it);
-                          let catalog = Object.assign({}, it[0]);
-                          for (let prop in catalog)
-                            d[prop] = catalog[prop];
-                          dt.push(d);
-                          yes = true;
-                        });
-                        if (yes)
-                          yield yes;
+                      colCatalog.find(query).toArray().then(cat => {
+                        console.log('Catalog',cat);
+                        let catalog = Object.assign({}, cat[0]);
+                        for (let prop in catalog)
+                          d[prop] = catalog[prop];
+                        dt.push(d);
+                        if (it.dataTable.length == index + 1)
+                          resolve(dt);
                       });
-                      do {
-                        console.log(gen);
-                      } while (gen == undefined || !gen);
-                      resolve(dt);
                     }
                   });
                 });
@@ -142,7 +134,7 @@ router.get('/stock-goods', (req, res) => {
                 console.log('Data stock',data);
                 response.data = data;
                 res.json(response);
-              });
+              }).catch(err=>console.log('Error Promise stock'));
             })
             .catch((err) => {
                 sendError(err, res);
