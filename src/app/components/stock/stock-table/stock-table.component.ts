@@ -55,8 +55,7 @@ export class StockTableComponent implements OnInit {
       this.catalog.next(value);
     },
       (err)=>console.log(err),
-      ()=>
-      console.log(this.catalog.value)
+      ()=>console.log(this.catalog.value)
       // console.log('Subscribe SUCCESS')
   );
     this.dataSource = new GenericDataSource(this.catalog, this.sort, this.paginator, "_id");

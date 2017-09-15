@@ -2045,9 +2045,7 @@ var StockTableComponent = (function () {
             //   this.catalog.value.push(vl2);
             // });
             _this.catalog.next(value);
-        }, function (err) { return console.log(err); }, function () {
-            return console.log(_this.catalog.value);
-        }
+        }, function (err) { return console.log(err); }, function () { return console.log(_this.catalog.value); }
         // console.log('Subscribe SUCCESS')
         );
         this.dataSource = new GenericDataSource(this.catalog, this.sort, this.paginator, "_id");

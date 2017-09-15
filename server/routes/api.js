@@ -112,29 +112,35 @@ router.get('/stock-goods', (req, res) => {
                 goods.map(it => {
                   it.dataTable.map(d => {
                     d.publishedDate = it.publishedDate;
-                    let catalog = {};
+                    // let catalog = {};
                     id = d._id;
                     if (id && id.length > 0)
                     {
                       query = {_id: ObjectID(id)};
-                      let catPromise = co(function* (){
-                        return yield colCatalog.find(query).toArray();
+                      let yes = false;
+                      let gen = co(function* (){
+                        colCatalog.find(query).toArray().then(it => {
+                          console.log('Catalog',it);
+                          let catalog = Object.assign({}, it[0]);
+                          for (let prop in catalog)
+                            d[prop] = catalog[prop];
+                          dt.push(d);
+                          yes = true;
+                        });
+                        if (yes)
+                          yield yes;
                       });
-                      catPromise.then(catalog => {
-                        console.log('Catalog', catalog);
-                        for (let prop in catalog[0])
-                          d[prop] = catalog[prop];
-                        dt.push(d);
-                        resolve(dt);
-                      });
-
+                      do {
+                        console.log(gen);
+                      } while (gen == undefined || !gen);
+                      resolve(dt);
                     }
                   });
                 });
               });
               myPromise.then((data)=>{
-                console.log('Data stock',dt);
-                response.data = dt;
+                console.log('Data stock',data);
+                response.data = data;
                 res.json(response);
               });
             })
