@@ -2549,7 +2549,7 @@ var StockService = (function () {
             .subscribe(function (result) { return callback(!result.ok); });
     };
     StockService.prototype.expenseGoods = function (goods, callback) {
-        this._http.delete("/api/expense-goods", goods)
+        this._http.post("/api/expense-goods", goods)
             .subscribe(function (result) { return callback(!result.ok); });
     };
     StockService.prototype.getStock = function () {

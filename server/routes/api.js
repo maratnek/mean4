@@ -160,24 +160,29 @@ router.post('/income-goods', (req,res) => {
   })
 });
 
-router.delete('/expense-goods', (req,res) => {
+router.post('/expense-goods', (req,res) => {
   connection((db)=>{
-      console.log('Expense', req.query);
-      if (!req.query.name.length)
+      console.log('Expense', req.body);
+      if (!req.body.stockName.length)
         res.sendStatus(500);
-      // query = {name: req.query.name};
-      // db.collection('catalog').remove(query,(err, r) => {
-      //   if (err) console.log('error ' + r.result.n);
-      //   else {
-      //     if(r.result.n!=1) {
-      //       console.log('error' + r.result.n);
-      //       res.sendStatus(500);
-      //     } else {
-      //       console.log('success ' + r.result.n);
-      //       res.sendStatus(200);
-      //     }
-      //   }
-      // });
+      connection((db) => {
+        let colGoods = db.collection('goods');
+        let query = {{stockName: req.body.stockName}, {dataTable:  count:{$eq:4} } };
+        colGoods.find(query).toArray()
+        .then( data => {
+          console.log(data);
+        } )
+        .catch( (err) => console.log('ERROR ', err) )
+
+
+        // query = {stockName: req.query.body.stockName, dataTable: {count: 0} };
+        // colGoods.remove(query,(err, r) => {
+        //   if (err)
+        //     console.log('ERROR ' + r.result.n);
+        //   else
+        //     console.log('SUCCESS ' + r.result.n);
+        // }
+      });
 
   });
 });

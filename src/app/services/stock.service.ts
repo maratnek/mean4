@@ -64,7 +64,7 @@ export class StockService {
   }
 
   expenseGoods(goods, callback){
-    this._http.delete("/api/expense-goods", goods)
+    this._http.post("/api/expense-goods", goods)
       .subscribe(result => callback(!result.ok));
   }
 
