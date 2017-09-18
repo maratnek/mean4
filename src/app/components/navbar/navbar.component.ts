@@ -15,7 +15,7 @@ export class NavbarComponent implements OnInit {
   }
 
   onResetStock(){
-    this.stockService.setCurrentStock('');
+    this.stockService.ExitCurrentStock();
   	this.router.navigate(['/create']);
   }
 

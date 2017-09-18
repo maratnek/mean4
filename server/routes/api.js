@@ -142,7 +142,7 @@ router.get('/stock-goods', (req, res) => {
     });
 });
 
-router.post('/income-goods',(req,res) => {
+router.post('/income-goods', (req,res) => {
   connection((db)=> {
     req.body.publishedDate = new Date(Date.now()).toISOString();
     console.log('income-goods', req.body)
@@ -160,6 +160,27 @@ router.post('/income-goods',(req,res) => {
   })
 });
 
+router.delete('/expense-goods', (req,res) => {
+  connection((db)=>{
+      console.log('Expense', req.query);
+      if (!req.query.name.length)
+        res.sendStatus(500);
+      // query = {name: req.query.name};
+      // db.collection('catalog').remove(query,(err, r) => {
+      //   if (err) console.log('error ' + r.result.n);
+      //   else {
+      //     if(r.result.n!=1) {
+      //       console.log('error' + r.result.n);
+      //       res.sendStatus(500);
+      //     } else {
+      //       console.log('success ' + r.result.n);
+      //       res.sendStatus(200);
+      //     }
+      //   }
+      // });
+
+  });
+});
 
 // Library goods -- catalog
 router.get('/catalogs', (req,res) => {
@@ -172,29 +193,6 @@ router.get('/catalogs', (req,res) => {
         .catch( err => sendError(err,res) );
   });
 });
-
-function getCatalogById(id,db) {
-  let catalog = {};
-  if (id && id.length > 0)
-  {
-    query = {_id: ObjectID(id)};
-          db.collection('catalog').find(query).toArray().then(data=>{
-            if (data.length == 1)
-            {
-              catalog = Object.assign({},data[0]);
-              return catalog;
-              console.log('add data',catalog);
-            }
-            else {
-              console.log('Error: more than one object (catalog by id)');
-              throw -1;
-            }
-          })
-          .catch( err => console.log('Much more one')  );
-  }
-  console.log('catalog by id', catalog);
-  return catalog;
-}
 
 router.get('/catalog', (req,res) => {
   console.log(req.query.id);

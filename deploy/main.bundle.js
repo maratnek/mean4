@@ -1083,7 +1083,7 @@ var NavbarComponent = (function () {
     NavbarComponent.prototype.ngOnInit = function () {
     };
     NavbarComponent.prototype.onResetStock = function () {
-        this.stockService.setCurrentStock('');
+        this.stockService.ExitCurrentStock();
         this.router.navigate(['/create']);
     };
     return NavbarComponent;
@@ -1586,7 +1586,7 @@ var _a;
 /***/ "../../../../../src/app/components/stock/stock-expense/stock-expense.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h2>Выписать комплектующие</h2>\n<button md-raised-button>По продукции</button>\n"
+module.exports = "<h2>Выписать комплектующие</h2>\n<button md-raised-button>По продукции</button>\n  <form #expense=\"ngForm\" (ngSubmit)=\"onSubmit(expense)\" >\n    <md-card-actions>\n      <button  md-raised-button [disabled]=\"!expense.form.valid\"  type=\"submit\">\n        Выписать\n      </button>\n      <button  md-raised-button  type=\"reset\">Очистить</button>\n    </md-card-actions>\n  </form>\n\n<div class=\"my-container mat-elevation-z8\">\n\n  <div class=\"example-header\" [style.display]=\"selection.isEmpty() ? '' : 'none'\">\n    <md-input-container floatPlaceholder=\"never\">\n      <input mdInput #filter placeholder=\"Filter\">\n    </md-input-container>\n  </div>\n  <div class=\"example-header example-selection-header\"\n    *ngIf=\"!selection.isEmpty()\">\n    {{selection.selected.length}}\n    {{selection.selected.length == 1 ? 'element' : 'elements'}}\n    selected\n  </div>\n\n  <md-table #table [dataSource]=\"dataSource\" mdSort>\n\n  <!-- Checkbox Column -->\n  <ng-container mdColumnDef=\"select\">\n    <md-header-cell *mdHeaderCellDef  [style.flex]=\"'0 0 30px'\">\n      <md-checkbox (change)=\"$event ? masterToggle() : null\"\n                   [checked]=\"isAllSelected()\"\n                   [indeterminate]=\"selection.hasValue() && !isAllSelected()\">\n      </md-checkbox>\n    </md-header-cell>\n    <md-cell *mdCellDef =\"let row\"  [style.flex]=\"'0 0 30px'\">\n      <md-checkbox (click)=\"$event.stopPropagation()\"\n                   (change)=\"$event ? changeSelected(row) : null\"\n                   [checked]=\"selection.isSelected(row.name)\">\n      </md-checkbox>\n    </md-cell>\n  </ng-container>\n\n    <ng-container mdColumnDef=\"name\">\n      <md-header-cell *mdHeaderCellDef md-sort-header> Имя </md-header-cell>\n      <md-cell *mdCellDef=\"let row\"> {{row.name}} </md-cell>\n    </ng-container>\n\n    <ng-container mdColumnDef=\"count\">\n      <md-header-cell *mdHeaderCellDef md-sort-header> Кол-во </md-header-cell>\n      <md-cell *mdCellDef=\"let row\"> {{row.count}} </md-cell>\n    </ng-container>\n\n    <ng-container mdColumnDef=\"measure\">\n      <md-header-cell *mdHeaderCellDef md-sort-header> Ед.Изм. </md-header-cell>\n      <md-cell *mdCellDef=\"let row\"> {{row.measure}} </md-cell>\n    </ng-container>\n\n    <ng-container mdColumnDef=\"price\">\n      <md-header-cell *mdHeaderCellDef md-sort-header> Цена </md-header-cell>\n      <md-cell *mdCellDef=\"let row\"> {{row.price}} </md-cell>\n    </ng-container>\n\n    <ng-container mdColumnDef=\"storePlace\">\n      <md-header-cell *mdHeaderCellDef md-sort-header> Место Хр. </md-header-cell>\n      <md-cell *mdCellDef=\"let row\"> {{row.storePlace}} </md-cell>\n    </ng-container>\n\n    <ng-container mdColumnDef=\"date\">\n      <md-header-cell *mdHeaderCellDef md-sort-header> Дата пр. </md-header-cell>\n      <md-cell *mdCellDef=\"let row\"> {{row.publishedDate | date:'short'}} </md-cell>\n    </ng-container>\n\n    <md-header-row *mdHeaderRowDef=\"displayedColumns\"></md-header-row>\n    <md-row *mdRowDef=\"let row; columns: displayedColumns;\"></md-row>\n  </md-table>\n\n  <div class=\"example-no-results\"\n  [style.display]=\"dataSource.renderedData.length == 0 ? '' : 'none'\">\n  Нет данных по данному фильтру.\n</div>\n\n<md-paginator #paginator\n[length]=\"dataSource.filteredData.length\"\n[pageIndex]=\"0\"\n[pageSize]=\"5\"\n[pageSizeOptions]=\"[5, 10, 25, 100]\">\n</md-paginator>\n\n</div>\n"
 
 /***/ }),
 
@@ -1598,7 +1598,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, "/* Structure */\n.example-container {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  max-height: 500px;\n  min-width: 300px;\n  position: relative; }\n\n.example-header {\n  min-height: 64px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  padding-left: 24px;\n  font-size: 20px; }\n\n.example-table {\n  overflow: auto;\n  min-height: 300px; }\n\n.mat-column-title {\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n  overflow: hidden; }\n\n/* Column Widths */\n.mat-column-number,\n.mat-column-state {\n  max-width: 64px; }\n\n.mat-column-created {\n  max-width: 124px; }\n\n.example-loading-shade {\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 56px;\n  right: 0;\n  background: rgba(0, 0, 0, 0.15);\n  z-index: 1;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center; }\n\n.example-rate-limit-reached {\n  color: #980000;\n  max-width: 360px;\n  text-align: center; }\n", ""]);
 
 // exports
 
@@ -1612,8 +1612,28 @@ module.exports = module.exports.toString();
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_stock_service__ = __webpack_require__("../../../../../src/app/services/stock.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_cdk_collections__ = __webpack_require__("../../../cdk/@angular/cdk/collections.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_material__ = __webpack_require__("../../../material/@angular/material.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__ = __webpack_require__("../../../../rxjs/Observable.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_BehaviorSubject__ = __webpack_require__("../../../../rxjs/BehaviorSubject.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_BehaviorSubject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_BehaviorSubject__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs__ = __webpack_require__("../../../../rxjs/Rx.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rxjs__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return StockExpenseComponent; });
+/* unused harmony export GenericDataSource */
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1624,22 +1644,214 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
+
+
+
+
+
 var StockExpenseComponent = (function () {
-    function StockExpenseComponent() {
+    function StockExpenseComponent(_dataService) {
+        this._dataService = _dataService;
+        this.onEdit = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["s" /* EventEmitter */]();
+        this.displayedColumns = ['select', 'name', 'count', 'measure', 'price', 'storePlace', 'date'];
+        this.selection = new __WEBPACK_IMPORTED_MODULE_3__angular_material__["c" /* SelectionModel */](true, []);
+        this.catalog = new __WEBPACK_IMPORTED_MODULE_5_rxjs_BehaviorSubject__["BehaviorSubject"]([]);
     }
     StockExpenseComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this._dataService.getStockGoods()
+            .subscribe({ next: function (value) { return _this.catalog.next(value); } });
+        this.dataSource = new GenericDataSource(this.catalog, this.sort, this.paginator, "name");
+        __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__["Observable"].fromEvent(this.filter.nativeElement, 'keyup')
+            .debounceTime(150)
+            .distinctUntilChanged()
+            .subscribe(function () {
+            if (!_this.dataSource) {
+                return;
+            }
+            _this.dataSource.filter = _this.filter.nativeElement.value;
+        });
+    };
+    StockExpenseComponent.prototype.onSubmit = function (data) {
+        var _this = this;
+        if (data.form.valid) {
+            var dt_1 = [];
+            this.catalog.value.forEach(function (data) {
+                if (_this.selection.isSelected(data.name))
+                    dt_1.push({ _id: data._id, count: data.count });
+            });
+            var expense = {};
+            expense.dataTable = dt_1;
+            expense.stockName = this._dataService.getCurrentStock();
+            console.log(expense);
+            this._dataService.expenseGoods(expense, function (err) {
+                if (err)
+                    console.log('Not expense goods!!!');
+                else {
+                    console.log('Expense goods!!!');
+                    data.form.reset();
+                }
+            });
+        }
+    };
+    StockExpenseComponent.prototype.changeSelected = function (row) {
+        this.selection.toggle(row.name);
+        if (this.selection.isSelected(row.name))
+            row.count = 1;
+        else
+            row.count = 0;
+    };
+    StockExpenseComponent.prototype.isAllSelected = function () {
+        if (!this.dataSource) {
+            return false;
+        }
+        if (this.selection.isEmpty()) {
+            return false;
+        }
+        if (this.filter.nativeElement.value) {
+            return this.selection.selected.length == this.dataSource.renderedData.length;
+        }
+        else {
+            return this.selection.selected.length == this.catalog.value.length;
+        }
+    };
+    StockExpenseComponent.prototype.masterToggle = function () {
+        var _this = this;
+        if (!this.dataSource) {
+            return;
+        }
+        if (this.isAllSelected()) {
+            this.selection.clear();
+        }
+        else if (this.filter.nativeElement.value) {
+            this.dataSource.renderedData.forEach(function (data) { _this.selection.select(data.name); if (!data.count)
+                data.count = 1; });
+        }
+        else {
+            this.catalog.value.forEach(function (data) { _this.selection.select(data.name); if (!data.count)
+                data.count = 1; });
+        }
     };
     return StockExpenseComponent;
 }());
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["v" /* Output */])(),
+    __metadata("design:type", Object)
+], StockExpenseComponent.prototype, "onEdit", void 0);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_16" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_3__angular_material__["d" /* MdSort */]),
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__angular_material__["d" /* MdSort */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_material__["d" /* MdSort */]) === "function" && _a || Object)
+], StockExpenseComponent.prototype, "sort", void 0);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_16" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_3__angular_material__["e" /* MdPaginator */]),
+    __metadata("design:type", typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__angular_material__["e" /* MdPaginator */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_material__["e" /* MdPaginator */]) === "function" && _b || Object)
+], StockExpenseComponent.prototype, "paginator", void 0);
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_16" /* ViewChild */])('filter'),
+    __metadata("design:type", typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__angular_core__["m" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_core__["m" /* ElementRef */]) === "function" && _c || Object)
+], StockExpenseComponent.prototype, "filter", void 0);
 StockExpenseComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_14" /* Component */])({
         selector: 'stock-expense',
         template: __webpack_require__("../../../../../src/app/components/stock/stock-expense/stock-expense.component.html"),
         styles: [__webpack_require__("../../../../../src/app/components/stock/stock-expense/stock-expense.component.scss")]
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_0__services_stock_service__["a" /* StockService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__services_stock_service__["a" /* StockService */]) === "function" && _d || Object])
 ], StockExpenseComponent);
 
+var GenericDataSource = (function (_super) {
+    __extends(GenericDataSource, _super);
+    function GenericDataSource(catalog, _sort, _paginator, _key) {
+        var _this = _super.call(this) || this;
+        _this.catalog = catalog;
+        _this._sort = _sort;
+        _this._paginator = _paginator;
+        _this._key = _key;
+        _this._filterChange = new __WEBPACK_IMPORTED_MODULE_5_rxjs_BehaviorSubject__["BehaviorSubject"]('');
+        _this.filteredData = [];
+        _this.renderedData = [];
+        _this.resultsLength = 0;
+        _this.isLoadingResults = false;
+        _this._filterChange.subscribe(function () { return _this._paginator.pageIndex = 0; });
+        return _this;
+    }
+    Object.defineProperty(GenericDataSource.prototype, "filter", {
+        get: function () { return this._filterChange.value; },
+        set: function (filter) { this._filterChange.next(filter); },
+        enumerable: true,
+        configurable: true
+    });
+    /** Connect function called by the table to retrieve one stream containing the data to render. */
+    GenericDataSource.prototype.connect = function () {
+        var _this = this;
+        var displayDataChanges = [
+            this.catalog,
+            this._sort.mdSortChange,
+            this._filterChange,
+            this._paginator.page,
+        ];
+        return __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__["Observable"].merge.apply(__WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__["Observable"], displayDataChanges).startWith(null)
+            .switchMap(function () {
+            _this.isLoadingResults = true;
+            return _this.getSortedData();
+        })
+            .catch(function () {
+            // Catch if the GitHub API has reached its rate limit. Return empty result.
+            _this.isRateLimitReached = true;
+            return __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__["Observable"].of(null);
+        })
+            .map(function (result) {
+            // Flip flag to show that loading has finished.
+            _this.resultsLength = result.length;
+            _this.isLoadingResults = false;
+            return result;
+        })
+            .map(function (result) {
+            if (!result) {
+                return [];
+            }
+            // Filter data
+            _this.filteredData = result.slice().filter(function (item) {
+                var getStr = function (str) { return str; };
+                var searchStr = getStr(item[_this._key]);
+                searchStr = searchStr.toLowerCase();
+                return searchStr.indexOf(_this.filter.toLowerCase()) != -1;
+            });
+            // Sort filtered data
+            // const sortedData = this.sortData(this.filteredData.slice());
+            var sortedData = _this.filteredData.slice();
+            var startIndex = _this._paginator.pageIndex * _this._paginator.pageSize;
+            _this.renderedData = sortedData.splice(startIndex, _this._paginator.pageSize);
+            return _this.renderedData;
+        });
+    };
+    GenericDataSource.prototype.disconnect = function () { };
+    GenericDataSource.prototype.getSortedData = function () {
+        var _this = this;
+        return this.catalog.map(function (data) {
+            if (!_this._sort.active || _this._sort.direction == '') {
+                return data;
+            }
+            return data.sort(function (a, b) {
+                var propertyA = '';
+                var propertyB = '';
+                _a = [a[_this._sort.active], b[_this._sort.active]], propertyA = _a[0], propertyB = _a[1];
+                var valueA = isNaN(+propertyA) ? propertyA : +propertyA;
+                var valueB = isNaN(+propertyB) ? propertyB : +propertyB;
+                if (typeof valueA === 'string' && typeof valueB === 'string') {
+                    valueA = valueA.toLowerCase();
+                    valueB = valueB.toLowerCase();
+                }
+                return (valueA < valueB ? -1 : 1) * (_this._sort.direction == 'asc' ? 1 : -1);
+                var _a;
+            });
+        });
+    };
+    return GenericDataSource;
+}(__WEBPACK_IMPORTED_MODULE_2__angular_cdk_collections__["b" /* DataSource */]));
+
+var _a, _b, _c, _d;
 //# sourceMappingURL=stock-expense.component.js.map
 
 /***/ }),
@@ -1714,33 +1926,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var StockIncomeComponent = (function () {
     function StockIncomeComponent(_dataService) {
         this._dataService = _dataService;
-        this.currentDate = new Date;
-        // dataTable:Observable<GoodElement[]>;
-        // @Output() getDataFromCatalog = new EventEmitter<Observable<GoodElement[]>>();
-        // @Input() set good(isSubmit:boolean){
-        //   this.dataTable = new Observable(observer => {
-        //
-        //     this.catalog.value.forEach(data => {
-        //       if(this.selection.isSelected(data.name))
-        //       {
-        //         observer.next({
-        //           _id : data._id,
-        //           name : data.name,
-        //           count : data.count
-        //         });
-        //       }
-        //     });
-        //     observer.complete();
-        //   });
-        //   this.getDataFromCatalog.emit(this.dataTable);
-        // }
         this.displayedColumns = ['select', 'name', 'count'];
         this.selection = new __WEBPACK_IMPORTED_MODULE_3__angular_material__["c" /* SelectionModel */](true, []);
         this.catalog = new __WEBPACK_IMPORTED_MODULE_5_rxjs_BehaviorSubject__["BehaviorSubject"]([]);
     }
     StockIncomeComponent.prototype.ngOnInit = function () {
         var _this = this;
-        console.log(this.currentDate);
         this._dataService.getCatalogs().subscribe({
             next: function (value) {
                 value.map(function (obj) { return obj.count = 0; });
@@ -2310,17 +2501,33 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var StockService = (function () {
+    // authStock: any;
+    // stock: any;
     function StockService(_http) {
         this._http = _http;
         this.stockName = '';
+        this.loadStock();
     }
+    // Use Local Storage for the save current stock
+    StockService.prototype.storeStockData = function (stockName) {
+        localStorage.setItem('currentStock', stockName);
+    };
+    StockService.prototype.loadStock = function () {
+        var stock = localStorage.getItem('currentStock');
+        this.stockName = stock;
+    };
+    StockService.prototype.ExitCurrentStock = function () {
+        this.stockName = null;
+        localStorage.removeItem('currentStock');
+    };
     StockService.prototype.IsExistStock = function () {
-        return this.stockName.length !== 0;
+        return this.stockName && this.stockName.length !== 0;
     };
     StockService.prototype.getCurrentStock = function () {
         return this.stockName;
     };
     StockService.prototype.setCurrentStock = function (stockName) {
+        this.storeStockData(stockName);
         this.stockName = stockName;
     };
     StockService.prototype.createStock = function (name, callback) {
@@ -2339,6 +2546,10 @@ var StockService = (function () {
     };
     StockService.prototype.incomeGoods = function (goods, callback) {
         this._http.post("/api/income-goods", goods)
+            .subscribe(function (result) { return callback(!result.ok); });
+    };
+    StockService.prototype.expenseGoods = function (goods, callback) {
+        this._http.delete("/api/expense-goods", goods)
             .subscribe(function (result) { return callback(!result.ok); });
     };
     StockService.prototype.getStock = function () {

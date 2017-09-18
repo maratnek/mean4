@@ -7,11 +7,30 @@ export class StockService {
 
   result:any;
   stockName: string = '';
+  // authStock: any;
+  // stock: any;
 
-  constructor(private _http: Http) { }
+  constructor(private _http: Http) {
+    this.loadStock();
+  }
+
+  // Use Local Storage for the save current stock
+  storeStockData(stockName) {
+    localStorage.setItem('currentStock', stockName);
+  }
+
+  loadStock(){
+    const stock = localStorage.getItem('currentStock');
+    this.stockName = stock;
+  }
+
+  ExitCurrentStock():void{
+    this.stockName = null;
+    localStorage.removeItem('currentStock');
+  }
 
   IsExistStock():boolean{
-    return this.stockName.length !== 0;
+    return this.stockName && this.stockName.length !== 0;
   }
 
   getCurrentStock(){
@@ -19,6 +38,7 @@ export class StockService {
   }
 
   setCurrentStock(stockName: string){
+    this.storeStockData(stockName);
     this.stockName = stockName;
   }
 
@@ -40,6 +60,11 @@ export class StockService {
 
   incomeGoods(goods, callback){
     this._http.post("/api/income-goods", goods)
+      .subscribe(result => callback(!result.ok));
+  }
+
+  expenseGoods(goods, callback){
+    this._http.delete("/api/expense-goods", goods)
       .subscribe(result => callback(!result.ok));
   }
 

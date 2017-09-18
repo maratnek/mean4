@@ -22,28 +22,6 @@ export interface GoodElement {
 })
 export class StockIncomeComponent implements OnInit {
 
-  currentDate:Date = new Date;
-  // dataTable:Observable<GoodElement[]>;
-  // @Output() getDataFromCatalog = new EventEmitter<Observable<GoodElement[]>>();
-  // @Input() set good(isSubmit:boolean){
-  //   this.dataTable = new Observable(observer => {
-  //
-  //     this.catalog.value.forEach(data => {
-  //       if(this.selection.isSelected(data.name))
-  //       {
-  //         observer.next({
-  //           _id : data._id,
-  //           name : data.name,
-  //           count : data.count
-  //         });
-  //       }
-  //     });
-  //     observer.complete();
-  //   });
-  //   this.getDataFromCatalog.emit(this.dataTable);
-  // }
-
-
   displayedColumns = ['select', 'name', 'count'];
   selection = new SelectionModel<string>(true, []);
   dataSource: CatalogDataSource | null;
@@ -54,7 +32,6 @@ export class StockIncomeComponent implements OnInit {
   @ViewChild('filter') filter: ElementRef;
 
   ngOnInit() {
-    console.log(this.currentDate);
     this._dataService.getCatalogs().subscribe({
       next: value => {
         value.map(obj => obj.count = 0);
