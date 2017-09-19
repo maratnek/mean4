@@ -61,7 +61,7 @@ export class StockExpenseComponent implements OnInit {
       this.catalog.value.forEach(data =>
         {
           if(this.selection.isSelected(data.name))
-            dt.push({_id: data._id, count: data.count});
+            dt.push({_id: data._id, count: data.count, price: data.price});
         }
       );
       let expense:any = {};
