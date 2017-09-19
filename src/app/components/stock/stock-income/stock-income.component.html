@@ -1,18 +1,6 @@
 <md-card>
   <h2 align=center>Приход деталей</h2>
   <md-grid-list cols="2">
-    <!-- Form -->
-    <md-grid-tile>
-      <form #incomeGoods="ngForm" (ngSubmit)="onSubmit(incomeGoods)" >
-        <span>Время прихода {{currentDate | date}}</span>
-        <md-card-actions>
-          <button  md-raised-button [disabled]="!incomeGoods.form.valid"  type="submit">
-            Добавить в склад
-          </button>
-          <button  md-raised-button  type="reset">Очистить</button>
-        </md-card-actions>
-      </form>
-    </md-grid-tile>
     <!-- Catalog -->
     <md-grid-tile>
       <div class="">
@@ -84,6 +72,18 @@
 
       </div>
 
+    </md-grid-tile>
+
+    <!-- Form -->
+    <md-grid-tile>
+      <form #incomeGoods="ngForm" (ngSubmit)="onSubmit(incomeGoods)" >
+        <md-card-actions>
+          <button  md-raised-button [disabled]="!incomeGoods.form.valid"  type="submit">
+            Добавить в склад
+          </button>
+          <button  md-raised-button  type="reset" (click)="reset()">Очистить</button>
+        </md-card-actions>
+      </form>
     </md-grid-tile>
   </md-grid-list>
 

@@ -5,7 +5,7 @@
       <button  md-raised-button [disabled]="!expense.form.valid"  type="submit">
         Выписать
       </button>
-      <button  md-raised-button  type="reset">Очистить</button>
+      <button  md-raised-button (click)="reset()">Очистить</button>
     </md-card-actions>
   </form>
 

@@ -174,19 +174,16 @@ router.post('/expense-goods', (req,res) => {
           colGoods.find(query).toArray()
           .then( data => {
             console.log("%j",data);
-          } )
+            colGoods.remove(query, (err, r) => {
+              if (err)
+                console.log('ERROR ' + r.result.n);
+              else
+                console.log('SUCCESS ' + r.result.n);
+            })
+          })
           .catch( (err) => console.log('ERROR ', err) )
           // colGoods.update(query, { $inc: { score: 1 } });
         });
-
-
-        // query = {stockName: req.query.body.stockName, dataTable: {count: 0} };
-        // colGoods.remove(query,(err, r) => {
-        //   if (err)
-        //     console.log('ERROR ' + r.result.n);
-        //   else
-        //     console.log('SUCCESS ' + r.result.n);
-        // }
       });
 
   });

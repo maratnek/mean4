@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, Input, ViewChild, EventEmitter, ElementRef } from '@angular/core';
 import { StockService } from '../../../services/stock.service';
+import {GenericDataSource} from '../../../classes/generic-data-sourse';
 
-import {Http, Response} from '@angular/http';
 import {DataSource} from '@angular/cdk/collections';
 import {MdPaginator, MdSort, SelectionModel} from '@angular/material';
 import {Observable} from 'rxjs/Observable';
@@ -9,7 +9,7 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import 'rxjs';
 
 
-export interface GoodElement {
+interface Data {
   _id : string
   name : string
   count : number
@@ -24,8 +24,8 @@ export class StockIncomeComponent implements OnInit {
 
   displayedColumns = ['select', 'name', 'count'];
   selection = new SelectionModel<string>(true, []);
-  dataSource: CatalogDataSource | null;
-  catalog: BehaviorSubject<CatalogData[]> = new BehaviorSubject<CatalogData[]>([]);
+  dataSource: GenericDataSource<Data, "name"> | null;
+  catalog: BehaviorSubject<Data[]> = new BehaviorSubject<Data[]>([]);
 
   @ViewChild(MdSort) sort: MdSort;
   @ViewChild(MdPaginator) paginator: MdPaginator;
@@ -38,7 +38,7 @@ export class StockIncomeComponent implements OnInit {
         this.catalog.next(value);
       }
     });
-    this.dataSource = new CatalogDataSource(this.catalog, this.sort, this.paginator);
+    this.dataSource = new GenericDataSource(this.catalog, this.sort, this.paginator, "name");
     Observable.fromEvent(this.filter.nativeElement, 'keyup')
     .debounceTime(150)
     .distinctUntilChanged()
@@ -75,6 +75,10 @@ export class StockIncomeComponent implements OnInit {
             }
           });
     }
+  }
+
+  reset():void{
+    this.selection.clear();
   }
 
   changeSelected(row:GoodElement){
@@ -119,100 +123,100 @@ interface CatalogData {
    count: number;
  }
 
-export class CatalogDataSource extends DataSource<any> {
-   _filterChange = new BehaviorSubject('');
-  get filter(): string { return this._filterChange.value; }
-  set filter(filter: string) { this._filterChange.next(filter); }
-  filteredData: CatalogData[] = [];
-  renderedData: CatalogData[] = [];
-
-  resultsLength: number = 0;
-  isLoadingResults: boolean = false;
-  isRateLimitReached: boolean;
-
-  constructor(
-              private catalog: BehaviorSubject<CatalogData[]>,
-              private _sort: MdSort,
-              private _paginator: MdPaginator) {
-    super();
-    this._filterChange.subscribe(() => this._paginator.pageIndex = 0);
-  }
-
-  /** Connect function called by the table to retrieve one stream containing the data to render. */
-  connect(): Observable<CatalogData[]> {
-
-
-    const displayDataChanges = [
-      this.catalog,
-      this._sort.mdSortChange,
-      this._filterChange,
-      this._paginator.page,
-    ];
-
-    return Observable.merge(...displayDataChanges)
-        .startWith(null)
-        .switchMap(() => {
-          this.isLoadingResults = true;
-           return this.getSortedData();
-        })
-        .catch(() => {
-          // Catch if the GitHub API has reached its rate limit. Return empty result.
-          this.isRateLimitReached = true;
-          return Observable.of(null);
-        })
-        .map(result => {
-          // Flip flag to show that loading has finished.
-          this.resultsLength = result.length;
-          this.isLoadingResults = false;
-          return result;
-        })
-        .map(result => {
-          if (!result) { return []; }
-          // Filter data
-          this.filteredData = result.slice().filter((item: CatalogData) => {
-            let searchStr = item.name.toLowerCase();
-            return searchStr.indexOf(this.filter.toLowerCase()) != -1;
-          });
-          // Sort filtered data
-          // const sortedData = this.sortData(this.filteredData.slice());
-          const sortedData = this.filteredData.slice();
-
-          // Grab the page's slice of the filtered sorted data.
-          const startIndex = this._paginator.pageIndex * this._paginator.pageSize;
-          this.renderedData = sortedData.splice(startIndex, this._paginator.pageSize);
-          return this.renderedData;
-          // this.isRateLimitReached = false;
-          // this.resultsLength = result.total_count;
-          // return result;
-          // return this.readGithubResult(result);
-        });
-  }
-
-  disconnect() {}
-
-  getSortedData(): Observable<CatalogData[]> {
-    return this.catalog.map(data => {
-      if (!this._sort.active || this._sort.direction == '') { return data; }
-
-      return data.sort((a, b) => {
-        let propertyA: number|string = '';
-        let propertyB: number|string = '';
-
-        switch (this._sort.active) {
-          case 'name': [propertyA, propertyB] = [a.name, b.name]; break;
-          case 'measure': [propertyA, propertyB] = [a.measure, b.measure]; break;
-          case 'price': [propertyA, propertyB] = [a.price, b.price]; break;
-          case 'storePlace': [propertyA, propertyB] = [a.storePlace, b.storePlace]; break;
-        }
-
-        let valueA = isNaN(+propertyA) ? propertyA : +propertyA;
-        let valueB = isNaN(+propertyB) ? propertyB : +propertyB;
-        if (typeof valueA === 'string' && typeof valueB === 'string'){
-            valueA = valueA.toLowerCase();
-            valueB = valueB.toLowerCase();
-        }
-        return (valueA < valueB ? -1 : 1) * (this._sort.direction == 'asc' ? 1 : -1);
-      });
-    });
-  }
-}
+// export class CatalogDataSource extends DataSource<any> {
+//    _filterChange = new BehaviorSubject('');
+//   get filter(): string { return this._filterChange.value; }
+//   set filter(filter: string) { this._filterChange.next(filter); }
+//   filteredData: CatalogData[] = [];
+//   renderedData: CatalogData[] = [];
+//
+//   resultsLength: number = 0;
+//   isLoadingResults: boolean = false;
+//   isRateLimitReached: boolean;
+//
+//   constructor(
+//               private catalog: BehaviorSubject<CatalogData[]>,
+//               private _sort: MdSort,
+//               private _paginator: MdPaginator) {
+//     super();
+//     this._filterChange.subscribe(() => this._paginator.pageIndex = 0);
+//   }
+//
+//   /** Connect function called by the table to retrieve one stream containing the data to render. */
+//   connect(): Observable<CatalogData[]> {
+//
+//
+//     const displayDataChanges = [
+//       this.catalog,
+//       this._sort.mdSortChange,
+//       this._filterChange,
+//       this._paginator.page,
+//     ];
+//
+//     return Observable.merge(...displayDataChanges)
+//         .startWith(null)
+//         .switchMap(() => {
+//           this.isLoadingResults = true;
+//            return this.getSortedData();
+//         })
+//         .catch(() => {
+//           // Catch if the GitHub API has reached its rate limit. Return empty result.
+//           this.isRateLimitReached = true;
+//           return Observable.of(null);
+//         })
+//         .map(result => {
+//           // Flip flag to show that loading has finished.
+//           this.resultsLength = result.length;
+//           this.isLoadingResults = false;
+//           return result;
+//         })
+//         .map(result => {
+//           if (!result) { return []; }
+//           // Filter data
+//           this.filteredData = result.slice().filter((item: CatalogData) => {
+//             let searchStr = item.name.toLowerCase();
+//             return searchStr.indexOf(this.filter.toLowerCase()) != -1;
+//           });
+//           // Sort filtered data
+//           // const sortedData = this.sortData(this.filteredData.slice());
+//           const sortedData = this.filteredData.slice();
+//
+//           // Grab the page's slice of the filtered sorted data.
+//           const startIndex = this._paginator.pageIndex * this._paginator.pageSize;
+//           this.renderedData = sortedData.splice(startIndex, this._paginator.pageSize);
+//           return this.renderedData;
+//           // this.isRateLimitReached = false;
+//           // this.resultsLength = result.total_count;
+//           // return result;
+//           // return this.readGithubResult(result);
+//         });
+//   }
+//
+//   disconnect() {}
+//
+//   getSortedData(): Observable<CatalogData[]> {
+//     return this.catalog.map(data => {
+//       if (!this._sort.active || this._sort.direction == '') { return data; }
+//
+//       return data.sort((a, b) => {
+//         let propertyA: number|string = '';
+//         let propertyB: number|string = '';
+//
+//         switch (this._sort.active) {
+//           case 'name': [propertyA, propertyB] = [a.name, b.name]; break;
+//           case 'measure': [propertyA, propertyB] = [a.measure, b.measure]; break;
+//           case 'price': [propertyA, propertyB] = [a.price, b.price]; break;
+//           case 'storePlace': [propertyA, propertyB] = [a.storePlace, b.storePlace]; break;
+//         }
+//
+//         let valueA = isNaN(+propertyA) ? propertyA : +propertyA;
+//         let valueB = isNaN(+propertyB) ? propertyB : +propertyB;
+//         if (typeof valueA === 'string' && typeof valueB === 'string'){
+//             valueA = valueA.toLowerCase();
+//             valueB = valueB.toLowerCase();
+//         }
+//         return (valueA < valueB ? -1 : 1) * (this._sort.direction == 'asc' ? 1 : -1);
+//       });
+//     });
+//   }
+// }
