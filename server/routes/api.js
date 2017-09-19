@@ -167,17 +167,17 @@ router.post('/expense-goods', (req,res) => {
         res.sendStatus(500);
       connection((db) => {
         let colGoods = db.collection('goods');
-        // req.body.dataTable.forEach(catalog => {
-          // console.log('catalog ', catalog);
-          let query = { stockName: req.body.stockName, "dataTable._id":{ $all: req.body.dataTable.map(d => d._id )  } } ;
+        req.body.dataTable.forEach(catalog => {
+          console.log('catalog ', catalog);
+          let query = { stockName: req.body.stockName, "dataTable._id": catalog._id } ;
           console.log(query);
           colGoods.find(query).toArray()
           .then( data => {
             console.log("%j",data);
           } )
           .catch( (err) => console.log('ERROR ', err) )
-          colGoods.update(query, )
-        // });
+          // colGoods.update(query, { $inc: { score: 1 } });
+        });
 
 
         // query = {stockName: req.query.body.stockName, dataTable: {count: 0} };
