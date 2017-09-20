@@ -56,7 +56,7 @@ export class StockExpenseComponent implements OnInit {
   }
 
   onSubmit(data){
-    if (data.form.valid && !this.selection.isEmpty()){
+    if (data.form.valid && !this.selection.isEmpty()) {
       let dt:any[] = [];
       this.catalog.value.forEach(data =>
         {
@@ -92,7 +92,7 @@ export class StockExpenseComponent implements OnInit {
       row.count = 0;
   }
 
-  isAllSelected(): boolean {    this.dataSource = new CatalogDataSource(this.catalog, this.sort, this.paginator);
+  isAllSelected(): boolean {
 
     if (!this.dataSource) { return false; }
     if (this.selection.isEmpty()) { return false; }

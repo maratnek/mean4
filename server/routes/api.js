@@ -98,64 +98,109 @@ router.get('/stocks', (req,res) => {
 // GOODS COLLECTION
 router.get('/stock-goods', (req, res) => {
   console.log(req.query.name);
-  if (!req.query.name.length)
-    return;
-  query = {stockName: req.query.name};
+  if (req.query.name.length)
+  {
+    query = {stockName: req.query.name};
     connection((db) => {
-        let colCatalog = db.collection('catalog');
+        let CATALOG = db.collection('catalog');
         db.collection('goods')
-            .find(query)
+            .aggregate([
+              {$match:query}
+              ,{$lookup:{
+                from: "catalog",
+                localField: "_id",
+                foreignField: "_id",
+                as: "catalog"
+              }}
+              ,{$unwind:"$catalog"}
+              ,{$project: {
+                id: "$_id",
+                count: "$count"
+              }}
+            ])
+            // .map(iter => iter.catalog = iter.catalog[0])
             .toArray()
             .then((goods) => {
-              let dt = [];
-              let myPromise = new Promise((resolve,reject)=>{
-                goods.map(it => {
-                  it.dataTable.map((d, index) => {
-                    d.publishedDate = it.publishedDate;
-                    // let catalog = {};
-                    id = d._id;
-                    if (id && id.length > 0)
-                    {
-                      query = {_id: ObjectID(id)};
-                      colCatalog.find(query).toArray().then(cat => {
-                        console.log('Catalog',cat);
-                        let catalog = Object.assign({}, cat[0]);
-                        for (let prop in catalog)
-                          d[prop] = catalog[prop];
-                        dt.push(d);
-                        if (it.dataTable.length == index + 1)
-                          resolve(dt);
-                      });
-                    }
-                  });
-                });
-              });
-              myPromise.then((data)=>{
-                console.log('Data stock',data);
-                response.data = data;
-                res.json(response);
-              }).catch(err=>console.log('Error Promise stock'));
+              console.log(goods);
+              response.data = goods;
+              res.json(response);
+              // let dt = [];
+              // let myPromise = new Promise((resolve,reject)=>{
+              //   goods.map(it => {
+              //     it.dataTable.map((d, index) => {
+              //       d.publishedDate = it.publishedDate;
+              //       // let catalog = {};
+              //       id = d._id;
+              //       if (id && id.length > 0)
+              //       {
+              //         query = {_id: ObjectID(id)};
+              //         colCatalog.find(query).toArray().then(cat => {
+              //           console.log('Catalog',cat);
+              //           let catalog = Object.assign({}, cat[0]);
+              //           for (let prop in catalog)
+              //             d[prop] = catalog[prop];
+              //           dt.push(d);
+              //           if (it.dataTable.length == index + 1)
+              //             resolve(dt);
+              //         });
+              //       }
+              //     });
+              //   });
+              // });
+              // myPromise.then((data)=>{
+              //   console.log('Data stock',data);
+              //   response.data = data;
+              //   res.json(response);
+              // }).catch(err=>console.log('Error Promise stock'));
             })
             .catch((err) => {
                 sendError(err, res);
             });
     });
+  }
+
 });
 
 router.post('/income-goods', (req,res) => {
   connection((db)=> {
-    req.body.publishedDate = new Date(Date.now()).toISOString();
     console.log('income-goods', req.body)
-    db.collection('goods').insert(req.body, (err, r) => {
-      if (err)
-          sendError(err, res);
-      else {
-        db.collection('goods').find().toArray().then((data)=>{
-          console.log('find income-goods %j', data);
-          res.sendStatus(200);
-        })
-      }
-    });
+    if (req.body.stockName && req.body.stockName.length){
+      let GOODS = db.collection('goods');
+      let STATIST_GOODS = db.collection('statist-goods');
+      (new Promise((resolve, reject)=>{
+        req.body.data.forEach( (catalog, index) => {
+          console.log(catalog);
+          GOODS.update(
+            {_id:ObjectID(catalog._id),stockName:req.body.stockName},
+            {
+              $inc:{count:catalog.count},
+              $setOnInsert:{stockName:req.body.stockName}
+            },
+            {upsert: true}
+          )
+          .then(result1 => {
+            console.log('SUCCESS INSERT UPDATE GOODS');
+            STATIST_GOODS.insert({stockName: req.body.stockName, publicDate: new Date(),
+              count: catalog.count, price: catalog.price, action: "INCOME"})
+              .then(result2 => {
+                console.log('SUCCESS INSERT STATIC GOODS');
+                if (req.body.data.length == index + 1)
+                  resolve('true');
+              })
+              .catch(err => console.log('ERROR INSERT STATIC GOODS', err));
+            })
+            .catch(err => console.log('ERROR INSERT UPDATE GOODS', err));
+
+          });
+      }))// new Promise
+      .then(success=>{
+          if (success)
+            res.sendStatus(200);
+          else {
+            sendError(501);
+          }
+      })
+    }
 
   })
 });
@@ -174,16 +219,19 @@ router.post('/expense-goods', (req,res) => {
           colGoods.find(query).toArray()
           .then( data => {
             console.log("%j",data);
-            colGoods.remove(query, (err, r) => {
-              if (err)
-                console.log('ERROR ' + r.result.n);
-              else
-                console.log('SUCCESS ' + r.result.n);
-            })
-          })
+            // colGoods.update(query, { $inc: { score: 1 } });
+          } )
           .catch( (err) => console.log('ERROR ', err) )
-          // colGoods.update(query, { $inc: { score: 1 } });
         });
+
+
+        // query = {stockName: req.query.body.stockName, dataTable: {count: 0} };
+        // colGoods.remove(query,(err, r) => {
+        //   if (err)
+        //     console.log('ERROR ' + r.result.n);
+        //   else
+        //     console.log('SUCCESS ' + r.result.n);
+        // }
       });
 
   });

@@ -1755,7 +1755,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-// import {Http, Response} from '@angular/http';
 
 
 
@@ -1770,8 +1769,12 @@ var StockExpenseComponent = (function () {
     }
     StockExpenseComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this._dataService.getStockGoods()
-            .subscribe({ next: function (value) { return _this.catalog.next(value); } });
+        this._dataService.getStockGoods().subscribe({
+            next: function (value) {
+                value.map(function (obj) { return obj.count = 0; });
+                _this.catalog.next(value);
+            }
+        });
         this.dataSource = new __WEBPACK_IMPORTED_MODULE_1__classes_generic_data_sourse__["a" /* GenericDataSource */](this.catalog, this.sort, this.paginator, "name");
         __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__["Observable"].fromEvent(this.filter.nativeElement, 'keyup')
             .debounceTime(150)
@@ -1785,11 +1788,11 @@ var StockExpenseComponent = (function () {
     };
     StockExpenseComponent.prototype.onSubmit = function (data) {
         var _this = this;
-        if (data.form.valid) {
+        if (data.form.valid && !this.selection.isEmpty()) {
             var dt_1 = [];
             this.catalog.value.forEach(function (data) {
                 if (_this.selection.isSelected(data.name))
-                    dt_1.push({ _id: data._id, count: data.count });
+                    dt_1.push({ _id: data._id, count: data.count, price: data.price });
             });
             var expense = {};
             expense.dataTable = dt_1;
@@ -1881,7 +1884,7 @@ var _a, _b, _c, _d;
 /***/ "../../../../../src/app/components/stock/stock-income/stock-income.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<md-card>\n  <h2 align=center>Приход деталей</h2>\n  <md-grid-list cols=\"2\">\n    <!-- Catalog -->\n    <md-grid-tile>\n      <div class=\"\">\n        <h4>Выбрать деталь из каталога или добавить новый</h4>\n        <div class=\"my-container mat-elevation-z8\">\n\n          <div class=\"example-header\" [style.display]=\"selection.isEmpty() ? '' : 'none'\">\n            <md-input-container floatPlaceholder=\"never\">\n              <input mdInput #filter placeholder=\"Filter\">\n            </md-input-container>\n          </div>\n          <div class=\"example-header example-selection-header\"\n            *ngIf=\"!selection.isEmpty()\">\n            {{selection.selected.length}}\n            {{selection.selected.length == 1 ? 'element' : 'elements'}}\n            selected\n          </div>\n\n          <md-table #table [dataSource]=\"dataSource\" mdSort>\n\n          <!-- Checkbox Column -->\n          <ng-container mdColumnDef=\"select\">\n            <md-header-cell *mdHeaderCellDef  [style.flex]=\"'0 0 30px'\">\n              <md-checkbox (change)=\"$event ? masterToggle() : null\"\n                           [checked]=\"isAllSelected()\"\n                           [indeterminate]=\"selection.hasValue() && !isAllSelected()\">\n              </md-checkbox>\n            </md-header-cell>\n            <md-cell *mdCellDef =\"let row\"  [style.flex]=\"'0 0 30px'\">\n              <md-checkbox (click)=\"$event.stopPropagation()\"\n                           (change)=\"$event ? changeSelected(row) : null\"\n                           [checked]=\"selection.isSelected(row.name)\">\n              </md-checkbox>\n            </md-cell>\n          </ng-container>\n\n          <ng-container mdColumnDef=\"name\">\n            <md-header-cell *mdHeaderCellDef md-sort-header> Имя </md-header-cell>\n            <md-cell *mdCellDef=\"let row\"> {{row.name}} </md-cell>\n          </ng-container>\n\n          <ng-container mdColumnDef=\"count\">\n            <md-header-cell *mdHeaderCellDef md-sort-header [style.flex]=\"'0 0 60px'\">Кол-во. </md-header-cell>\n            <md-cell *mdCellDef=\"let row\" [style.flex]=\"'0 0 60px'\">\n              <md-input-container  [style.display]=\"selection.isSelected(row.name) ? '': 'none'\"\n              [style.width]=\"'60px'\">\n                <input mdInput\n                type=\"number\" min=0 max=1000 value=\"0\" name=\"count\" [(ngModel)]=\"row.count\">\n              </md-input-container>\n            </md-cell>\n          </ng-container>\n\n          <md-header-row *mdHeaderRowDef=\"displayedColumns\"></md-header-row>\n          <md-row *mdRowDef=\"let row; columns: displayedColumns;\"></md-row>\n      </md-table>\n        <div class=\"example-no-results\"\n             [style.display]=\"dataSource.renderedData.length == 0 ? '' : 'none'\">\n             Нет данных по данному фильтру.\n        </div>\n\n        <md-paginator #paginator\n                      [length]=\"dataSource.filteredData.length\"\n                      [pageIndex]=\"0\"\n                      [pageSize]=\"10\"\n                      [pageSizeOptions]=\"[5, 10, 25, 100]\">\n        </md-paginator>\n\n      </div>\n\n      </div>\n\n    </md-grid-tile>\n\n    <!-- Form -->\n    <md-grid-tile>\n      <form #incomeGoods=\"ngForm\" (ngSubmit)=\"onSubmit(incomeGoods)\" >\n        <md-card-actions>\n          <button  md-raised-button [disabled]=\"!incomeGoods.form.valid\"  type=\"submit\">\n            Добавить в склад\n          </button>\n          <button  md-raised-button  type=\"reset\" (click)=\"reset()\">Очистить</button>\n        </md-card-actions>\n      </form>\n    </md-grid-tile>\n  </md-grid-list>\n\n  <!-- <product-create [product]=\"isSubmit\" (getDataFromCatalog)=\"dataTable = $event\"></product-create>  -->\n</md-card>\n"
+module.exports = "<md-card>\n  <h2 align=center>Приход деталей</h2>\n  <md-grid-list cols=\"2\">\n    <!-- Catalog -->\n    <md-grid-tile>\n      <div class=\"\">\n        <h4>Выбрать деталь из каталога или добавить новый</h4>\n        <div class=\"my-container mat-elevation-z8\">\n\n          <div class=\"example-header\" [style.display]=\"selection.isEmpty() ? '' : 'none'\">\n            <md-input-container floatPlaceholder=\"never\">\n              <input mdInput #filter placeholder=\"Filter\">\n            </md-input-container>\n          </div>\n          <div class=\"example-header example-selection-header\"\n            *ngIf=\"!selection.isEmpty()\">\n            {{selection.selected.length}}\n            {{selection.selected.length == 1 ? 'element' : 'elements'}}\n            selected\n          </div>\n\n          <md-table #table [dataSource]=\"dataSource\" mdSort>\n\n          <!-- Checkbox Column -->\n          <ng-container mdColumnDef=\"select\">\n            <md-header-cell *mdHeaderCellDef  [style.flex]=\"'0 0 30px'\">\n              <md-checkbox (change)=\"$event ? masterToggle() : null\"\n                           [checked]=\"isAllSelected()\"\n                           [indeterminate]=\"selection.hasValue() && !isAllSelected()\">\n              </md-checkbox>\n            </md-header-cell>\n            <md-cell *mdCellDef =\"let row\"  [style.flex]=\"'0 0 30px'\">\n              <md-checkbox (click)=\"$event.stopPropagation()\"\n                           (change)=\"$event ? changeSelected(row) : null\"\n                           [checked]=\"selection.isSelected(row.name)\">\n              </md-checkbox>\n            </md-cell>\n          </ng-container>\n\n          <ng-container mdColumnDef=\"name\">\n            <md-header-cell *mdHeaderCellDef md-sort-header> Имя </md-header-cell>\n            <md-cell *mdCellDef=\"let row\"> {{row.name}} </md-cell>\n          </ng-container>\n\n          <ng-container mdColumnDef=\"count\">\n            <md-header-cell *mdHeaderCellDef md-sort-header [style.flex]=\"'0 0 60px'\">Кол-во. </md-header-cell>\n            <md-cell *mdCellDef=\"let row\" [style.flex]=\"'0 0 60px'\">\n              <md-input-container  [style.display]=\"selection.isSelected(row.name) ? '': 'none'\"\n              [style.width]=\"'60px'\">\n                <input mdInput\n                type=\"number\" min=0 max=1000 value=\"0\" name=\"count\" [(ngModel)]=\"row.count\">\n              </md-input-container>\n            </md-cell>\n          </ng-container>\n\n          <ng-container mdColumnDef=\"price\">\n            <md-header-cell *mdHeaderCellDef md-sort-header [style.flex]=\"'0 0 60px'\">Цена </md-header-cell>\n            <md-cell *mdCellDef=\"let row\" [style.flex]=\"'0 0 60px'\">\n              <md-input-container  [style.display]=\"selection.isSelected(row.name) ? '': 'none'\"\n              [style.width]=\"'60px'\">\n                <input mdInput\n                type=\"number\" value=\"0\" requierd name=\"price\" [(ngModel)]=\"row.price\">\n              </md-input-container>\n            </md-cell>\n          </ng-container>\n\n\n          <md-header-row *mdHeaderRowDef=\"displayedColumns\"></md-header-row>\n          <md-row *mdRowDef=\"let row; columns: displayedColumns;\"></md-row>\n      </md-table>\n        <div class=\"example-no-results\"\n             [style.display]=\"dataSource.renderedData.length == 0 ? '' : 'none'\">\n             Нет данных по данному фильтру.\n        </div>\n\n        <md-paginator #paginator\n                      [length]=\"dataSource.filteredData.length\"\n                      [pageIndex]=\"0\"\n                      [pageSize]=\"10\"\n                      [pageSizeOptions]=\"[5, 10, 25, 100]\">\n        </md-paginator>\n\n      </div>\n\n      </div>\n\n    </md-grid-tile>\n\n    <!-- Form -->\n    <md-grid-tile>\n      <form #incomeGoods=\"ngForm\" (ngSubmit)=\"onSubmit(incomeGoods)\" >\n        <md-card-actions>\n          <button  md-raised-button [disabled]=\"!incomeGoods.form.valid\"  type=\"submit\">\n            Добавить в склад\n          </button>\n          <button  md-raised-button  type=\"reset\" (click)=\"reset()\">Очистить</button>\n        </md-card-actions>\n      </form>\n    </md-grid-tile>\n  </md-grid-list>\n\n  <!-- <product-create [product]=\"isSubmit\" (getDataFromCatalog)=\"dataTable = $event\"></product-create>  -->\n</md-card>\n"
 
 /***/ }),
 
@@ -1909,7 +1912,7 @@ module.exports = module.exports.toString();
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_stock_service__ = __webpack_require__("../../../../../src/app/services/stock.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_cdk_collections__ = __webpack_require__("../../../cdk/@angular/cdk/collections.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__classes_generic_data_sourse__ = __webpack_require__("../../../../../src/app/classes/generic-data-sourse.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_material__ = __webpack_require__("../../../material/@angular/material.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__ = __webpack_require__("../../../../rxjs/Observable.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__);
@@ -1918,17 +1921,6 @@ module.exports = module.exports.toString();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs__ = __webpack_require__("../../../../rxjs/Rx.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rxjs__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return StockIncomeComponent; });
-/* unused harmony export CatalogDataSource */
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1948,7 +1940,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var StockIncomeComponent = (function () {
     function StockIncomeComponent(_dataService) {
         this._dataService = _dataService;
-        this.displayedColumns = ['select', 'name', 'count'];
+        this.displayedColumns = ['select', 'name', 'count', 'price'];
         this.selection = new __WEBPACK_IMPORTED_MODULE_3__angular_material__["c" /* SelectionModel */](true, []);
         this.catalog = new __WEBPACK_IMPORTED_MODULE_5_rxjs_BehaviorSubject__["BehaviorSubject"]([]);
     }
@@ -1956,11 +1948,10 @@ var StockIncomeComponent = (function () {
         var _this = this;
         this._dataService.getCatalogs().subscribe({
             next: function (value) {
-                value.map(function (obj) { return obj.count = 0; });
                 _this.catalog.next(value);
             }
         });
-        this.dataSource = new CatalogDataSource(this.catalog, this.sort, this.paginator);
+        this.dataSource = new __WEBPACK_IMPORTED_MODULE_2__classes_generic_data_sourse__["a" /* GenericDataSource */](this.catalog, this.sort, this.paginator, "name");
         __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__["Observable"].fromEvent(this.filter.nativeElement, 'keyup')
             .debounceTime(150)
             .distinctUntilChanged()
@@ -1974,14 +1965,14 @@ var StockIncomeComponent = (function () {
     StockIncomeComponent.prototype.onSubmit = function (data) {
         var _this = this;
         console.log(data);
-        if (data.form.valid) {
+        if (data.form.valid && !this.selection.isEmpty()) {
             var dt_1 = [];
             this.catalog.value.forEach(function (data) {
                 if (_this.selection.isSelected(data.name))
                     dt_1.push({ _id: data._id, price: data.price, count: data.count });
             });
             var incomeData = {};
-            incomeData.dataTable = dt_1;
+            incomeData.data = dt_1;
             incomeData.stockName = this._dataService.getCurrentStock();
             console.log(incomeData);
             this._dataService.incomeGoods(incomeData, function (err) {
@@ -2058,112 +2049,6 @@ StockIncomeComponent = __decorate([
     __metadata("design:paramtypes", [typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1__services_stock_service__["a" /* StockService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_stock_service__["a" /* StockService */]) === "function" && _d || Object])
 ], StockIncomeComponent);
 
-var CatalogDataSource = (function (_super) {
-    __extends(CatalogDataSource, _super);
-    function CatalogDataSource(catalog, _sort, _paginator) {
-        var _this = _super.call(this) || this;
-        _this.catalog = catalog;
-        _this._sort = _sort;
-        _this._paginator = _paginator;
-        _this._filterChange = new __WEBPACK_IMPORTED_MODULE_5_rxjs_BehaviorSubject__["BehaviorSubject"]('');
-        _this.filteredData = [];
-        _this.renderedData = [];
-        _this.resultsLength = 0;
-        _this.isLoadingResults = false;
-        _this._filterChange.subscribe(function () { return _this._paginator.pageIndex = 0; });
-        return _this;
-    }
-    Object.defineProperty(CatalogDataSource.prototype, "filter", {
-        get: function () { return this._filterChange.value; },
-        set: function (filter) { this._filterChange.next(filter); },
-        enumerable: true,
-        configurable: true
-    });
-    /** Connect function called by the table to retrieve one stream containing the data to render. */
-    CatalogDataSource.prototype.connect = function () {
-        var _this = this;
-        var displayDataChanges = [
-            this.catalog,
-            this._sort.mdSortChange,
-            this._filterChange,
-            this._paginator.page,
-        ];
-        return __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__["Observable"].merge.apply(__WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__["Observable"], displayDataChanges).startWith(null)
-            .switchMap(function () {
-            _this.isLoadingResults = true;
-            return _this.getSortedData();
-        })
-            .catch(function () {
-            // Catch if the GitHub API has reached its rate limit. Return empty result.
-            _this.isRateLimitReached = true;
-            return __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__["Observable"].of(null);
-        })
-            .map(function (result) {
-            // Flip flag to show that loading has finished.
-            _this.resultsLength = result.length;
-            _this.isLoadingResults = false;
-            return result;
-        })
-            .map(function (result) {
-            if (!result) {
-                return [];
-            }
-            // Filter data
-            _this.filteredData = result.slice().filter(function (item) {
-                var searchStr = item.name.toLowerCase();
-                return searchStr.indexOf(_this.filter.toLowerCase()) != -1;
-            });
-            // Sort filtered data
-            // const sortedData = this.sortData(this.filteredData.slice());
-            var sortedData = _this.filteredData.slice();
-            // Grab the page's slice of the filtered sorted data.
-            var startIndex = _this._paginator.pageIndex * _this._paginator.pageSize;
-            _this.renderedData = sortedData.splice(startIndex, _this._paginator.pageSize);
-            return _this.renderedData;
-            // this.isRateLimitReached = false;
-            // this.resultsLength = result.total_count;
-            // return result;
-            // return this.readGithubResult(result);
-        });
-    };
-    CatalogDataSource.prototype.disconnect = function () { };
-    CatalogDataSource.prototype.getSortedData = function () {
-        var _this = this;
-        return this.catalog.map(function (data) {
-            if (!_this._sort.active || _this._sort.direction == '') {
-                return data;
-            }
-            return data.sort(function (a, b) {
-                var propertyA = '';
-                var propertyB = '';
-                switch (_this._sort.active) {
-                    case 'name':
-                        _a = [a.name, b.name], propertyA = _a[0], propertyB = _a[1];
-                        break;
-                    case 'measure':
-                        _b = [a.measure, b.measure], propertyA = _b[0], propertyB = _b[1];
-                        break;
-                    case 'price':
-                        _c = [a.price, b.price], propertyA = _c[0], propertyB = _c[1];
-                        break;
-                    case 'storePlace':
-                        _d = [a.storePlace, b.storePlace], propertyA = _d[0], propertyB = _d[1];
-                        break;
-                }
-                var valueA = isNaN(+propertyA) ? propertyA : +propertyA;
-                var valueB = isNaN(+propertyB) ? propertyB : +propertyB;
-                if (typeof valueA === 'string' && typeof valueB === 'string') {
-                    valueA = valueA.toLowerCase();
-                    valueB = valueB.toLowerCase();
-                }
-                return (valueA < valueB ? -1 : 1) * (_this._sort.direction == 'asc' ? 1 : -1);
-                var _a, _b, _c, _d;
-            });
-        });
-    };
-    return CatalogDataSource;
-}(__WEBPACK_IMPORTED_MODULE_2__angular_cdk_collections__["b" /* DataSource */]));
-
 var _a, _b, _c, _d;
 //# sourceMappingURL=stock-income.component.js.map
 
@@ -2199,8 +2084,8 @@ module.exports = module.exports.toString();
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_stock_service__ = __webpack_require__("../../../../../src/app/services/stock.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_cdk_collections__ = __webpack_require__("../../../cdk/@angular/cdk/collections.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__classes_generic_data_sourse__ = __webpack_require__("../../../../../src/app/classes/generic-data-sourse.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_material__ = __webpack_require__("../../../material/@angular/material.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__ = __webpack_require__("../../../../rxjs/Observable.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__);
@@ -2209,17 +2094,6 @@ module.exports = module.exports.toString();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs__ = __webpack_require__("../../../../rxjs/Rx.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rxjs__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return StockTableComponent; });
-/* unused harmony export GenericDataSource */
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2239,15 +2113,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var StockTableComponent = (function () {
     function StockTableComponent(_dataService) {
         this._dataService = _dataService;
-        this.onEdit = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["s" /* EventEmitter */]();
-        this.displayedColumns = ['name', 'count', 'measure', 'price', 'storePlace', 'date'];
+        this.onEdit = new __WEBPACK_IMPORTED_MODULE_2__angular_core__["s" /* EventEmitter */]();
+        this.displayedColumns = ['name', 'count', 'measure', 'storePlace'];
         this.catalog = new __WEBPACK_IMPORTED_MODULE_5_rxjs_BehaviorSubject__["BehaviorSubject"]([]);
     }
     StockTableComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this._dataService.getStockGoods()
-            .subscribe({ next: function (value) { return _this.catalog.next(value); } });
-        this.dataSource = new GenericDataSource(this.catalog, this.sort, this.paginator, "name");
+        this._dataService.getStockGoods().subscribe({ next: function (value) { return _this.catalog.next(value); } });
+        this.dataSource = new __WEBPACK_IMPORTED_MODULE_1__classes_generic_data_sourse__["a" /* GenericDataSource */](this.catalog, this.sort, this.paginator, "name");
         __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__["Observable"].fromEvent(this.filter.nativeElement, 'keyup')
             .debounceTime(150)
             .distinctUntilChanged()
@@ -2261,129 +2134,29 @@ var StockTableComponent = (function () {
     return StockTableComponent;
 }());
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["v" /* Output */])(),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["v" /* Output */])(),
     __metadata("design:type", Object)
 ], StockTableComponent.prototype, "onEdit", void 0);
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_16" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_3__angular_material__["d" /* MdSort */]),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_16" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_3__angular_material__["d" /* MdSort */]),
     __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__angular_material__["d" /* MdSort */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_material__["d" /* MdSort */]) === "function" && _a || Object)
 ], StockTableComponent.prototype, "sort", void 0);
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_16" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_3__angular_material__["e" /* MdPaginator */]),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_16" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_3__angular_material__["e" /* MdPaginator */]),
     __metadata("design:type", typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__angular_material__["e" /* MdPaginator */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_material__["e" /* MdPaginator */]) === "function" && _b || Object)
 ], StockTableComponent.prototype, "paginator", void 0);
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_16" /* ViewChild */])('filter'),
-    __metadata("design:type", typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__angular_core__["m" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_core__["m" /* ElementRef */]) === "function" && _c || Object)
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_16" /* ViewChild */])('filter'),
+    __metadata("design:type", typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__angular_core__["m" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_core__["m" /* ElementRef */]) === "function" && _c || Object)
 ], StockTableComponent.prototype, "filter", void 0);
 StockTableComponent = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["_14" /* Component */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_14" /* Component */])({
         selector: 'stock-table',
         template: __webpack_require__("../../../../../src/app/components/stock/stock-table/stock-table.component.html"),
         styles: [__webpack_require__("../../../../../src/app/components/stock/stock-table/stock-table.component.scss")]
     }),
     __metadata("design:paramtypes", [typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_0__services_stock_service__["a" /* StockService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__services_stock_service__["a" /* StockService */]) === "function" && _d || Object])
 ], StockTableComponent);
-
-var GenericDataSource = (function (_super) {
-    __extends(GenericDataSource, _super);
-    // catalog: Observable<CatalogData[]>;
-    function GenericDataSource(
-        // private _dataService: StockService,
-        catalog, _sort, _paginator, _key) {
-        var _this = _super.call(this) || this;
-        _this.catalog = catalog;
-        _this._sort = _sort;
-        _this._paginator = _paginator;
-        _this._key = _key;
-        _this._filterChange = new __WEBPACK_IMPORTED_MODULE_5_rxjs_BehaviorSubject__["BehaviorSubject"]('');
-        _this.filteredData = [];
-        _this.renderedData = [];
-        _this.resultsLength = 0;
-        _this.isLoadingResults = false;
-        _this._filterChange.subscribe(function () { return _this._paginator.pageIndex = 0; });
-        return _this;
-    }
-    Object.defineProperty(GenericDataSource.prototype, "filter", {
-        get: function () { return this._filterChange.value; },
-        set: function (filter) { this._filterChange.next(filter); },
-        enumerable: true,
-        configurable: true
-    });
-    /** Connect function called by the table to retrieve one stream containing the data to render. */
-    GenericDataSource.prototype.connect = function () {
-        var _this = this;
-        var displayDataChanges = [
-            this.catalog,
-            this._sort.mdSortChange,
-            this._filterChange,
-            this._paginator.page,
-        ];
-        return __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__["Observable"].merge.apply(__WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__["Observable"], displayDataChanges).startWith(null)
-            .switchMap(function () {
-            _this.isLoadingResults = true;
-            return _this.getSortedData();
-        })
-            .catch(function () {
-            // Catch if the GitHub API has reached its rate limit. Return empty result.
-            _this.isRateLimitReached = true;
-            return __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__["Observable"].of(null);
-        })
-            .map(function (result) {
-            // Flip flag to show that loading has finished.
-            _this.resultsLength = result.length;
-            _this.isLoadingResults = false;
-            return result;
-        })
-            .map(function (result) {
-            if (!result) {
-                return [];
-            }
-            // Filter data
-            _this.filteredData = result.slice().filter(function (item) {
-                var getStr = function (str) { return str; };
-                var searchStr = getStr(item[_this._key]);
-                searchStr = searchStr.toLowerCase();
-                return searchStr.indexOf(_this.filter.toLowerCase()) != -1;
-            });
-            // Sort filtered data
-            // const sortedData = this.sortData(this.filteredData.slice());
-            var sortedData = _this.filteredData.slice();
-            var startIndex = _this._paginator.pageIndex * _this._paginator.pageSize;
-            _this.renderedData = sortedData.splice(startIndex, _this._paginator.pageSize);
-            return _this.renderedData;
-        });
-    };
-    GenericDataSource.prototype.disconnect = function () { };
-    GenericDataSource.prototype.getSortedData = function () {
-        var _this = this;
-        return this.catalog.map(function (data) {
-            if (!_this._sort.active || _this._sort.direction == '') {
-                return data;
-            }
-            return data.sort(function (a, b) {
-                var propertyA = '';
-                var propertyB = '';
-                _a = [a[_this._sort.active], b[_this._sort.active]], propertyA = _a[0], propertyB = _a[1];
-                // switch (this._sort.active) {
-                //   case 'name': [propertyA, propertyB] = [a.name, b.name]; break;
-                //   case 'measure': [propertyA, propertyB] = [a.measure, b.measure]; break;
-                //   case 'price': [propertyA, propertyB] = [a.price, b.price]; break;
-                //   case 'storePlace': [propertyA, propertyB] = [a.storePlace, b.storePlace]; break;
-                // }
-                var valueA = isNaN(+propertyA) ? propertyA : +propertyA;
-                var valueB = isNaN(+propertyB) ? propertyB : +propertyB;
-                if (typeof valueA === 'string' && typeof valueB === 'string') {
-                    valueA = valueA.toLowerCase();
-                    valueB = valueB.toLowerCase();
-                }
-                return (valueA < valueB ? -1 : 1) * (_this._sort.direction == 'asc' ? 1 : -1);
-                var _a;
-            });
-        });
-    };
-    return GenericDataSource;
-}(__WEBPACK_IMPORTED_MODULE_2__angular_cdk_collections__["b" /* DataSource */]));
 
 var _a, _b, _c, _d;
 //# sourceMappingURL=stock-table.component.js.map
