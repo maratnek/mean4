@@ -117,6 +117,8 @@ router.get('/stock-goods', (req, res) => {
                 id: "$_id",
                 count: "$count",
                 name: "$catalog.name",
+                storePlace: "$catalog.storePlace",
+                measure: "$catalog.measure",
               }}
             ])
             // .map(iter => iter.catalog = iter.catalog[0])
