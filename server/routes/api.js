@@ -115,7 +115,8 @@ router.get('/stock-goods', (req, res) => {
               ,{$unwind:"$catalog"}
               ,{$project: {
                 id: "$_id",
-                count: "$count"
+                count: "$count",
+                name: "$catalog.name",
               }}
             ])
             // .map(iter => iter.catalog = iter.catalog[0])
