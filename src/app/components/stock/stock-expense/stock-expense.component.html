@@ -1,13 +1,13 @@
 <h2>Выписать комплектующие</h2>
-<button md-raised-button>По продукции</button>
-  <form #expense="ngForm" (ngSubmit)="onSubmit(expense)" >
-    <md-card-actions>
-      <button  md-raised-button [disabled]="!expense.form.valid"  type="submit">
-        Выписать
-      </button>
-      <button  md-raised-button (click)="reset()">Очистить</button>
-    </md-card-actions>
-  </form>
+<!-- <button md-raised-button>По продукции</button> -->
+<form #expense="ngForm" (ngSubmit)="onSubmit(expense)" >
+  <md-card-actions>
+    <button  md-raised-button [disabled]="!expense.form.valid"  type="submit">
+      Выписать
+    </button>
+    <button  md-raised-button (click)="reset()">Очистить</button>
+  </md-card-actions>
+</form>
 
 <div class="my-container mat-elevation-z8">
 
