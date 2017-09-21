@@ -47,8 +47,14 @@
     </ng-container>
 
     <ng-container mdColumnDef="count">
-      <md-header-cell *mdHeaderCellDef md-sort-header> Кол-во </md-header-cell>
-      <md-cell *mdCellDef="let row"> {{row.count}} </md-cell>
+      <md-header-cell *mdHeaderCellDef md-sort-header [style.flex]="'0 0 60px'">Кол-во. </md-header-cell>
+      <md-cell *mdCellDef="let row" [style.flex]="'0 0 60px'">
+        <md-input-container  [style.display]="selection.isSelected(row.name) ? '': 'none'"
+        [style.width]="'60px'">
+          <input mdInput
+          type="number" min=0 max={{row.count}} name="count" [(ngModel)]="row.count2">
+        </md-input-container>
+      </md-cell>
     </ng-container>
 
     <ng-container mdColumnDef="measure">

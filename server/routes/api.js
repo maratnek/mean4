@@ -168,7 +168,7 @@ router.post('/income-goods', (req,res) => {
           if (success)
             res.sendStatus(200);
           else {
-            sendError(501);
+            sendError(err, res);
           }
       })
     }
@@ -181,56 +181,78 @@ router.post('/expense-goods', (req,res) => {
       if (req.body.stockName && req.body.stockName.length){
         let GOODS = db.collection('goods');
         let STATIST_GOODS = db.collection('statist-goods');
-        (new Promise((resolve, reject)=>{
-          req.body.data.forEach( (catalog, index) => {
-            console.log(catalog);
-            GOODS.update(
-              {_id:ObjectID(catalog._id),stockName:req.body.stockName},
-              {
-                $inc:{count:-catalog.count},
-              },
-              {upsert: false}
-            )
-            .then(result1 => {
-              console.log('SUCCESS EXPENSE GOODS');
-              STATIST_GOODS.insert({stockName: req.body.stockName, publicDate: new Date(),
-                count: catalog.count, action: "EXPENSE"})
-                .then(result2 => {
-                  console.log('SUCCESS INSERT STATIC GOODS');
-                  if (req.body.data.length == index + 1)
-                    resolve('true');
+        try{ (new Promise((resolve2, reject2)=>{
+          // countSuccess = true;
+          for (let index = 0; index < req.body.data.length; index++) {
+            setTimeout(()=>{console.log('tic tac');
+            let catalog = req.body.data[index];
+            // console.log('count success', countSuccess);
+            // if (!countSuccess) break;
+            GOODS.findOne( {_id:ObjectID(catalog._id),stockName:req.body.stockName})
+            .then(result => {
+              console.log('FIND', result.count, catalog.count);
+              if (result.count < catalog.count) {
+                response.message = 'ERROR COUNT = ' + catalog.count + ' LESS THAN ' + result.count;
+                console.log(response.message);
+                reject2(new Error('Dont FIND'));
+                // countSuccess = false;
+                // console.log('count success', countSuccess);
+              }
+              if (req.body.data.length == index + 1){
+                resolve2(true);
+              }
+            })
+            .catch(err => console.log('EXPENSE ERROR FIND ', catalog));
+            }, 6000);
+          }
+
+          }))
+          .then( success => {
+            if (success) {
+              (new Promise((resolve, reject)=>{
+                req.body.data.forEach( (catalog, index) => {
+                  GOODS.update(
+                    {_id:ObjectID(catalog._id),stockName:req.body.stockName},
+                    {
+                      $inc:{count:-catalog.count},
+                    },
+                    {upsert: false}
+                  )
+                  .then(result1 => {
+                    console.log('SUCCESS EXPENSE GOODS');
+                    STATIST_GOODS.insert({stockName: req.body.stockName, publicDate: new Date(),
+                      count: catalog.count, action: "EXPENSE"})
+                      .then(result2 => {
+                        console.log('SUCCESS INSERT STATIC GOODS');
+                        if (req.body.data.length == index + 1){
+                          console.log('PROMISE RETURN YET . NEEDS REMOVE count = 0');
+                          resolve(true);
+                        }
+                      })
+                      .catch(err => console.log('ERROR INSERT STATIC GOODS', err));
+                    })
+                    .catch(err => console.log('ERROR EXPENSE GOODS', err));
+                  })
+                }))// new Promise
+                .then(success=>{
+                    if (success)
+                      res.sendStatus(200);
+                    else {
+                      sendError(err, res);
+                    }
                 })
-                .catch(err => console.log('ERROR INSERT STATIC GOODS', err));
-              })
-              .catch(err => console.log('ERROR EXPENSE GOODS', err));
+              } else {
+                sendError(response, res)
+              }
+          })
+          .catch(err => console.log('FIND PROMISE ERROR ', err));
+          }
+          catch(err){
+              console.log(err);
+          };
 
-            });
-        }))// new Promise
-        .then(success=>{
-            if (success)
-              res.sendStatus(200);
-            else {
-              sendError(501);
-            }
-        })
+
       }
-
-      if (!req.body.stockName.length)
-        res.sendStatus(500);
-      connection((db) => {
-        let colGoods = db.collection('goods');
-        req.body.dataTable.forEach(catalog => {
-          console.log('catalog ', catalog);
-          let query = { stockName: req.body.stockName, "dataTable._id": catalog._id } ;
-          console.log(query);
-          colGoods.find(query).toArray()
-          .then( data => {
-            console.log("%j",data);
-            // colGoods.update(query, { $inc: { score: 1 } });
-          } )
-          .catch( (err) => console.log('ERROR ', err) )
-        });
-
 
         // query = {stockName: req.query.body.stockName, dataTable: {count: 0} };
         // colGoods.remove(query,(err, r) => {
@@ -239,7 +261,6 @@ router.post('/expense-goods', (req,res) => {
         //   else
         //     console.log('SUCCESS ' + r.result.n);
         // }
-      });
 
   });
 });

@@ -15,6 +15,7 @@ interface Data {
   storePlace: string;
   publishedDate: Date;
   count: number;
+  count2: number;
 }
 
 @Component({
@@ -38,7 +39,7 @@ export class StockExpenseComponent implements OnInit {
   ngOnInit() {
     this._dataService.getStockGoods().subscribe({
       next:value => {
-        value.map(obj => obj.count = 0);
+        value.map(obj => obj.count2 = 0);
         this.catalog.next(value)
       }
     });
@@ -61,17 +62,17 @@ export class StockExpenseComponent implements OnInit {
       this.catalog.value.forEach(data =>
         {
           if(this.selection.isSelected(data.name))
-            dt.push({_id: data._id, count: data.count, price: data.price});
+            dt.push({_id: data._id, count: data.count2, price: data.price});
         }
       );
       let expense:any = {};
-      expense.dataTable = dt;
+      expense.data = dt;
       expense.stockName = this._dataService.getCurrentStock();
 
       console.log(expense);
       this._dataService.expenseGoods(expense, (err)=>{
         if (err)
-        console.log('Not expense goods!!!');
+          console.log('Not expense goods!!!');
         else {
           console.log('Expense goods!!!');
           data.form.reset();
@@ -80,16 +81,16 @@ export class StockExpenseComponent implements OnInit {
     }
   }
 
-  reset():void{
+  reset():void {
     this.selection.clear();
   }
 
   changeSelected(row:Data){
     this.selection.toggle(row.name);
     if (this.selection.isSelected(row.name))
-      row.count = 1;
+      row.count2 = 1;
     else
-      row.count = 0;
+      row.count2 = 0;
   }
 
   isAllSelected(): boolean {
@@ -110,9 +111,9 @@ export class StockExpenseComponent implements OnInit {
     if (this.isAllSelected()) {
       this.selection.clear();
     } else if (this.filter.nativeElement.value) {
-      this.dataSource.renderedData.forEach(data => {this.selection.select(data.name); if (!data.count)data.count = 1;});
+      this.dataSource.renderedData.forEach(data => {this.selection.select(data.name); if (!data.count)data.count2 = 1;});
     } else {
-      this.catalog.value.forEach(data => {this.selection.select(data.name); if (!data.count)data.count = 1;});
+      this.catalog.value.forEach(data => {this.selection.select(data.name); if (!data.count)data.count2 = 1;});
     }
   }
 
