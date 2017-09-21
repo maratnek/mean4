@@ -99,65 +99,34 @@ router.get('/stock-goods', (req, res) => {
   console.log(req.query.name);
   if (req.query.name.length)
   {
-    query = {stockName: req.query.name};
     connection((db) => {
-        let CATALOG = db.collection('catalog');
-        db.collection('goods')
-            .aggregate([
-              {$match:query}
-              ,{$lookup:{
-                from: "catalog",
-                localField: "_id",
-                foreignField: "_id",
-                as: "catalog"
-              }}
-              ,{$unwind:"$catalog"}
-              ,{$project: {
-                id: "$_id",
-                count: "$count",
-                name: "$catalog.name",
-                storePlace: "$catalog.storePlace",
-                measure: "$catalog.measure",
-              }}
-            ])
-            // .map(iter => iter.catalog = iter.catalog[0])
-            .toArray()
-            .then((goods) => {
-              console.log(goods);
-              response.data = goods;
-              res.json(response);
-              // let dt = [];
-              // let myPromise = new Promise((resolve,reject)=>{
-              //   goods.map(it => {
-              //     it.dataTable.map((d, index) => {
-              //       d.publishedDate = it.publishedDate;
-              //       // let catalog = {};
-              //       id = d._id;
-              //       if (id && id.length > 0)
-              //       {
-              //         query = {_id: ObjectID(id)};
-              //         colCatalog.find(query).toArray().then(cat => {
-              //           console.log('Catalog',cat);
-              //           let catalog = Object.assign({}, cat[0]);
-              //           for (let prop in catalog)
-              //             d[prop] = catalog[prop];
-              //           dt.push(d);
-              //           if (it.dataTable.length == index + 1)
-              //             resolve(dt);
-              //         });
-              //       }
-              //     });
-              //   });
-              // });
-              // myPromise.then((data)=>{
-              //   console.log('Data stock',data);
-              //   response.data = data;
-              //   res.json(response);
-              // }).catch(err=>console.log('Error Promise stock'));
-            })
-            .catch((err) => {
-                sendError(err, res);
-            });
+      db.collection('goods')
+      .aggregate([
+        {$match:{stockName: req.query.name}}
+        ,{$lookup:{
+          from: "catalog",
+          localField: "_id",
+          foreignField: "_id",
+          as: "catalog"
+        }}
+        ,{$unwind:"$catalog"}
+        ,{$project: {
+          id: "$_id",
+          count: "$count",
+          name: "$catalog.name",
+          storePlace: "$catalog.storePlace",
+          measure: "$catalog.measure",
+        }}
+      ])
+      .toArray()
+      .then( goods => {
+        console.log(goods);
+        response.data = goods;
+        res.json(response);
+      })
+      .catch((err) => {
+        sendError(err, res);
+      });
     });
   }
 
@@ -203,13 +172,49 @@ router.post('/income-goods', (req,res) => {
           }
       })
     }
-
   })
 });
 
 router.post('/expense-goods', (req,res) => {
   connection((db)=>{
       console.log('Expense', req.body);
+      if (req.body.stockName && req.body.stockName.length){
+        let GOODS = db.collection('goods');
+        let STATIST_GOODS = db.collection('statist-goods');
+        (new Promise((resolve, reject)=>{
+          req.body.data.forEach( (catalog, index) => {
+            console.log(catalog);
+            GOODS.update(
+              {_id:ObjectID(catalog._id),stockName:req.body.stockName},
+              {
+                $inc:{count:-catalog.count},
+              },
+              {upsert: false}
+            )
+            .then(result1 => {
+              console.log('SUCCESS EXPENSE GOODS');
+              STATIST_GOODS.insert({stockName: req.body.stockName, publicDate: new Date(),
+                count: catalog.count, action: "EXPENSE"})
+                .then(result2 => {
+                  console.log('SUCCESS INSERT STATIC GOODS');
+                  if (req.body.data.length == index + 1)
+                    resolve('true');
+                })
+                .catch(err => console.log('ERROR INSERT STATIC GOODS', err));
+              })
+              .catch(err => console.log('ERROR EXPENSE GOODS', err));
+
+            });
+        }))// new Promise
+        .then(success=>{
+            if (success)
+              res.sendStatus(200);
+            else {
+              sendError(501);
+            }
+        })
+      }
+
       if (!req.body.stockName.length)
         res.sendStatus(500);
       connection((db) => {
