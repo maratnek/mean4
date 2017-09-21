@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const MongoClient = require('mongodb').MongoClient;
 const ObjectID = require('mongodb').ObjectID;
-const co = require('co');
 
 const mongoPath = 'mongodb://kentavr:novie1904@ds133004.mlab.com:33004/stock_db';
 // let mongoPath = 'mongodb://localhost:27017/mean';
