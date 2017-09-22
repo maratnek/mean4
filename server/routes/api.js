@@ -109,14 +109,51 @@ router.get('/stock-goods', (req, res) => {
           foreignField: "_id",
           as: "catalog"
         }}
+        ,{$lookup:{
+          from: "statist-goods",
+          localField: "_id",
+          foreignField: "catalogId",
+          as: "statist"
+        }}
         ,{$unwind:"$catalog"}
+        // ,{$unwind:"$statist"}
+        // ,{$group:{
+        //   _id: "$statist.publicDate",
+          // count: "$count",
+          // name: "$catalog.name"
+        // }}
+        // ,{$match:{"statist.action": "INCOME"}}
         ,{$project: {
           id: "$_id",
           count: "$count",
           name: "$catalog.name",
           storePlace: "$catalog.storePlace",
           measure: "$catalog.measure",
+          stat_count: "$statist.count",
+          stat_price: {$sum:"$statist.price"},
+          stat_inc: {$eq: ["$statist.action","INCOME"]},
+          stat_date: "$statist.publicDate",
+          stat: "$statist",
+          sum: {$sum: "$statist.count"},
+          sum_price: {$sum: "$statist.price"},
+          // sum_p_m: {$sum: {$multiply:["$statist.count", "statist.price"]}},
+          sum_p_r: {
+            $reduce: {
+              input: "$statist",
+              initialValue: "",
+              in: { $avg:["$$value", "$$this.price"]}
+            }
+          }
+          // finalPrice: {
+          //   $let: {
+          //     vars: {
+          //       a:{$multiply:["$statist.count", "statist.price"]}
+          //     },
+          //     in:{}
+          //   }
+          // }
         }}
+        ,{$sort:{stat_date:-1}}
       ])
       .toArray()
       .then( goods => {
@@ -151,14 +188,16 @@ router.post('/income-goods', (req,res) => {
           )
           .then(result1 => {
             console.log('SUCCESS INSERT UPDATE GOODS');
-            STATIST_GOODS.insert({stockName: req.body.stockName, publicDate: new Date(),
-              count: catalog.count, price: catalog.price, action: "INCOME"})
-              .then(result2 => {
-                console.log('SUCCESS INSERT STATIC GOODS');
-                if (req.body.data.length == index + 1)
-                  resolve('true');
-              })
-              .catch(err => console.log('ERROR INSERT STATIC GOODS', err));
+            if (catalog.count > 0) {
+              STATIST_GOODS.insert({stockName: req.body.stockName, catalogId: ObjectID(catalog._id), publicDate: new Date(),
+                count: catalog.count, price: catalog.price, action: "INCOME"})
+                .then(result2 => {
+                  console.log('SUCCESS INSERT STATIC GOODS');
+                  if (req.body.data.length == index + 1)
+                    resolve('true');
+                })
+                .catch(err => console.log('ERROR INSERT STATIC GOODS', err));
+              }
             })
             .catch(err => console.log('ERROR INSERT UPDATE GOODS', err));
 
@@ -182,12 +221,8 @@ router.post('/expense-goods', (req,res) => {
         let GOODS = db.collection('goods');
         let STATIST_GOODS = db.collection('statist-goods');
         try{ (new Promise((resolve2, reject2)=>{
-          // countSuccess = true;
           for (let index = 0; index < req.body.data.length; index++) {
-            setTimeout(()=>{console.log('tic tac');
             let catalog = req.body.data[index];
-            // console.log('count success', countSuccess);
-            // if (!countSuccess) break;
             GOODS.findOne( {_id:ObjectID(catalog._id),stockName:req.body.stockName})
             .then(result => {
               console.log('FIND', result.count, catalog.count);
@@ -195,15 +230,12 @@ router.post('/expense-goods', (req,res) => {
                 response.message = 'ERROR COUNT = ' + catalog.count + ' LESS THAN ' + result.count;
                 console.log(response.message);
                 reject2(new Error('Dont FIND'));
-                // countSuccess = false;
-                // console.log('count success', countSuccess);
               }
               if (req.body.data.length == index + 1){
                 resolve2(true);
               }
             })
             .catch(err => console.log('EXPENSE ERROR FIND ', catalog));
-            }, 6000);
           }
 
           }))
@@ -220,16 +252,18 @@ router.post('/expense-goods', (req,res) => {
                   )
                   .then(result1 => {
                     console.log('SUCCESS EXPENSE GOODS');
-                    STATIST_GOODS.insert({stockName: req.body.stockName, publicDate: new Date(),
-                      count: catalog.count, action: "EXPENSE"})
-                      .then(result2 => {
-                        console.log('SUCCESS INSERT STATIC GOODS');
-                        if (req.body.data.length == index + 1){
-                          console.log('PROMISE RETURN YET . NEEDS REMOVE count = 0');
-                          resolve(true);
-                        }
-                      })
-                      .catch(err => console.log('ERROR INSERT STATIC GOODS', err));
+                    if (catalog.count > 0) {
+                      STATIST_GOODS.insert({stockName: req.body.stockName, catalogId: ObjectID(catalog._id), publicDate: new Date(),
+                        count: catalog.count, action: "EXPENSE"})
+                        .then(result2 => {
+                          console.log('SUCCESS INSERT STATIC GOODS');
+                          if (req.body.data.length == index + 1){
+                            console.log('PROMISE RETURN YET . NEEDS REMOVE count = 0');
+                            resolve(true);
+                          }
+                        })
+                        .catch(err => console.log('ERROR INSERT STATIC GOODS', err));
+                      }
                     })
                     .catch(err => console.log('ERROR EXPENSE GOODS', err));
                   })
