@@ -122,7 +122,7 @@ router.get('/stock-goods', (req, res) => {
           // count: "$count",
           // name: "$catalog.name"
         // }}
-        // ,{$match:{"statist.action": "INCOME"}}
+        ,{$match:{"statist.del": false}}
         ,{$project: {
           id: "$_id",
           count: "$count",
@@ -130,20 +130,21 @@ router.get('/stock-goods', (req, res) => {
           storePlace: "$catalog.storePlace",
           measure: "$catalog.measure",
           stat_count: "$statist.count",
-          stat_price: {$sum:"$statist.price"},
+          stat_price: "$statist.price",
           stat_inc: {$eq: ["$statist.action","INCOME"]},
           stat_date: "$statist.publicDate",
           stat: "$statist",
           sum: {$sum: "$statist.count"},
-          sum_price: {$sum: "$statist.price"},
+          // sum_price: {$sum: "$statist.price"},
           // sum_p_m: {$sum: {$multiply:["$statist.count", "statist.price"]}},
-          sum_p_r: {
+          price: { $divide: [{
             $reduce: {
               input: "$statist",
               initialValue: "",
-              in: { $avg:["$$value", "$$this.price"]}
+              in: { $sum:["$$value", {$multiply:["$$this.balance","$$this.price"]}]}
             }
-          }
+          }, "$count"]},
+          // sum_balance_price: "$sum_p_r",
           // finalPrice: {
           //   $let: {
           //     vars: {
@@ -190,7 +191,7 @@ router.post('/income-goods', (req,res) => {
             console.log('SUCCESS INSERT UPDATE GOODS');
             if (catalog.count > 0) {
               STATIST_GOODS.insert({stockName: req.body.stockName, catalogId: ObjectID(catalog._id), publicDate: new Date(),
-                count: catalog.count, price: catalog.price, action: "INCOME"})
+                count: catalog.count, price: catalog.price, balance: catalog.count, action: "INCOME", del:false})
                 .then(result2 => {
                   console.log('SUCCESS INSERT STATIC GOODS');
                   if (req.body.data.length == index + 1)
@@ -253,16 +254,50 @@ router.post('/expense-goods', (req,res) => {
                   .then(result1 => {
                     console.log('SUCCESS EXPENSE GOODS');
                     if (catalog.count > 0) {
-                      STATIST_GOODS.insert({stockName: req.body.stockName, catalogId: ObjectID(catalog._id), publicDate: new Date(),
-                        count: catalog.count, action: "EXPENSE"})
-                        .then(result2 => {
-                          console.log('SUCCESS INSERT STATIC GOODS');
-                          if (req.body.data.length == index + 1){
-                            console.log('PROMISE RETURN YET . NEEDS REMOVE count = 0');
-                            resolve(true);
+                      STATIST_GOODS.find(
+                        {catalogId: ObjectID(catalog._id), action: "INCOME", del:false, stockName:req.body.stockName},
+                        {sort: {date: 1}}
+                      ).toArray()
+                      .then(data => {
+                        console.log(data);
+                        let count = catalog.count;
+                        let priceBalance = 0;
+                        data.forEach((income, index2) => {
+                          if (count != 0){
+                            let balance = income.balance - count;
+                            if (balance <= 0){
+                              STATIST_GOODS.update({_id: income._id},
+                                {$set:{del:true, balance: 0}},
+                                {upsert:false}
+                              ).catch(err => console.log('ERROR ', income._id, err));
+                              count -= income.balance;
+                              priceBalance += income.balance*income.price;
+
+                            } else {
+                              STATIST_GOODS.update({_id: income._id},
+                                {$set:{balance: balance}},
+                                {upsert:false}
+                              ).catch(err => console.log('ERROR ', income._id, err));
+                              priceBalance += count*income.price;
+                              count = 0;
+                            }
                           }
-                        })
-                        .catch(err => console.log('ERROR INSERT STATIC GOODS', err));
+                          if (data.length == index2 + 1 || count == 0){// EXPENSE INSERT
+                            STATIST_GOODS.insert({stockName: req.body.stockName, catalogId: ObjectID(catalog._id), publicDate: new Date(),
+                              count: catalog.count, price: priceBalance, action: "EXPENSE", del:true})
+                            .then(result2 => {
+                              console.log('SUCCESS INSERT STATIC GOODS');
+                              if (req.body.data.length == index + 1){
+                                console.log('PROMISE RETURN YET . NEEDS REMOVE count = 0');
+                                resolve(true);
+                              }
+                            })
+                            .catch(err => console.log('ERROR INSERT STATIC GOODS', err));
+                          }
+                        });
+
+                      })
+                      .catch(err => console.log('ERROR FIND OBJECT'));
                       }
                     })
                     .catch(err => console.log('ERROR EXPENSE GOODS', err));

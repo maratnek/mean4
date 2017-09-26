@@ -27,7 +27,7 @@ export class StockTableComponent implements OnInit {
 
   @Output() onEdit = new EventEmitter<Data>();
 
-  displayedColumns = ['name','count','measure', 'storePlace'];
+  displayedColumns = ['name','count','measure','price', 'storePlace'];
   dataSource: GenericDataSource<Data, "name"> | null;
   catalog: BehaviorSubject<Data[]> = new BehaviorSubject<Data[]>([]);
 
