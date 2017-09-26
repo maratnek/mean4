@@ -74,23 +74,24 @@ export class StockService {
   }
 
   addCatalog(catalog, callback){
+    catalog.stockName = this.stockName;
     this._http.post("/api/add-catalog", catalog)
       .subscribe(result => callback(!result.ok));
   }
 
   deleteCatalog(name:string, callback){
-    this._http.get("/api/delete-catalog?name=" + name)
+    this._http.get("/api/delete-catalog?name=" + name + "&stockName="+this.stockName)
       .subscribe(result => callback(!result.ok) );
   }
 
   getCatalogs() {
-    return this._http.get("/api/catalogs")
+    return this._http.get("/api/catalogs?stockName="+this.stockName)
       .map(result => this.result = result.json().data);
   }
 
   getCatalogById(_id) {
     console.log('service', _id);
-    return this._http.get("/api/catalog?id="+_id)
+    return this._http.get("/api/catalog?id="+_id+"&stockName="+this.stockName)
       .map(result => this.result = result.json().data);
   }
 

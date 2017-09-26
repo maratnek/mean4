@@ -2356,22 +2356,23 @@ var StockService = (function () {
             .map(function (result) { return _this.result = result.json().data; });
     };
     StockService.prototype.addCatalog = function (catalog, callback) {
+        catalog.stockName = this.stockName;
         this._http.post("/api/add-catalog", catalog)
             .subscribe(function (result) { return callback(!result.ok); });
     };
     StockService.prototype.deleteCatalog = function (name, callback) {
-        this._http.get("/api/delete-catalog?name=" + name)
+        this._http.get("/api/delete-catalog?name=" + name + "&stockName=" + this.stockName)
             .subscribe(function (result) { return callback(!result.ok); });
     };
     StockService.prototype.getCatalogs = function () {
         var _this = this;
-        return this._http.get("/api/catalogs")
+        return this._http.get("/api/catalogs?stockName=" + this.stockName)
             .map(function (result) { return _this.result = result.json().data; });
     };
     StockService.prototype.getCatalogById = function (_id) {
         var _this = this;
         console.log('service', _id);
-        return this._http.get("/api/catalog?id=" + _id)
+        return this._http.get("/api/catalog?id=" + _id + "&stockName=" + this.stockName)
             .map(function (result) { return _this.result = result.json().data; });
     };
     // Service for product
