@@ -1,73 +1,86 @@
 <div class="">
-  <h2>Выбрать комплектующие</h2>
-  <div class="my-container mat-elevation-z8">
+  
+  <md-card>
+    <h1 align=center>Создать продукт</h1>
+    <form #createProduct="ngForm" (ngSubmit)="onSubmit(createProduct)" >
+      <md-form-field>
+        <input mdInput type="text" name="name" [(ngModel)]="product.name" required placeholder="Название продукта">
+      </md-form-field>
+      <!-- <md-card-actions> -->
+        <button  md-raised-button [disabled]="!createProduct.form.valid"  type="submit">
+          Cоздать продукт
+        </button>
+        <button  md-raised-button  type="reset">Очистить</button>
+      <!-- </md-card-actions> -->
+    </form>
 
-    <div class="example-header" [style.display]="selection.isEmpty() ? '' : 'none'">
-      <md-input-container floatPlaceholder="never">
-        <input mdInput #filter placeholder="Filter">
-      </md-input-container>
-    </div>
-    <div class="example-header example-selection-header"
-      *ngIf="!selection.isEmpty()">
-      {{selection.selected.length}}
-      {{selection.selected.length == 1 ? 'element' : 'elements'}}
-      selected
-    </div>
+    <h2>Выбрать комплектующие</h2>
+    <div class="my-container mat-elevation-z8">
 
-    <md-table #table [dataSource]="dataSource" mdSort>
-    <!-- mdSortActive="created" mdSortDisableClear mdSortDirection="asc"> -->
-
-    <!-- Checkbox Column -->
-    <ng-container mdColumnDef="select">
-      <md-header-cell *mdHeaderCellDef>
-        <md-checkbox (change)="$event ? masterToggle() : null"
-                     [checked]="isAllSelected()"
-                     [indeterminate]="selection.hasValue() && !isAllSelected()">
-        </md-checkbox>
-      </md-header-cell>
-      <md-cell *mdCellDef ="let row">
-        <md-checkbox (click)="$event.stopPropagation()"
-                     (change)="$event ? selection.toggle(row.name) : null"
-                     [checked]="selection.isSelected(row.name)">
-        </md-checkbox>
-      </md-cell>
-    </ng-container>
-
-    <ng-container mdColumnDef="name">
-      <md-header-cell *mdHeaderCellDef md-sort-header> Имя </md-header-cell>
-      <md-cell *mdCellDef="let row"> {{row.name}} </md-cell>
-    </ng-container>
-
-    <ng-container mdColumnDef="count">
-      <md-header-cell *mdHeaderCellDef md-sort-header [style.flex]="'0 0 60px'">Кол-во. </md-header-cell>
-      <md-cell *mdCellDef="let row" [style.flex]="'0 0 60px'">
-        <!-- <md-form-field [style.display]="selection.isSelected(row.name) ? '': 'none'"> -->
-        <md-input-container  [style.display]="selection.isSelected(row.name) ? '': 'none'"
-        [style.width]="'60px'">
-          <input mdInput
-          type="number" min=0 max=1000 value="0" name="count" [(ngModel)]="row.count">
+      <div class="example-header" [style.display]="selection.isEmpty() ? '' : 'none'">
+        <md-input-container floatPlaceholder="never">
+          <input mdInput #filter placeholder="Filter">
         </md-input-container>
-        <!-- </md-form-field> -->
-      </md-cell>
-    </ng-container>
+      </div>
+      <div class="example-header example-selection-header"
+        *ngIf="!selection.isEmpty()">
+        {{selection.selected.length}}
+        {{selection.selected.length == 1 ? 'element' : 'elements'}}
+        selected
+      </div>
 
-    <md-header-row *mdHeaderRowDef="displayedColumns"></md-header-row>
-    <md-row *mdRowDef="let row; columns: displayedColumns;"
-      >
-    </md-row>
-</md-table>
-  <div class="example-no-results"
-       [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
-       Нет данных по данному фильтру.
-  </div>
+      <md-table #table [dataSource]="dataSource" mdSort>
+      <!-- mdSortActive="created" mdSortDisableClear mdSortDirection="asc"> -->
 
-  <md-paginator #paginator
-                [length]="dataSource.filteredData.length"
-                [pageIndex]="0"
-                [pageSize]="5"
-                [pageSizeOptions]="[5, 10, 25, 100]">
-  </md-paginator>
+      <!-- Checkbox Column -->
+      <ng-container mdColumnDef="select">
+        <md-header-cell *mdHeaderCellDef>
+          <md-checkbox (change)="$event ? masterToggle() : null"
+                       [checked]="isAllSelected()"
+                       [indeterminate]="selection.hasValue() && !isAllSelected()">
+          </md-checkbox>
+        </md-header-cell>
+        <md-cell *mdCellDef ="let row">
+          <md-checkbox (click)="$event.stopPropagation()"
+                       (change)="$event ? selection.toggle(row.name) : null"
+                       [checked]="selection.isSelected(row.name)">
+          </md-checkbox>
+        </md-cell>
+      </ng-container>
 
-</div>
+      <ng-container mdColumnDef="name">
+        <md-header-cell *mdHeaderCellDef md-sort-header> Имя </md-header-cell>
+        <md-cell *mdCellDef="let row"> {{row.name}} </md-cell>
+      </ng-container>
+
+      <ng-container mdColumnDef="count">
+        <md-header-cell *mdHeaderCellDef md-sort-header [style.flex]="'0 0 60px'">Кол-во. </md-header-cell>
+        <md-cell *mdCellDef="let row" [style.flex]="'0 0 60px'">
+          <md-input-container  [style.display]="selection.isSelected(row.name) ? '': 'none'"
+          [style.width]="'60px'">
+            <input mdInput
+            type="number" min=0 max=1000 value="0" name="count" [(ngModel)]="row.count">
+          </md-input-container>
+        </md-cell>
+      </ng-container>
+
+      <md-header-row *mdHeaderRowDef="displayedColumns"></md-header-row>
+      <md-row *mdRowDef="let row; columns: displayedColumns;">
+      </md-row>
+    </md-table>
+    <div class="example-no-results"
+         [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
+         Нет данных по данному фильтру.
+    </div>
+
+      <md-paginator #paginator
+                    [length]="dataSource.filteredData.length"
+                    [pageIndex]="0"
+                    [pageSize]="5"
+                    [pageSizeOptions]="[5, 10, 25, 100]">
+      </md-paginator>
+    </div>
+
+  </md-card>
 
 </div>

@@ -24,29 +24,4 @@ export class ProductionComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSubmit(createProduct){
-    console.log(createProduct);
-    console.log(createProduct.form.valid);
-    if (createProduct.form.valid){
-      let dt = [];
-      this.dataTable.subscribe(data =>
-        dt.push(data) ,
-        ()=>console.log("Error"),
-        ()=>{
-          this.product.dataTable = dt;
-          console.log(this.product);
-
-          this._dataService.createProduct(this.product, (err)=>{
-            if (err)
-            console.log('Not create new product!!!');
-            else {
-              console.log('Create new product SUCCESS!!!');
-              createProduct.form.reset();
-            }
-          });
-        }
-      );
-      this.isSubmit = true;
-    }
-  }
 }

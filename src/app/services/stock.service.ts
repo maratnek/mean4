@@ -42,6 +42,7 @@ export class StockService {
     this.stockName = stockName;
   }
 
+// Service for Stock
   createStock(name:string, callback){
     this.stockName = name;
     this._http.get("/api/create?name=" + name)
@@ -53,6 +54,12 @@ export class StockService {
       .subscribe(result => callback(!result.ok) );
   }
 
+  getStock() {
+    return this._http.get("/api/stocks")
+    .map(result => this.result = result.json().data);
+  }
+
+  // Service for Goods
   getStockGoods() {
     return this._http.get("/api/stock-goods?name=" + this.stockName)
     .map(result => this.result = result.json().data);
@@ -68,11 +75,7 @@ export class StockService {
       .subscribe(result => callback(!result.ok));
   }
 
-  getStock() {
-    return this._http.get("/api/stocks")
-    .map(result => this.result = result.json().data);
-  }
-
+  // Service for Catalogs
   addCatalog(catalog, callback){
     catalog.stockName = this.stockName;
     this._http.post("/api/add-catalog", catalog)
@@ -98,11 +101,12 @@ export class StockService {
   // Service for product
   createProduct(dataProduct, callback){
     console.log(dataProduct.dataTable);
+    dataProduct.stockName = this.stockName;
     this._http.post("/api/create-product", dataProduct)
       .subscribe(result => callback(!result.ok));
   }
   getProducts(){
-    return this._http.get("/api/products")
+    return this._http.get("/api/products?stockName="+this.stockName)
       .map(result => this.result = result.json().data);
   }
 

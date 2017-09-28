@@ -283,13 +283,19 @@ router.post('/expense-goods', (req,res) => {
                           }
                           if (data.length == index2 + 1 || count == 0){// EXPENSE INSERT
                             STATIST_GOODS.insert({stockName: req.body.stockName, catalogId: ObjectID(catalog._id), publicDate: new Date(),
-                              count: catalog.count, price: priceBalance, action: "EXPENSE", del:true})
-                            .then(result2 => {
-                              console.log('SUCCESS INSERT STATIC GOODS');
-                              if (req.body.data.length == index + 1){
-                                console.log('PROMISE RETURN YET . NEEDS REMOVE count = 0');
-                                resolve(true);
-                              }
+                              count: catalog.count, action: "EXPENSE"})
+                              .then(result2 => {
+                                console.log('SUCCESS INSERT STATIC GOODS');
+                                if (req.body.data.length == index + 1){
+                                  console.log('PROMISE RETURN YET . NEEDS REMOVE count = 0');
+                                  GOODS.remove({stockName: req.body.stockName, count: 0},(err, r) => {
+                                    if (err)
+                                    console.log('ERROR DELETE COUNT = 0' + r.result.n);
+                                    else
+                                    console.log('SUCCESS DELETE COUNT = 0' + r.result.n);
+                                  });
+                                  resolve(true);
+                                }
                             })
                             .catch(err => console.log('ERROR INSERT STATIC GOODS', err));
                           }
@@ -319,16 +325,7 @@ router.post('/expense-goods', (req,res) => {
               console.log(err);
           };
 
-
       }
-
-        // query = {stockName: req.query.body.stockName, dataTable: {count: 0} };
-        // colGoods.remove(query,(err, r) => {
-        //   if (err)
-        //     console.log('ERROR ' + r.result.n);
-        //   else
-        //     console.log('SUCCESS ' + r.result.n);
-        // }
 
   });
 });
@@ -425,6 +422,7 @@ router.get('/delete-catalog', (req,res) => {
   });
 });
 
+// Product API
 router.post('/create-product',(req,res) => {
   connection((db)=> {
     console.log('create-product', req.body)
@@ -435,7 +433,7 @@ router.post('/create-product',(req,res) => {
       if (err)
           sendError(err, res);
       else {
-        db.collection('product').find().toArray().then((data)=>{
+        db.collection('product').find({stockName:req.body.stockName}).toArray().then((data)=>{
           console.log('find product %j', data);
           res.sendStatus(200);
         })
@@ -447,7 +445,9 @@ router.post('/create-product',(req,res) => {
 
 router.get('/products', (req,res) => {
   connection((db)=>{
-    db.collection('product').find({}).toArray().then((data)=>{
+    query = {stockName:req.query.stockName};
+    console.log(query);
+    db.collection('product').find(query).toArray().then((data)=>{
       console.log(data);
       response.data = data;
       res.json(response);

@@ -27,21 +27,7 @@
       </div>
 
       <div [style.display]="menuToolbarActive === 2 ? '': 'none'" class="my-card">
-        <md-card>
-          <h1 align=center>Создать продукт</h1>
-          <form #createProduct="ngForm" (ngSubmit)="onSubmit(createProduct)" >
-            <md-form-field>
-              <input mdInput type="text" name="name" [(ngModel)]="product.name" required placeholder="Название продукта">
-            </md-form-field>
-            <!-- <md-card-actions> -->
-              <button  md-raised-button [disabled]="!createProduct.form.valid"  type="submit">
-                Cоздать продукт
-              </button>
-              <button  md-raised-button  type="reset">Очистить</button>
-            <!-- </md-card-actions> -->
-          </form>
-          <product-create [product]="isSubmit" (getDataFromCatalog)="dataTable = $event"></product-create>
-        </md-card>
+        <product-create></product-create>
       </div>
     </div>
   </md-sidenav-container>
