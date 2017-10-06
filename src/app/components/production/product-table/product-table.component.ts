@@ -18,7 +18,6 @@ export class ProductTableComponent implements OnInit {
     }
   }
 
-  // products: Subject<any[]> = new Subject<any[]>();
   products: any[] = [];
   load:boolean = true;
 
@@ -30,7 +29,7 @@ export class ProductTableComponent implements OnInit {
       data => {
         this.products = data;
         console.log(this.products);
-        setTimeout(()=>{this.load=false}, 1000);
+        setTimeout(()=>{this.load=false}, 500);
         this.products.map(data => data.show = false);
        }
     );

@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { StockService } from '../../../services/stock.service';
 
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -26,7 +27,7 @@ export class CatalogFormComponent implements OnInit {
   filteredStates: any;
   states = [];
 
-  constructor(private _dataService: StockService) { }
+  constructor(private _dataService: StockService, private _router: Router) { }
 
   ngOnInit() {
     this.stateControl = new FormControl();
@@ -47,8 +48,10 @@ export class CatalogFormComponent implements OnInit {
       this._dataService.addCatalog(this.catalog, (err)=>{
           if (err)
             console.log('Not add new catalog!!!');
-          else
+          else {
             addNewCatalog.form.reset();
+            this._router.navigate(['/catalog']);
+          }
       });
     }
   }

@@ -1,12 +1,17 @@
 <div class="">
   <h1>Каталог товаров</h1>
   <div class="my-container mat-elevation-z8">
-    <!-- <div class="example-loading-shade" *ngIf="dataSource.isLoadingResults || dataSource.isRateLimitReached">
+    <div class="example-loading-shade" *ngIf="dataSource.isLoadingResults || dataSource.isRateLimitReached">
       <md-spinner *ngIf="dataSource.isLoadingResults"></md-spinner>
       <div class="example-rate-limit-reached" *ngIf="dataSource.isRateLimitReached">
+        <md-grid-list *ngIf="true" cols="1" rowHeight="3:2">
+          <md-grid-tile>
+            <md-spinner></md-spinner>
+          </md-grid-tile>
+        </md-grid-list>
         GitHub's API rate limit has been reached. It will be reset in one minute.
       </div>
-    </div> -->
+    </div>
 
     <div class="example-header" [style.display]="selection.isEmpty() ? '' : 'none'">
       <md-input-container floatPlaceholder="never">

@@ -22,7 +22,7 @@ const getId = (stockName, closure)=>{
     });
   });
 }
-getId('NewStock', (objid)=>{console.log(objid)});
+// getId('NewStock', (objid)=>{console.log(objid)});
 
 // Error handling
 const sendError = (err, res) => {

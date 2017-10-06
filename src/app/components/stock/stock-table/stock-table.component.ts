@@ -1,5 +1,5 @@
 import { StockService } from '../../../services/stock.service';
-import {GenericDataSource} from '../../../classes/generic-data-sourse';
+import { GenericDataSource } from '../../../classes/generic-data-sourse';
 
 import {Component, ViewChild, OnInit, ElementRef, Output, EventEmitter} from '@angular/core';
 import {Http, Response} from '@angular/http';
