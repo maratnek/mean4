@@ -130,31 +130,35 @@ AppComponent = __decorate([
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__("../../../platform-browser/@angular/platform-browser.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_stock_service__ = __webpack_require__("../../../../../src/app/services/stock.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_routing_module__ = __webpack_require__("../../../../../src/app/app-routing.module.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_component__ = __webpack_require__("../../../../../src/app/app.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_forms__ = __webpack_require__("../../../forms/@angular/forms.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_angular_font_awesome_angular_font_awesome__ = __webpack_require__("../../../../angular-font-awesome/angular-font-awesome.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_platform_browser_animations__ = __webpack_require__("../../../platform-browser/@angular/platform-browser/animations.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_create_stock_create_stock_component__ = __webpack_require__("../../../../../src/app/components/create-stock/create-stock.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_main_stock_main_stock_component__ = __webpack_require__("../../../../../src/app/components/main-stock/main-stock.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_stock_stock_component__ = __webpack_require__("../../../../../src/app/components/stock/stock.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_navbar_navbar_component__ = __webpack_require__("../../../../../src/app/components/navbar/navbar.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_catalog_catalog_component__ = __webpack_require__("../../../../../src/app/components/catalog/catalog.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__components_production_production_component__ = __webpack_require__("../../../../../src/app/components/production/production.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__components_catalog_catalog_form_catalog_form_component__ = __webpack_require__("../../../../../src/app/components/catalog/catalog-form/catalog-form.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_catalog_catalog_table_catalog_table_component__ = __webpack_require__("../../../../../src/app/components/catalog/catalog-table/catalog-table.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_production_product_create_product_create_component__ = __webpack_require__("../../../../../src/app/components/production/product-create/product-create.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_production_product_table_product_table_component__ = __webpack_require__("../../../../../src/app/components/production/product-table/product-table.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__components_stock_stock_table_stock_table_component__ = __webpack_require__("../../../../../src/app/components/stock/stock-table/stock-table.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__components_stock_stock_income_stock_income_component__ = __webpack_require__("../../../../../src/app/components/stock/stock-income/stock-income.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__components_config_config_component__ = __webpack_require__("../../../../../src/app/components/config/config.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__guards_stock_guard__ = __webpack_require__("../../../../../src/app/guards/stock.guard.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__components_stock_stock_expense_stock_expense_component__ = __webpack_require__("../../../../../src/app/components/stock/stock-expense/stock-expense.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__("../../../../jquery/dist/jquery.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_hammerjs__ = __webpack_require__("../../../../hammerjs/hammer.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_hammerjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_hammerjs__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__ = __webpack_require__("../../../platform-browser/@angular/platform-browser.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_stock_service__ = __webpack_require__("../../../../../src/app/services/stock.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_routing_module__ = __webpack_require__("../../../../../src/app/app-routing.module.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_component__ = __webpack_require__("../../../../../src/app/app.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_forms__ = __webpack_require__("../../../forms/@angular/forms.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_angular_font_awesome_angular_font_awesome__ = __webpack_require__("../../../../angular-font-awesome/angular-font-awesome.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__angular_platform_browser_animations__ = __webpack_require__("../../../platform-browser/@angular/platform-browser/animations.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_create_stock_create_stock_component__ = __webpack_require__("../../../../../src/app/components/create-stock/create-stock.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_main_stock_main_stock_component__ = __webpack_require__("../../../../../src/app/components/main-stock/main-stock.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_stock_stock_component__ = __webpack_require__("../../../../../src/app/components/stock/stock.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__components_navbar_navbar_component__ = __webpack_require__("../../../../../src/app/components/navbar/navbar.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__components_catalog_catalog_component__ = __webpack_require__("../../../../../src/app/components/catalog/catalog.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__components_production_production_component__ = __webpack_require__("../../../../../src/app/components/production/production.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_catalog_catalog_form_catalog_form_component__ = __webpack_require__("../../../../../src/app/components/catalog/catalog-form/catalog-form.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_catalog_catalog_table_catalog_table_component__ = __webpack_require__("../../../../../src/app/components/catalog/catalog-table/catalog-table.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__components_production_product_create_product_create_component__ = __webpack_require__("../../../../../src/app/components/production/product-create/product-create.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__components_production_product_table_product_table_component__ = __webpack_require__("../../../../../src/app/components/production/product-table/product-table.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__components_stock_stock_table_stock_table_component__ = __webpack_require__("../../../../../src/app/components/stock/stock-table/stock-table.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__components_stock_stock_income_stock_income_component__ = __webpack_require__("../../../../../src/app/components/stock/stock-income/stock-income.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__components_config_config_component__ = __webpack_require__("../../../../../src/app/components/config/config.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__guards_stock_guard__ = __webpack_require__("../../../../../src/app/guards/stock.guard.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__components_stock_stock_expense_stock_expense_component__ = __webpack_require__("../../../../../src/app/components/stock/stock-expense/stock-expense.component.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -162,6 +166,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
 
 
 
@@ -198,71 +204,71 @@ var AppModule = (function () {
     return AppModule;
 }());
 AppModule = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["b" /* NgModule */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__angular_core__["b" /* NgModule */])({
         declarations: [
-            __WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* AppComponent */],
-            __WEBPACK_IMPORTED_MODULE_9__components_create_stock_create_stock_component__["a" /* CreateStockComponent */],
-            __WEBPACK_IMPORTED_MODULE_10__components_main_stock_main_stock_component__["a" /* MainStockComponent */],
-            __WEBPACK_IMPORTED_MODULE_11__components_stock_stock_component__["a" /* StockComponent */],
-            __WEBPACK_IMPORTED_MODULE_12__components_navbar_navbar_component__["a" /* NavbarComponent */],
-            __WEBPACK_IMPORTED_MODULE_13__components_catalog_catalog_component__["a" /* CatalogComponent */],
-            __WEBPACK_IMPORTED_MODULE_14__components_production_production_component__["a" /* ProductionComponent */],
-            __WEBPACK_IMPORTED_MODULE_16__components_catalog_catalog_form_catalog_form_component__["a" /* CatalogFormComponent */],
-            __WEBPACK_IMPORTED_MODULE_17__components_catalog_catalog_table_catalog_table_component__["a" /* CatalogTableComponent */],
-            __WEBPACK_IMPORTED_MODULE_18__components_production_product_create_product_create_component__["a" /* ProductCreateComponent */],
-            __WEBPACK_IMPORTED_MODULE_19__components_production_product_table_product_table_component__["a" /* ProductTableComponent */],
-            __WEBPACK_IMPORTED_MODULE_20__components_stock_stock_table_stock_table_component__["a" /* StockTableComponent */],
-            __WEBPACK_IMPORTED_MODULE_21__components_stock_stock_income_stock_income_component__["a" /* StockIncomeComponent */],
-            __WEBPACK_IMPORTED_MODULE_22__components_config_config_component__["a" /* ConfigComponent */],
-            __WEBPACK_IMPORTED_MODULE_24__components_stock_stock_expense_stock_expense_component__["a" /* StockExpenseComponent */],
+            __WEBPACK_IMPORTED_MODULE_7__app_component__["a" /* AppComponent */],
+            __WEBPACK_IMPORTED_MODULE_11__components_create_stock_create_stock_component__["a" /* CreateStockComponent */],
+            __WEBPACK_IMPORTED_MODULE_12__components_main_stock_main_stock_component__["a" /* MainStockComponent */],
+            __WEBPACK_IMPORTED_MODULE_13__components_stock_stock_component__["a" /* StockComponent */],
+            __WEBPACK_IMPORTED_MODULE_14__components_navbar_navbar_component__["a" /* NavbarComponent */],
+            __WEBPACK_IMPORTED_MODULE_15__components_catalog_catalog_component__["a" /* CatalogComponent */],
+            __WEBPACK_IMPORTED_MODULE_16__components_production_production_component__["a" /* ProductionComponent */],
+            __WEBPACK_IMPORTED_MODULE_18__components_catalog_catalog_form_catalog_form_component__["a" /* CatalogFormComponent */],
+            __WEBPACK_IMPORTED_MODULE_19__components_catalog_catalog_table_catalog_table_component__["a" /* CatalogTableComponent */],
+            __WEBPACK_IMPORTED_MODULE_20__components_production_product_create_product_create_component__["a" /* ProductCreateComponent */],
+            __WEBPACK_IMPORTED_MODULE_21__components_production_product_table_product_table_component__["a" /* ProductTableComponent */],
+            __WEBPACK_IMPORTED_MODULE_22__components_stock_stock_table_stock_table_component__["a" /* StockTableComponent */],
+            __WEBPACK_IMPORTED_MODULE_23__components_stock_stock_income_stock_income_component__["a" /* StockIncomeComponent */],
+            __WEBPACK_IMPORTED_MODULE_24__components_config_config_component__["a" /* ConfigComponent */],
+            __WEBPACK_IMPORTED_MODULE_26__components_stock_stock_expense_stock_expense_component__["a" /* StockExpenseComponent */],
         ],
         imports: [
-            __WEBPACK_IMPORTED_MODULE_7_angular_font_awesome_angular_font_awesome__["a" /* AngularFontAwesomeModule */],
-            __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
-            __WEBPACK_IMPORTED_MODULE_4__app_routing_module__["a" /* AppRoutingModule */],
-            __WEBPACK_IMPORTED_MODULE_2__angular_http__["a" /* HttpModule */],
-            __WEBPACK_IMPORTED_MODULE_15__angular_material__["a" /* MatSortModule */],
+            __WEBPACK_IMPORTED_MODULE_9_angular_font_awesome_angular_font_awesome__["a" /* AngularFontAwesomeModule */],
+            __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser__["a" /* BrowserModule */],
+            __WEBPACK_IMPORTED_MODULE_6__app_routing_module__["a" /* AppRoutingModule */],
+            __WEBPACK_IMPORTED_MODULE_4__angular_http__["a" /* HttpModule */],
+            __WEBPACK_IMPORTED_MODULE_17__angular_material__["a" /* MatSortModule */],
             // CdkTableModule,
-            __WEBPACK_IMPORTED_MODULE_8__angular_platform_browser_animations__["a" /* BrowserAnimationsModule */],
-            __WEBPACK_IMPORTED_MODULE_6__angular_forms__["a" /* FormsModule */],
-            __WEBPACK_IMPORTED_MODULE_6__angular_forms__["b" /* ReactiveFormsModule */],
+            __WEBPACK_IMPORTED_MODULE_10__angular_platform_browser_animations__["a" /* BrowserAnimationsModule */],
+            __WEBPACK_IMPORTED_MODULE_8__angular_forms__["a" /* FormsModule */],
+            __WEBPACK_IMPORTED_MODULE_8__angular_forms__["b" /* ReactiveFormsModule */],
             //Material
-            __WEBPACK_IMPORTED_MODULE_15__angular_material__["b" /* MatAutocompleteModule */],
-            __WEBPACK_IMPORTED_MODULE_15__angular_material__["c" /* MatButtonModule */],
-            __WEBPACK_IMPORTED_MODULE_15__angular_material__["d" /* MatButtonToggleModule */],
-            __WEBPACK_IMPORTED_MODULE_15__angular_material__["e" /* MatCardModule */],
-            __WEBPACK_IMPORTED_MODULE_15__angular_material__["f" /* MatCheckboxModule */],
-            __WEBPACK_IMPORTED_MODULE_15__angular_material__["g" /* MatChipsModule */],
+            __WEBPACK_IMPORTED_MODULE_17__angular_material__["b" /* MatAutocompleteModule */],
+            __WEBPACK_IMPORTED_MODULE_17__angular_material__["c" /* MatButtonModule */],
+            __WEBPACK_IMPORTED_MODULE_17__angular_material__["d" /* MatButtonToggleModule */],
+            __WEBPACK_IMPORTED_MODULE_17__angular_material__["e" /* MatCardModule */],
+            __WEBPACK_IMPORTED_MODULE_17__angular_material__["f" /* MatCheckboxModule */],
+            __WEBPACK_IMPORTED_MODULE_17__angular_material__["g" /* MatChipsModule */],
             // MatCoreModule,
-            __WEBPACK_IMPORTED_MODULE_15__angular_material__["h" /* MatDatepickerModule */],
-            __WEBPACK_IMPORTED_MODULE_15__angular_material__["i" /* MatDialogModule */],
-            __WEBPACK_IMPORTED_MODULE_15__angular_material__["j" /* MatExpansionModule */],
-            __WEBPACK_IMPORTED_MODULE_15__angular_material__["k" /* MatGridListModule */],
-            __WEBPACK_IMPORTED_MODULE_15__angular_material__["l" /* MatIconModule */],
-            __WEBPACK_IMPORTED_MODULE_15__angular_material__["m" /* MatInputModule */],
-            __WEBPACK_IMPORTED_MODULE_15__angular_material__["n" /* MatListModule */],
-            __WEBPACK_IMPORTED_MODULE_15__angular_material__["o" /* MatMenuModule */],
-            __WEBPACK_IMPORTED_MODULE_15__angular_material__["p" /* MatNativeDateModule */],
-            __WEBPACK_IMPORTED_MODULE_15__angular_material__["q" /* MatPaginatorModule */],
-            __WEBPACK_IMPORTED_MODULE_15__angular_material__["r" /* MatProgressBarModule */],
-            __WEBPACK_IMPORTED_MODULE_15__angular_material__["s" /* MatProgressSpinnerModule */],
-            __WEBPACK_IMPORTED_MODULE_15__angular_material__["t" /* MatRadioModule */],
-            __WEBPACK_IMPORTED_MODULE_15__angular_material__["u" /* MatRippleModule */],
-            __WEBPACK_IMPORTED_MODULE_15__angular_material__["v" /* MatSelectModule */],
-            __WEBPACK_IMPORTED_MODULE_15__angular_material__["w" /* MatSidenavModule */],
-            __WEBPACK_IMPORTED_MODULE_15__angular_material__["x" /* MatSliderModule */],
-            __WEBPACK_IMPORTED_MODULE_15__angular_material__["y" /* MatSlideToggleModule */],
-            __WEBPACK_IMPORTED_MODULE_15__angular_material__["z" /* MatSnackBarModule */],
-            __WEBPACK_IMPORTED_MODULE_15__angular_material__["a" /* MatSortModule */],
-            __WEBPACK_IMPORTED_MODULE_15__angular_material__["A" /* MatTableModule */],
-            __WEBPACK_IMPORTED_MODULE_15__angular_material__["B" /* MatTabsModule */],
-            __WEBPACK_IMPORTED_MODULE_15__angular_material__["C" /* MatToolbarModule */],
-            __WEBPACK_IMPORTED_MODULE_15__angular_material__["D" /* MatTooltipModule */],
+            __WEBPACK_IMPORTED_MODULE_17__angular_material__["h" /* MatDatepickerModule */],
+            __WEBPACK_IMPORTED_MODULE_17__angular_material__["i" /* MatDialogModule */],
+            __WEBPACK_IMPORTED_MODULE_17__angular_material__["j" /* MatExpansionModule */],
+            __WEBPACK_IMPORTED_MODULE_17__angular_material__["k" /* MatGridListModule */],
+            __WEBPACK_IMPORTED_MODULE_17__angular_material__["l" /* MatIconModule */],
+            __WEBPACK_IMPORTED_MODULE_17__angular_material__["m" /* MatInputModule */],
+            __WEBPACK_IMPORTED_MODULE_17__angular_material__["n" /* MatListModule */],
+            __WEBPACK_IMPORTED_MODULE_17__angular_material__["o" /* MatMenuModule */],
+            __WEBPACK_IMPORTED_MODULE_17__angular_material__["p" /* MatNativeDateModule */],
+            __WEBPACK_IMPORTED_MODULE_17__angular_material__["q" /* MatPaginatorModule */],
+            __WEBPACK_IMPORTED_MODULE_17__angular_material__["r" /* MatProgressBarModule */],
+            __WEBPACK_IMPORTED_MODULE_17__angular_material__["s" /* MatProgressSpinnerModule */],
+            __WEBPACK_IMPORTED_MODULE_17__angular_material__["t" /* MatRadioModule */],
+            __WEBPACK_IMPORTED_MODULE_17__angular_material__["u" /* MatRippleModule */],
+            __WEBPACK_IMPORTED_MODULE_17__angular_material__["v" /* MatSelectModule */],
+            __WEBPACK_IMPORTED_MODULE_17__angular_material__["w" /* MatSidenavModule */],
+            __WEBPACK_IMPORTED_MODULE_17__angular_material__["x" /* MatSliderModule */],
+            __WEBPACK_IMPORTED_MODULE_17__angular_material__["y" /* MatSlideToggleModule */],
+            __WEBPACK_IMPORTED_MODULE_17__angular_material__["z" /* MatSnackBarModule */],
+            __WEBPACK_IMPORTED_MODULE_17__angular_material__["a" /* MatSortModule */],
+            __WEBPACK_IMPORTED_MODULE_17__angular_material__["A" /* MatTableModule */],
+            __WEBPACK_IMPORTED_MODULE_17__angular_material__["B" /* MatTabsModule */],
+            __WEBPACK_IMPORTED_MODULE_17__angular_material__["C" /* MatToolbarModule */],
+            __WEBPACK_IMPORTED_MODULE_17__angular_material__["D" /* MatTooltipModule */],
         ],
-        providers: [__WEBPACK_IMPORTED_MODULE_3__services_stock_service__["a" /* StockService */], __WEBPACK_IMPORTED_MODULE_23__guards_stock_guard__["a" /* StockGuard */], __WEBPACK_IMPORTED_MODULE_3__services_stock_service__["a" /* StockService */],
-            { provide: __WEBPACK_IMPORTED_MODULE_15__angular_material__["E" /* MATERIAL_COMPATIBILITY_MODE */], useValue: true },
+        providers: [__WEBPACK_IMPORTED_MODULE_5__services_stock_service__["a" /* StockService */], __WEBPACK_IMPORTED_MODULE_25__guards_stock_guard__["a" /* StockGuard */], __WEBPACK_IMPORTED_MODULE_5__services_stock_service__["a" /* StockService */],
+            { provide: __WEBPACK_IMPORTED_MODULE_17__angular_material__["E" /* MATERIAL_COMPATIBILITY_MODE */], useValue: true },
         ],
-        bootstrap: [__WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* AppComponent */]],
+        bootstrap: [__WEBPACK_IMPORTED_MODULE_7__app_component__["a" /* AppComponent */]],
     })
 ], AppModule);
 
