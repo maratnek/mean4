@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import {MatCardModule} from '@angular/material';
 import { StockService } from '../../services/stock.service';
 import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Observable';
@@ -39,7 +40,7 @@ export class CreateStockComponent implements OnInit {
   }
 
   EnterCurrentStock(stock){
-    this._dataService.setCurrentStock(stock);  
+    this._dataService.setCurrentStock(stock);
     this.router.navigate(['/stock']);
   }
 

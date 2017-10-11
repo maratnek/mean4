@@ -3,7 +3,8 @@ import { StockService } from '../../../services/stock.service';
 import {GenericDataSource} from '../../../classes/generic-data-sourse';
 
 import {DataSource} from '@angular/cdk/collections';
-import {MdPaginator, MdSort, SelectionModel} from '@angular/material';
+import {MatPaginator, MatSort} from '@angular/material';
+import {SelectionModel} from '@angular/cdk/collections';
 import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import 'rxjs';
@@ -28,8 +29,8 @@ export class StockIncomeComponent implements OnInit {
   dataSource: GenericDataSource<Data, "name"> | null;
   catalog: BehaviorSubject<Data[]> = new BehaviorSubject<Data[]>([]);
 
-  @ViewChild(MdSort) sort: MdSort;
-  @ViewChild(MdPaginator) paginator: MdPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild('filter') filter: ElementRef;
 
   ngOnInit() {

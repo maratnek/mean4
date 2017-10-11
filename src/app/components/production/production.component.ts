@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ProductCreateComponent, ProductElement} from './product-create/product-create.component';
 import {ProductTableComponent} from './product-table/product-table.component';
-import {MdInputModule} from '@angular/material';
+import {MatInputModule} from '@angular/material';
 import {StockService} from '../../services/stock.service';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {Observable} from 'rxjs';

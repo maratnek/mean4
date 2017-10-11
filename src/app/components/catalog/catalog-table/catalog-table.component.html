@@ -2,21 +2,21 @@
   <h1>Каталог товаров</h1>
   <div class="my-container mat-elevation-z8">
     <div class="example-loading-shade" *ngIf="dataSource.isLoadingResults || dataSource.isRateLimitReached">
-      <md-spinner *ngIf="dataSource.isLoadingResults"></md-spinner>
+      <mat-spinner *ngIf="dataSource.isLoadingResults"></mat-spinner>
       <div class="example-rate-limit-reached" *ngIf="dataSource.isRateLimitReached">
-        <md-grid-list *ngIf="true" cols="1" rowHeight="3:2">
-          <md-grid-tile>
-            <md-spinner></md-spinner>
-          </md-grid-tile>
-        </md-grid-list>
+        <mat-grid-list *ngIf="true" cols="1" rowHeight="3:2">
+          <mat-grid-tile>
+            <mat-spinner></mat-spinner>
+          </mat-grid-tile>
+        </mat-grid-list>
         GitHub's API rate limit has been reached. It will be reset in one minute.
       </div>
     </div>
 
     <div class="example-header" [style.display]="selection.isEmpty() ? '' : 'none'">
-      <md-input-container floatPlaceholder="never">
-        <input mdInput #filter placeholder="Filter users">
-      </md-input-container>
+      <mat-form-field floatPlaceholder="never">
+        <input matInput #filter placeholder="Filter users">
+      </mat-form-field>
     </div>
     <!-- <div class="example-header example-selection-header"
       *ngIf="!selection.isEmpty()">
@@ -25,82 +25,82 @@
       selected
     </div> -->
 
-    <md-table #table [dataSource]="dataSource" mdSort>
-    <!-- mdSortActive="created" mdSortDisableClear mdSortDirection="asc"> -->
+    <mat-table #table [dataSource]="dataSource" matSort>
+    <!-- matSortActive="created" matSortDisableClear matSortDirection="asc"> -->
 
     <!-- Checkbox Column -->
-    <ng-container mdColumnDef="select">
-      <md-header-cell *mdHeaderCellDef>
-        <md-checkbox (change)="$event ? masterToggle() : null"
+    <ng-container matColumnDef="select">
+      <mat-header-cell *matHeaderCellDef>
+        <mat-checkbox (change)="$event ? masterToggle() : null"
                      [checked]="isAllSelected()"
                      [indeterminate]="selection.hasValue() && !isAllSelected()">
-        </md-checkbox>
-      </md-header-cell>
-      <md-cell *mdCellDef="let row">
-        <md-checkbox (click)="$event.stopPropagation()"
+        </mat-checkbox>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <mat-checkbox (click)="$event.stopPropagation()"
                      (change)="$event ? selection.toggle(row.name) : null"
                      [checked]="selection.isSelected(row.name)">
-        </md-checkbox>
-      </md-cell>
+        </mat-checkbox>
+      </mat-cell>
     </ng-container>
 
-    <ng-container mdColumnDef="name">
-      <md-header-cell *mdHeaderCellDef md-sort-header> Имя </md-header-cell>
-      <md-cell *mdCellDef="let row"> {{row.name}} </md-cell>
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Имя </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
     </ng-container>
 
-    <ng-container mdColumnDef="measure">
-      <md-header-cell *mdHeaderCellDef md-sort-header> Ед.Изм. </md-header-cell>
-      <md-cell *mdCellDef="let row"> {{row.measure}} </md-cell>
+    <ng-container matColumnDef="measure">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Ед.Изм. </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.measure}} </mat-cell>
     </ng-container>
 
-    <ng-container mdColumnDef="price">
-      <md-header-cell *mdHeaderCellDef md-sort-header> Цена </md-header-cell>
-      <md-cell *mdCellDef="let row"> {{row.price}} </md-cell>
+    <ng-container matColumnDef="price">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Цена </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.price}} </mat-cell>
     </ng-container>
 
-    <ng-container mdColumnDef="storePlace">
-      <md-header-cell *mdHeaderCellDef md-sort-header> Место Хр. </md-header-cell>
-      <md-cell *mdCellDef="let row"> {{row.storePlace}} </md-cell>
+    <ng-container matColumnDef="storePlace">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Место Хр. </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.storePlace}} </mat-cell>
     </ng-container>
 
-    <ng-container mdColumnDef="delete">
-      <md-header-cell *mdHeaderCellDef></md-header-cell>
-      <md-cell *mdCellDef="let row" align="center">
-        <button md-icon-button
+    <ng-container matColumnDef="delete">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let row" align="center">
+        <button mat-icon-button
          (click)="delete(row.name)">
           <fa style="color:red" name="trash-o"></fa>
         </button>
-      </md-cell>
+      </mat-cell>
     </ng-container>
 
-    <ng-container mdColumnDef="edit">
-      <md-header-cell *mdHeaderCellDef></md-header-cell>
-      <md-cell *mdCellDef="let row"
+    <ng-container matColumnDef="edit">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let row"
         (click)="edit(row)">
-        <button md-icon-button>
+        <button mat-icon-button>
           <fa style="color:green" name="pencil"></fa>
         </button>
-      </md-cell>
+      </mat-cell>
     </ng-container>
 
-    <md-header-row *mdHeaderRowDef="displayedColumns"></md-header-row>
-    <md-row *mdRowDef="let row; columns: displayedColumns;"
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"
       [class.example-selected-row]="selection.isSelected(row.name)"
       (click)="selection.toggle(row.name)">
-    </md-row>
-</md-table>
+    </mat-row>
+</mat-table>
   <div class="example-no-results"
        [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
        Нет данных по данному фильтру.
   </div>
 
-  <md-paginator #paginator
+  <mat-paginator #paginator
                 [length]="dataSource.filteredData.length"
                 [pageIndex]="0"
                 [pageSize]="5"
                 [pageSizeOptions]="[5, 10, 25, 100]">
-  </md-paginator>
+  </mat-paginator>
 
 </div>
 

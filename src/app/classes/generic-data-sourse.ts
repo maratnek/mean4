@@ -1,5 +1,5 @@
 import {DataSource} from '@angular/cdk/collections';
-import {MdPaginator, MdSort, SelectionModel} from '@angular/material';
+import {MatPaginator, MatSort} from '@angular/material';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs';
@@ -17,8 +17,8 @@ export class GenericDataSource<TYPE, KEY extends keyof TYPE> extends DataSource<
 
   constructor(
               private catalog: BehaviorSubject<TYPE[]>,
-              private _sort: MdSort,
-              private _paginator: MdPaginator,
+              private _sort: MatSort,
+              private _paginator: MatPaginator,
               private _key: KEY
             ) {
     super();
@@ -31,7 +31,7 @@ export class GenericDataSource<TYPE, KEY extends keyof TYPE> extends DataSource<
 
     const displayDataChanges = [
       this.catalog,
-      this._sort.mdSortChange,
+      this._sort.sortChange,
       this._filterChange,
       this._paginator.page,
     ];

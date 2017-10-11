@@ -1,16 +1,16 @@
-<md-card>
+<mat-card>
   <h2 align=center>Приход деталей</h2>
-  <md-grid-list cols="2">
+  <mat-grid-list cols="2">
     <!-- Catalog -->
-    <md-grid-tile>
+    <mat-grid-tile>
       <div class="">
         <h4>Выбрать деталь из каталога или добавить новый</h4>
         <div class="my-container mat-elevation-z8">
 
           <div class="example-header" [style.display]="selection.isEmpty() ? '' : 'none'">
-            <md-input-container floatPlaceholder="never">
-              <input mdInput #filter placeholder="Filter">
-            </md-input-container>
+            <mat-form-field floatPlaceholder="never">
+              <input matInput #filter placeholder="Filter">
+            </mat-form-field>
           </div>
           <div class="example-header example-selection-header"
             *ngIf="!selection.isEmpty()">
@@ -19,85 +19,85 @@
             selected
           </div>
 
-          <md-table #table [dataSource]="dataSource" mdSort>
+          <mat-table #table [dataSource]="dataSource" matSort>
 
           <!-- Checkbox Column -->
-          <ng-container mdColumnDef="select">
-            <md-header-cell *mdHeaderCellDef  [style.flex]="'0 0 30px'">
-              <md-checkbox (change)="$event ? masterToggle() : null"
+          <ng-container matColumnDef="select">
+            <mat-header-cell *matHeaderCellDef  [style.flex]="'0 0 30px'">
+              <mat-checkbox (change)="$event ? masterToggle() : null"
                            [checked]="isAllSelected()"
                            [indeterminate]="selection.hasValue() && !isAllSelected()">
-              </md-checkbox>
-            </md-header-cell>
-            <md-cell *mdCellDef ="let row"  [style.flex]="'0 0 30px'">
-              <md-checkbox (click)="$event.stopPropagation()"
+              </mat-checkbox>
+            </mat-header-cell>
+            <mat-cell *matCellDef ="let row"  [style.flex]="'0 0 30px'">
+              <mat-checkbox (click)="$event.stopPropagation()"
                            (change)="$event ? changeSelected(row) : null"
                            [checked]="selection.isSelected(row.name)">
-              </md-checkbox>
-            </md-cell>
+              </mat-checkbox>
+            </mat-cell>
           </ng-container>
 
-          <ng-container mdColumnDef="name">
-            <md-header-cell *mdHeaderCellDef md-sort-header> Имя </md-header-cell>
-            <md-cell *mdCellDef="let row"> {{row.name}} </md-cell>
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Имя </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
           </ng-container>
 
-          <ng-container mdColumnDef="count">
-            <md-header-cell *mdHeaderCellDef md-sort-header [style.flex]="'0 0 60px'">Кол-во. </md-header-cell>
-            <md-cell *mdCellDef="let row" [style.flex]="'0 0 60px'">
-              <md-input-container  [style.display]="selection.isSelected(row.name) ? '': 'none'"
+          <ng-container matColumnDef="count">
+            <mat-header-cell *matHeaderCellDef mat-sort-header [style.flex]="'0 0 60px'">Кол-во. </mat-header-cell>
+            <mat-cell *matCellDef="let row" [style.flex]="'0 0 60px'">
+              <mat-form-field  [style.display]="selection.isSelected(row.name) ? '': 'none'"
               [style.width]="'60px'">
-                <input mdInput
+                <input matInput
                 type="number" min=0 max=1000 value="0" name="count" [(ngModel)]="row.count">
-              </md-input-container>
-            </md-cell>
+              </mat-form-field>
+            </mat-cell>
           </ng-container>
 
-          <ng-container mdColumnDef="price">
-            <md-header-cell *mdHeaderCellDef md-sort-header [style.flex]="'0 0 60px'">Цена </md-header-cell>
-            <md-cell *mdCellDef="let row" [style.flex]="'0 0 60px'">
-              <md-input-container  [style.display]="selection.isSelected(row.name) ? '': 'none'"
+          <ng-container matColumnDef="price">
+            <mat-header-cell *matHeaderCellDef mat-sort-header [style.flex]="'0 0 60px'">Цена </mat-header-cell>
+            <mat-cell *matCellDef="let row" [style.flex]="'0 0 60px'">
+              <mat-form-field  [style.display]="selection.isSelected(row.name) ? '': 'none'"
               [style.width]="'60px'">
-                <input mdInput
+                <input matInput
                 type="number" value="0" requierd name="price" [(ngModel)]="row.price">
-              </md-input-container>
-            </md-cell>
+              </mat-form-field>
+            </mat-cell>
           </ng-container>
 
 
-          <md-header-row *mdHeaderRowDef="displayedColumns"></md-header-row>
-          <md-row *mdRowDef="let row; columns: displayedColumns;"></md-row>
-      </md-table>
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
         <div class="example-no-results"
              [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
              Нет данных по данному фильтру.
         </div>
 
-        <md-paginator #paginator
+        <mat-paginator #paginator
                       [length]="dataSource.filteredData.length"
                       [pageIndex]="0"
                       [pageSize]="10"
                       [pageSizeOptions]="[5, 10, 25, 100]">
-        </md-paginator>
+        </mat-paginator>
 
       </div>
 
       </div>
 
-    </md-grid-tile>
+    </mat-grid-tile>
 
     <!-- Form -->
-    <md-grid-tile>
+    <mat-grid-tile>
       <form #incomeGoods="ngForm" (ngSubmit)="onSubmit(incomeGoods)" >
-        <md-card-actions>
-          <button  md-raised-button [disabled]="!incomeGoods.form.valid"  type="submit">
+        <mat-card-actions>
+          <button  mat-raised-button [disabled]="!incomeGoods.form.valid"  type="submit">
             Добавить в склад
           </button>
-          <button  md-raised-button  type="reset" (click)="reset()">Очистить</button>
-        </md-card-actions>
+          <button  mat-raised-button  type="reset" (click)="reset()">Очистить</button>
+        </mat-card-actions>
       </form>
-    </md-grid-tile>
-  </md-grid-list>
+    </mat-grid-tile>
+  </mat-grid-list>
 
   <!-- <product-create [product]="isSubmit" (getDataFromCatalog)="dataTable = $event"></product-create>  -->
-</md-card>
+</mat-card>

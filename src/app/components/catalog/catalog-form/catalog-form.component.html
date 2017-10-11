@@ -1,64 +1,64 @@
 <h1>{{edit? 'Редактировать':'Добавить'}} элемент {{catalog.name}}</h1>
-<md-card>
+<mat-card>
   <form #addNewCatalog="ngForm" (ngSubmit)="onSubmit(addNewCatalog)" align="">
-    <md-input-container >
-      <input mdInput type="text" name="name" [(ngModel)]="catalog.name" required placeholder="Наименование товара">
-    </md-input-container>
+    <mat-form-field >
+      <input matInput type="text" name="name" [(ngModel)]="catalog.name" required placeholder="Наименование товара">
+    </mat-form-field>
     <br>
 
-    <md-select name="measure" [(ngModel)]="catalog.measure" required placeholder="Единица измерения">
-      <md-option *ngFor="let measure of measures" [value]="measure.ms">
+    <mat-select name="measure" [(ngModel)]="catalog.measure" required placeholder="Единица измерения">
+      <mat-option *ngFor="let measure of measures" [value]="measure.ms">
         {{measure.ms}}
-      </md-option>
-    </md-select>
+      </mat-option>
+    </mat-select>
     <br>
 
-    <md-input-container align="center">
-      <span mdPrefix style="padding-right: 20px"><fa name='rub'></fa></span>
-      <input mdInput type="number" name="price" [(ngModel)]="catalog.price" required placeholder="Цена" align="">
-      <span mdSuffix>за {{catalog.measure}}</span>
-    </md-input-container>
+    <mat-form-field align="center">
+      <span matPrefix style="padding-right: 20px"><fa name='rub'></fa></span>
+      <input matInput type="number" name="price" [(ngModel)]="catalog.price" required placeholder="Цена" align="">
+      <span matSuffix>за {{catalog.measure}}</span>
+    </mat-form-field>
     <br>
 
-    <md-input-container>
-      <input mdInput type="text" [mdAutocomplete]=auto
+    <mat-form-field>
+      <input matInput type="text" [matAutocomplete]=auto
       [(ngModel)]="catalog.storePlace" [formControl]="stateControl" pattern="[A-Z]"
       placeholder="Сектор хранения">
-    </md-input-container>
-    <md-autocomplete #auto="mdAutocomplete">
-      <md-option *ngFor="let state of states" [value]="state">
+    </mat-form-field>
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let state of states" [value]="state">
         {{ state }}
-      </md-option>
-    </md-autocomplete>
+      </mat-option>
+    </mat-autocomplete>
     <br>
 
     <label for="suppliers">Добавить поставщика  </label>
-    <button type="button" md-raised-button name="suppliers" (click)="isSuppliersCheck=!isSuppliersCheck">
+    <button type="button" mat-raised-button name="suppliers" (click)="isSuppliersCheck=!isSuppliersCheck">
       <fa name="truck"></fa>
       <fa *ngIf="!isSuppliersCheck" name="plus"></fa>
       <fa *ngIf="isSuppliersCheck" name="minus"></fa>
     </button>
     <br>
     <ng-container *ngIf="isSuppliersCheck">
-      <md-input-container>
-        <input mdInput type="text" name="suppliersName" [(ngModel)]="catalog.suppliersName" placeholder="Имя поставщика">
-      </md-input-container>
-      <md-input-container>
-        <input mdInput type="tel" name="suppliersTel" [(ngModel)]="catalog.suppliersTel" placeholder="Телефон">
-      </md-input-container>
+      <mat-form-field>
+        <input matInput type="text" name="suppliersName" [(ngModel)]="catalog.suppliersName" placeholder="Имя поставщика">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="tel" name="suppliersTel" [(ngModel)]="catalog.suppliersTel" placeholder="Телефон">
+      </mat-form-field>
     </ng-container>
     <br>
 
-    <md-input-container>
-      <input mdInput #postalCode maxlength="10" type="number" disabled placeholder="Штрих код" value="0000000000">
-      <md-hint align="end">{{postalCode.value.length}} / 10</md-hint>
-    </md-input-container>
+    <mat-form-field>
+      <input matInput #postalCode maxlength="10" type="number" disabled placeholder="Штрих код" value="0000000000">
+      <mat-hint align="end">{{postalCode.value.length}} / 10</mat-hint>
+    </mat-form-field>
 
-    <md-card-actions>
-      <button  md-raised-button [disabled]="!addNewCatalog.form.valid"  type="submit"  name="button">
+    <mat-card-actions>
+      <button  mat-raised-button [disabled]="!addNewCatalog.form.valid"  type="submit"  name="button">
         {{edit? 'Редактировать':'Добавить'}}
       </button>
-      <button  md-raised-button  type="reset"  name="button">Очистить</button>
-    </md-card-actions>
+      <button  mat-raised-button  type="reset"  name="button">Очистить</button>
+    </mat-card-actions>
   </form>
-</md-card>
+</mat-card>

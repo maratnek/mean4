@@ -1,43 +1,43 @@
   <div class="my-container">
     <div class="my-card  my-height my-overflow">
-      <md-card *ngIf="!success">
+      <mat-card *ngIf="!success">
 
         <h1>Создайте склад или выберите из существующего</h1>
 
-        <md-card-actions>
-          <a md-raised-button *ngIf="stockName" (keyup.enter)="createStockName(stockName)" (click)="createStockName(stockName)">Создать</a>
-        </md-card-actions>
-        <md-grid-list cols="2">
-          <md-grid-tile>
-            <md-card-content>
-              <md-input-container>
-                <input type="text" mdInput [(ngModel)]="stockName" #ctrl ="ngModel"  required placeholder="Название склада">
-              </md-input-container>
+        <mat-card-actions>
+          <a mat-raised-button *ngIf="stockName" (keyup.enter)="createStockName(stockName)" (click)="createStockName(stockName)">Создать</a>
+        </mat-card-actions>
+        <mat-grid-list cols="2">
+          <mat-grid-tile>
+            <mat-card-content>
+              <mat-form-field>
+                <input type="text" matInput [(ngModel)]="stockName" #ctrl ="ngModel"  required placeholder="Название склада">
+              </mat-form-field>
               <h1>{{stockName}}</h1>
-            </md-card-content>
-          </md-grid-tile>
-          <md-grid-tile>
-            <md-nav-list>
-              <md-list-item *ngFor="let stock of stocks" (click)="EnterCurrentStock(stock)">
+            </mat-card-content>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <mat-nav-list>
+              <mat-list-item *ngFor="let stock of stocks" (click)="EnterCurrentStock(stock)">
                 <h3>{{stock}}</h3>
-              </md-list-item>
-            </md-nav-list>
-          </md-grid-tile>
-        </md-grid-list>
-      </md-card>
+              </mat-list-item>
+            </mat-nav-list>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </mat-card>
 
-      <md-card *ngIf="success">
+      <mat-card *ngIf="success">
         <h1>Определите конфигурацию для склада: {{stockName}}</h1>
-        <md-card-content>
+        <mat-card-content>
           <p>
             Создается новый склад. Конфигурация основной таблицы.
             Или выберети конфигурацию по умолчанию
           </p>
-        </md-card-content>
-        <md-card-actions>
-          <a md-raised-button (keyup.enter)='createStockConfig()' (click)='createStockConfig()'>По умолчанию</a>
-        </md-card-actions>
-      </md-card>
+        </mat-card-content>
+        <mat-card-actions>
+          <a mat-raised-button (keyup.enter)='createStockConfig()' (click)='createStockConfig()'>По умолчанию</a>
+        </mat-card-actions>
+      </mat-card>
 
     </div>
   </div>

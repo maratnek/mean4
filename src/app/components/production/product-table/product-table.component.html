@@ -1,24 +1,24 @@
-<md-grid-list *ngIf="load" cols="1" rowHeight="3:2">
-  <md-grid-tile>
-    <md-spinner></md-spinner>
-  </md-grid-tile>
-</md-grid-list>
+<mat-grid-list *ngIf="load" cols="1" rowHeight="3:2">
+  <mat-grid-tile>
+    <mat-spinner></mat-spinner>
+  </mat-grid-tile>
+</mat-grid-list>
 <ng-container *ngIf="!load">
   <h3 *ngIf="!products.length">Создайте продукт используя каталог</h3>
   <div *ngIf="products.length">
     <h3>Продукты</h3>
     <ng-container  *ngFor="let product of products; let ind = index;">
-      <md-card>
-        <md-card-header>
+      <mat-card>
+        <mat-card-header>
           <h3>{{product.name}}</h3>
-        </md-card-header>
-        <md-card-actions>
+        </mat-card-header>
+        <mat-card-actions>
           <div align="left" (click)="products[ind].show = !products[ind].show">
             <fa name="minus-square" size="lg" [hidden]="!products[ind].show"></fa>
             <fa name="plus-square" size="lg" [hidden]="products[ind].show"></fa>
           </div>
-        </md-card-actions>
-        <md-card-content *ngIf="products[ind].show">
+        </mat-card-actions>
+        <mat-card-content *ngIf="products[ind].show">
           <table>
             <tr>
               <th>Деталь</th>
@@ -27,11 +27,11 @@
 
             <tr *ngFor="let elem of product.dataTable">
               <td>{{elem.name}}</td>
-              <td align="center"><md-chip [style.display]="'block'" color="primary" selected="true">{{elem.count}}</md-chip></td>
+              <td align="center"><mat-chip [style.display]="'block'" color="primary" selected="true">{{elem.count}}</mat-chip></td>
             </tr>
           </table>
-        </md-card-content>
-      </md-card>
+        </mat-card-content>
+      </mat-card>
       <br>
     </ng-container>
   </div>

@@ -1,23 +1,23 @@
 <div class="my-container">
 
-  <md-sidenav-container class="my-height">
-    <md-sidenav #sidenav mode="side" opened="true">
-      <button *ngIf="sidenav.opened" md-mini-fab class="my-fab" (click)="sidenav.toggle()">
+  <mat-sidenav-container class="my-height">
+    <mat-sidenav #sidenav mode="side" opened="true">
+      <button *ngIf="sidenav.opened" mat-mini-fab class="my-fab" (click)="sidenav.toggle()">
         <fa  name="times"></fa>
       </button>
-      <md-toolbar class="my-toolbar">
-        <md-toolbar-row class="my-toolbar-row" (click)="menuToolbarActive = 1">
+      <mat-toolbar class="my-toolbar">
+        <mat-toolbar-row class="my-toolbar-row" (click)="menuToolbarActive = 1">
           <span>Продукты</span>
-        </md-toolbar-row>
+        </mat-toolbar-row>
 
-        <md-toolbar-row class="my-toolbar-row" (click)="menuToolbarActive = 2; edit = false">
+        <mat-toolbar-row class="my-toolbar-row" (click)="menuToolbarActive = 2; edit = false">
           <span>Создать продукт</span>
-        </md-toolbar-row>
-      </md-toolbar>
+        </mat-toolbar-row>
+      </mat-toolbar>
 
-    </md-sidenav>
+    </mat-sidenav>
 
-    <button *ngIf="!sidenav.opened" md-mini-fab class="my-fab bars" (click)="sidenav.toggle()">
+    <button *ngIf="!sidenav.opened" mat-mini-fab class="my-fab bars" (click)="sidenav.toggle()">
       <fa  name="bars"></fa>
     </button>
 
@@ -30,5 +30,5 @@
         <product-create></product-create>
       </div>
     </div>
-  </md-sidenav-container>
+  </mat-sidenav-container>
 </div>
