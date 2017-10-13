@@ -1,35 +1,50 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const path = require('path');
-const http = require('http');
-const app = express();
-
-// API file for interacting with MongoDB
-const api = require('./server/routes/api');
-
-// Parsers
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false}));
-
-// Angular DIST output folder
-let publicName = 'deploy'; // old path 'dist'
-app.use(express.static(path.join(__dirname, publicName)));
-
-// API location
-app.use('/api', api);
-
-// Send all other requests to the Angular app
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, publicName + '/index.html'));
-});
-
-//Set Port
-// const port = process.env.PORT || '3000';
-// app.set('port', port);
+const {app, BrowserWindow} = require('electron')
+const path = require('path')
+const url = require('url')
+//server
+// require('./server');
 
 
-// const server = http.createServer(app);
+let win
 
-// server.listen(port, () => console.log(`Running on localhost:${port}`));
+function createWindow () {
 
-module.exports = app;
+  win = new BrowserWindow({width: 800, height: 600, icon: './deploy/assets/img/stock-icon.svg'})
+
+  // win.loadURL(`file://${__dirname}/deploy/index.html`);
+
+  const spawn = require("child_process").spawn;
+  const node = spawn("node", ["server.js"], { cwd: process.cwd()  });
+  const request = require("request");
+  const expressAppUrl = "http://127.0.0.1:3000";
+  let checkServerRunning = setInterval(() => {
+    request(expressAppUrl, (error, response, body) => {
+      if (!error && response.statusCode == 200) {
+        clearInterval(checkServerRunning);
+        win.loadURL(expressAppUrl);
+      }
+    });
+  }, 1000);
+  // win.focus();
+  // Open the DevTools.
+  win.webContents.openDevTools()
+
+  // Emitted when the window is closed.
+  win.on('closed', () => {
+    win = null
+  })
+}
+
+app.on('ready', createWindow)
+
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') {
+    app.quit()
+  }
+})
+
+app.on('activate', () => {
+  if (win === null) {
+    createWindow()
+  }
+})

@@ -1,4 +1,4 @@
-const app = require('./app');
+const app = require('./express');
 const debug = require('debug')('marriage:server');
 const http = require('http');
 
