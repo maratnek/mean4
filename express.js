@@ -5,7 +5,7 @@ const http = require('http');
 const app = express();
 
 // API file for interacting with MongoDB
-const api = require('./server/routes/api');
+const api = require(path.join(__dirname, 'server/routes/api'));
 
 // Parsers
 app.use(bodyParser.json());
@@ -19,9 +19,9 @@ app.use(express.static(path.join(__dirname, publicName)));
 app.use('/api', api);
 
 // Send all other requests to the Angular app
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, publicName + '/index.html'));
-});
+// app.get('*', (req, res) => {
+//     res.sendFile(path.join(__dirname, publicName + '/index.html'));
+// });
 
 //Set Port
 // const port = process.env.PORT || '3000';
