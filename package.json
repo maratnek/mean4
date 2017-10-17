@@ -4,13 +4,14 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "electron-forge start",
+    "start": "electron .",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "package": "electron-forge package",
-    "make": "electron-forge make"
+    "make": "electron-forge make",
+    "dist":"build"
   },
   "private": true,
   "dependencies": {
@@ -54,6 +55,7 @@
     "babel-preset-react": "^6.24.1",
     "co": "^4.6.0",
     "codelyzer": "~3.0.1",
+    "electron-builder": "^19.37.2",
     "electron-forge": "^4.1.2",
     "electron-prebuilt-compile": "1.7.8",
     "jasmine-core": "~2.6.2",
@@ -70,6 +72,27 @@
     "typescript": "~2.3.3"
   },
   "main": "app.js",
+  "author":"zm <maratn566ek@gmail.com>",
+  "description": "stock story",
+  "build": {
+    "appId": "stock",
+    "productName":"stock",
+    "asar":"false",
+    "directories":{
+      "output":"dist"
+    },
+    "win": {
+      "target": "squirrel",
+      "icon": "build/icon.ico"
+    },
+    "linux": {
+      "category":"X-Office",
+      "target":[
+        "AppImage",
+        "deb"
+      ]
+    }
+  },
   "config": {
     "forge": {
       "make_targets": {
