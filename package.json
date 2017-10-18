@@ -4,13 +4,12 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "electron .",
+    "start": "node server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "package": "electron-forge package",
-    "make": "electron-forge make",
+    "electron": "electron .",
     "dist":"build"
   },
   "private": true,

@@ -26,7 +26,7 @@ function createWindow () {
   const expressAppUrl = "http://localhost:3000";
   win.loadURL(expressAppUrl);
   // Open the DevTools.
-  win.webContents.openDevTools()
+  // win.webContents.openDevTools()
 
   // Emitted when the window is closed.
   win.on('closed', () => {
