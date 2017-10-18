@@ -38,6 +38,8 @@ export class StockService {
           if (result.json().data)
             return true;
         });
+    else
+      this.ExitCurrentStock();
     return Observable.from([false]);
   }
 

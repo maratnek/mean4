@@ -2154,6 +2154,8 @@ var StockService = (function () {
                 if (result.json().data)
                     return true;
             });
+        else
+            this.ExitCurrentStock();
         return __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__["Observable"].from([false]);
     };
     StockService.prototype.ExitCurrentStock = function () {

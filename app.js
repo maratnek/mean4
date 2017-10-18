@@ -7,7 +7,7 @@ let win
 
 function createWindow () {
 
-  win = new BrowserWindow({width: 800, height: 600, icon: './deploy/assets/img/stock-icon.png'})
+  win = new BrowserWindow({width: 900, height: 600, icon: './deploy/assets/img/stock-icon.png'})
 
   // const spawn = require("child_process").spawn;
   // const node = spawn("node", ["./server.js"], { cwd: process.cwd()  });
