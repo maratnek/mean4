@@ -17,8 +17,8 @@ const connection = (closure) => {
 const getId = (stockName, closure)=>{
   connection(db => {
     db.collection('stock').findOne({name:stockName}, (err, result)=>{
-        if (err) {console.log(err);return err;}
-        closure(result._id);
+        if (err) {console.log('Get Stock By Name Error ',err);}
+        else closure(result._id);
     });
   });
 }
@@ -92,6 +92,21 @@ router.get('/stocks', (req,res) => {
         })
         .catch( err => sendError(err,res) );
   });
+});
+// Get stock by name
+router.get('/stock', (req,res)=>{
+  if (req.query.name && req.query.name.length)
+  {
+    getId(req.query.name, (id)=>{
+      response.data = true;
+      res.json(response);
+    })
+  }
+  else
+  {
+    response.data = false;
+    res.json(response);
+  }
 });
 
 // GOODS COLLECTION

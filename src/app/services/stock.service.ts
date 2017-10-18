@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class StockService {
 
   result:any;
-  stockName: string = '';
-  // authStock: any;
-  // stock: any;
+  stockName: string = null;
+  active: boolean = false;
 
   constructor(private _http: Http) {
     this.loadStock();
@@ -20,8 +20,25 @@ export class StockService {
   }
 
   loadStock(){
+    this.stockName = "";
+    this.IsActive().subscribe(result => {
+        if (result)
+          console.log("Observable IsActive true");
+          this.active = true;
+          this.stockName = localStorage.getItem('currentStock');
+      });
+  }
+
+  IsActive():Observable<boolean>{
     const stock = localStorage.getItem('currentStock');
-    this.stockName = stock;
+    // find in DB
+    if (stock)
+      return this._http.get("/api/stock?name=" + stock)
+        .map(result => {
+          if (result.json().data)
+            return true;
+        });
+    return Observable.from([false]);
   }
 
   ExitCurrentStock():void{

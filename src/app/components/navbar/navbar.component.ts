@@ -9,7 +9,10 @@ import {StockService} from '../../services/stock.service';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private stockService: StockService, private router: Router) { }
+  active: boolean = false;
+  constructor(private stockService: StockService, private router: Router) {
+    this.stockService.IsActive().subscribe(result => {if(result) this.router.navigate(['/stock']);});
+  }
 
   ngOnInit() {
   }

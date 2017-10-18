@@ -20,12 +20,11 @@ webpackEmptyContext.id = "../../../../../src async recursive";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_create_stock_create_stock_component__ = __webpack_require__("../../../../../src/app/components/create-stock/create-stock.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_main_stock_main_stock_component__ = __webpack_require__("../../../../../src/app/components/main-stock/main-stock.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_stock_stock_component__ = __webpack_require__("../../../../../src/app/components/stock/stock.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_catalog_catalog_component__ = __webpack_require__("../../../../../src/app/components/catalog/catalog.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_production_production_component__ = __webpack_require__("../../../../../src/app/components/production/production.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_config_config_component__ = __webpack_require__("../../../../../src/app/components/config/config.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__guards_stock_guard__ = __webpack_require__("../../../../../src/app/guards/stock.guard.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_stock_stock_component__ = __webpack_require__("../../../../../src/app/components/stock/stock.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_catalog_catalog_component__ = __webpack_require__("../../../../../src/app/components/catalog/catalog.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_production_production_component__ = __webpack_require__("../../../../../src/app/components/production/production.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_config_config_component__ = __webpack_require__("../../../../../src/app/components/config/config.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__guards_stock_guard__ = __webpack_require__("../../../../../src/app/guards/stock.guard.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppRoutingModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -41,15 +40,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-
 var routes = [
     { path: '', redirectTo: '/create', pathMatch: 'full' },
     { path: 'create', component: __WEBPACK_IMPORTED_MODULE_2__components_create_stock_create_stock_component__["a" /* CreateStockComponent */] },
-    { path: 'main', component: __WEBPACK_IMPORTED_MODULE_3__components_main_stock_main_stock_component__["a" /* MainStockComponent */] },
-    { path: 'catalog', component: __WEBPACK_IMPORTED_MODULE_5__components_catalog_catalog_component__["a" /* CatalogComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_8__guards_stock_guard__["a" /* StockGuard */]] },
-    { path: 'production', component: __WEBPACK_IMPORTED_MODULE_6__components_production_production_component__["a" /* ProductionComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_8__guards_stock_guard__["a" /* StockGuard */]] },
-    { path: 'stock', component: __WEBPACK_IMPORTED_MODULE_4__components_stock_stock_component__["a" /* StockComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_8__guards_stock_guard__["a" /* StockGuard */]] },
-    { path: 'config', component: __WEBPACK_IMPORTED_MODULE_7__components_config_config_component__["a" /* ConfigComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_8__guards_stock_guard__["a" /* StockGuard */]] },
+    // {path: 'main', component: MainStockComponent},
+    { path: 'catalog', component: __WEBPACK_IMPORTED_MODULE_4__components_catalog_catalog_component__["a" /* CatalogComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_7__guards_stock_guard__["a" /* StockGuard */]] },
+    { path: 'production', component: __WEBPACK_IMPORTED_MODULE_5__components_production_production_component__["a" /* ProductionComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_7__guards_stock_guard__["a" /* StockGuard */]] },
+    { path: 'stock', component: __WEBPACK_IMPORTED_MODULE_3__components_stock_stock_component__["a" /* StockComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_7__guards_stock_guard__["a" /* StockGuard */]] },
+    { path: 'config', component: __WEBPACK_IMPORTED_MODULE_6__components_config_config_component__["a" /* ConfigComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_7__guards_stock_guard__["a" /* StockGuard */]] },
 ];
 var AppRoutingModule = (function () {
     function AppRoutingModule() {
@@ -1089,7 +1087,7 @@ var ExampleDataSource = (function (_super) {
 /***/ "../../../../../src/app/components/navbar/navbar.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar\">\n\n  <ul>\n    <li>{{stockName}}</li>\n    <!-- <li><a routerLink='/main' routerLinkActive=\"active\">Склад</a></li> -->\n    <li *ngIf=\"!stockService.IsExistStock()\"><a routerLink='/create' routerLinkActive=\"active\">Cоздание склада</a></li>\n    <li *ngIf=\"stockService.IsExistStock()\"><a routerLink='/stock' routerLinkActive=\"active\">Склад</a></li>\n    <li *ngIf=\"stockService.IsExistStock()\"><a routerLink='/catalog' routerLinkActive=\"active\">Каталог товаров</a></li>\n    <li *ngIf=\"stockService.IsExistStock()\"><a routerLink='/production' routerLinkActive=\"active\">Производство</a></li>\n    <div class=\"right\">\n      <li *ngIf=\"stockService.IsExistStock()\"><a routerLink='/config' routerLinkActive=\"active\"><fa name=\"cog\" size=\"lg\"></fa></a></li>\n      <li *ngIf=\"stockService.IsExistStock()\"><a (click)=\"onResetStock()\"><span>{{stockService.getCurrentStock()}}</span> <fa name=\"external-link\" size=\"lg\"></fa></a></li>\n      <div class=\"min-menu\">\n        <button mat-icon-button [matMenuTriggerFor]=\"menu\">\n          <fa name=bars size=lg></fa>\n        </button>\n        <mat-menu #menu=\"matMenu\">\n          <!-- <a mat-menu-item routerLink='/main' routerLinkActive=\"active\">Склад</a> -->\n          <a *ngIf=\"!stockService.IsExistStock()\" mat-menu-item routerLink='/create' routerLinkActive=\"active\">Создание склада</a>\n          <a *ngIf=\"stockService.IsExistStock()\" mat-menu-item routerLink='/stock' routerLinkActive=\"active\">Склад</a>\n          <a *ngIf=\"stockService.IsExistStock()\" mat-menu-item routerLink='/catalog' routerLinkActive=\"active\">Каталог товаров</a>\n          <a *ngIf=\"stockService.IsExistStock()\" mat-menu-item routerLink='/production' routerLinkActive=\"active\">Производство</a>\n          <a *ngIf=\"stockService.IsExistStock()\" mat-menu-item routerLink='/config' routerLinkActive=\"active\"><fa name=\"cog\" size=\"lg\"></fa></a>\n          <a *ngIf=\"stockService.IsExistStock()\" mat-menu-item (click)=\"onResetStock()\"><span>{{stockService.getCurrentStock()}}</span> <fa name=\"external-link\" size=\"lg\"></fa></a>\n        </mat-menu>\n      </div>\n    </div>\n</ul>\n\n</nav>\n\n<div class=\"pad-top\"></div>\n"
+module.exports = "<nav class=\"navbar\">\n  <ul>\n    <li>{{stockName}}</li>\n    <!-- <li><a routerLink='/main' routerLinkActive=\"active\">Склад</a></li> -->\n    <li *ngIf=\"!stockService.IsExistStock()\"><a routerLink='/create' routerLinkActive=\"active\">Cоздание склада</a></li>\n    <li *ngIf=\"stockService.IsExistStock()\"><a routerLink='/stock' routerLinkActive=\"active\">Склад</a></li>\n    <li *ngIf=\"stockService.IsExistStock()\"><a routerLink='/catalog' routerLinkActive=\"active\">Каталог товаров</a></li>\n    <li *ngIf=\"stockService.IsExistStock()\"><a routerLink='/production' routerLinkActive=\"active\">Производство</a></li>\n    <div class=\"right\">\n      <li *ngIf=\"stockService.IsExistStock()\"><a routerLink='/config' routerLinkActive=\"active\"><fa name=\"cog\" size=\"lg\"></fa></a></li>\n      <li *ngIf=\"stockService.IsExistStock()\"><a (click)=\"onResetStock()\"><span>{{stockService.getCurrentStock()}}</span> <fa name=\"external-link\" size=\"lg\"></fa></a></li>\n      <div class=\"min-menu\">\n        <button mat-icon-button [matMenuTriggerFor]=\"menu\">\n          <fa name=bars size=lg></fa>\n        </button>\n        <mat-menu #menu=\"matMenu\">\n          <!-- <a mat-menu-item routerLink='/main' routerLinkActive=\"active\">Склад</a> -->\n          <a *ngIf=\"!stockService.IsExistStock()\" mat-menu-item routerLink='/create' routerLinkActive=\"active\">Создание склада</a>\n          <a *ngIf=\"stockService.IsExistStock()\" mat-menu-item routerLink='/stock' routerLinkActive=\"active\">Склад</a>\n          <a *ngIf=\"stockService.IsExistStock()\" mat-menu-item routerLink='/catalog' routerLinkActive=\"active\">Каталог товаров</a>\n          <a *ngIf=\"stockService.IsExistStock()\" mat-menu-item routerLink='/production' routerLinkActive=\"active\">Производство</a>\n          <a *ngIf=\"stockService.IsExistStock()\" mat-menu-item routerLink='/config' routerLinkActive=\"active\"><fa name=\"cog\" size=\"lg\"></fa></a>\n          <a *ngIf=\"stockService.IsExistStock()\" mat-menu-item (click)=\"onResetStock()\"><span>{{stockService.getCurrentStock()}}</span> <fa name=\"external-link\" size=\"lg\"></fa></a>\n        </mat-menu>\n      </div>\n    </div>\n</ul>\n\n</nav>\n\n<div class=\"pad-top\"></div>\n"
 
 /***/ }),
 
@@ -1133,8 +1131,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var NavbarComponent = (function () {
     function NavbarComponent(stockService, router) {
+        var _this = this;
         this.stockService = stockService;
         this.router = router;
+        this.active = false;
+        this.stockService.IsActive().subscribe(function (result) { if (result)
+            _this.router.navigate(['/stock']); });
     }
     NavbarComponent.prototype.ngOnInit = function () {
     };
@@ -2106,6 +2108,8 @@ var _a, _b;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__("../../../../rxjs/add/operator/map.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__ = __webpack_require__("../../../../rxjs/Observable.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return StockService; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2119,12 +2123,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var StockService = (function () {
-    // authStock: any;
-    // stock: any;
     function StockService(_http) {
         this._http = _http;
-        this.stockName = '';
+        this.stockName = null;
+        this.active = false;
         this.loadStock();
     }
     // Use Local Storage for the save current stock
@@ -2132,8 +2136,25 @@ var StockService = (function () {
         localStorage.setItem('currentStock', stockName);
     };
     StockService.prototype.loadStock = function () {
+        var _this = this;
+        this.stockName = "";
+        this.IsActive().subscribe(function (result) {
+            if (result)
+                console.log("Observable IsActive true");
+            _this.active = true;
+            _this.stockName = localStorage.getItem('currentStock');
+        });
+    };
+    StockService.prototype.IsActive = function () {
         var stock = localStorage.getItem('currentStock');
-        this.stockName = stock;
+        // find in DB
+        if (stock)
+            return this._http.get("/api/stock?name=" + stock)
+                .map(function (result) {
+                if (result.json().data)
+                    return true;
+            });
+        return __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__["Observable"].from([false]);
     };
     StockService.prototype.ExitCurrentStock = function () {
         this.stockName = null;

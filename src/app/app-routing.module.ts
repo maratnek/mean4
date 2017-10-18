@@ -12,7 +12,7 @@ import {StockGuard} from './guards/stock.guard';
 const routes: Routes = [
   {path: '', redirectTo: '/create', pathMatch: 'full'},
   {path: 'create', component: CreateStockComponent},
-  {path: 'main', component: MainStockComponent},
+  // {path: 'main', component: MainStockComponent},
   {path: 'catalog', component: CatalogComponent, canActivate:[StockGuard]},
   {path: 'production', component: ProductionComponent, canActivate:[StockGuard]},
   {path: 'stock', component: StockComponent, canActivate:[StockGuard]},
