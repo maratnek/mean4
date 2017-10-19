@@ -28,20 +28,17 @@ export class ProductCreateComponent implements OnInit {
 
   dataTable:Observable<Data[]>;
   product_constituenst(){
-    this.dataTable = new Observable(observer => {
+    this.dataTable = Observable.create(observer => {
 
-      this.catalog.value.forEach(data => {
+      this.catalog.value.forEach((data:Data) => {
         if(this.selection.isSelected(data.name))
         {
-          observer.next({
-            _id : data._id,
-            name : data.name,
-            count : data.count
-          });
+          observer.next(data);
         }
       });
       observer.complete();
     });
+
     return this.dataTable;
   }
 
