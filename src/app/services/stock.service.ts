@@ -8,7 +8,6 @@ export class StockService {
 
   result:any;
   stockName: string = null;
-  active: boolean = false;
 
   constructor(private _http: Http) {
     this.loadStock();
@@ -24,7 +23,6 @@ export class StockService {
     this.IsActive().subscribe(result => {
         if (result)
           console.log("Observable IsActive true");
-          this.active = true;
           this.stockName = localStorage.getItem('currentStock');
       });
   }

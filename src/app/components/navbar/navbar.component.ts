@@ -11,7 +11,11 @@ export class NavbarComponent implements OnInit {
 
   active: boolean = false;
   constructor(public stockService: StockService, private router: Router) {
-    this.stockService.IsActive().subscribe(result => {if(result) this.router.navigate(['/stock']);});
+    this.stockService.IsActive()
+    .subscribe(result => {
+      if(result)
+        this.router.navigate(['/stock']);
+      });
   }
 
   ngOnInit() {

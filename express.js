@@ -3,10 +3,12 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const http = require('http');
 const app = express();
+const compression = require('compression');
 
 // API file for interacting with MongoDB
 const api = require(path.join(__dirname, 'server/routes/api'));
-
+//GZIP compression
+app.use(compression());
 // Parsers
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
