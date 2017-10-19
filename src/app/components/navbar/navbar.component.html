@@ -1,6 +1,5 @@
 <nav class="navbar">
   <ul>
-    <li>{{stockName}}</li>
     <!-- <li><a routerLink='/main' routerLinkActive="active">Склад</a></li> -->
     <li *ngIf="!stockService.IsExistStock()"><a routerLink='/create' routerLinkActive="active">Cоздание склада</a></li>
     <li *ngIf="stockService.IsExistStock()"><a routerLink='/stock' routerLinkActive="active">Склад</a></li>

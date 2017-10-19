@@ -18,6 +18,9 @@ export class ProductionComponent implements OnInit {
   product: any = {};
 
   menuToolbarActive = 1;
+  // Edit for the update table
+  edit: boolean = false;
+  catalog: any = {};
 
   constructor(private _dataService: StockService) { }
 

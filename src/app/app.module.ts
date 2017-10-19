@@ -21,7 +21,6 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome/angular-font-awes
 // import {CdkTableModule} from '@angular/cdk';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { CreateStockComponent } from './components/create-stock/create-stock.component';
-import { MainStockComponent } from './components/main-stock/main-stock.component';
 import { StockComponent } from './components/stock/stock.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { CatalogComponent } from './components/catalog/catalog.component';
@@ -78,7 +77,6 @@ import { StockExpenseComponent } from './components/stock/stock-expense/stock-ex
   declarations: [
     AppComponent,
     CreateStockComponent,
-    MainStockComponent,
     StockComponent,
     NavbarComponent,
     CatalogComponent,

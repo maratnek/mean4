@@ -14,6 +14,8 @@ export class CatalogComponent implements OnInit {
   isSuppliersCheck = false;
 
   menuToolbarActive = 1;
+  // Edit for the update table
+  edit: boolean = false;
 
   constructor() {
   }

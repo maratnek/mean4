@@ -47,7 +47,7 @@ export class StockTableComponent implements OnInit {
     });
   }
 
-  constructor(private _dataService: StockService) {
+  constructor(public _dataService: StockService) {
   }
 
 }

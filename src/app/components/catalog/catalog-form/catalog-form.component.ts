@@ -23,6 +23,7 @@ export class CatalogFormComponent implements OnInit {
   // catalog: any = {};
 
   stateControl: FormControl;
+  isSuppliersCheck: boolean = false;
 
   filteredStates: any;
   states = [];

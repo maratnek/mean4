@@ -10,7 +10,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "electron": "electron .",
-    "dist":"build"
+    "dist": "build"
   },
   "private": true,
   "dependencies": {
@@ -43,7 +43,7 @@
     "zone.js": "^0.8.4"
   },
   "devDependencies": {
-    "@angular/cli": "1.2.0",
+    "@angular/cli": "1.4.7",
     "@angular/compiler-cli": "^4.0.0",
     "@angular/language-service": "^4.0.0",
     "@types/jasmine": "~2.5.53",
@@ -71,22 +71,22 @@
     "typescript": "~2.3.3"
   },
   "main": "app.js",
-  "author":"zm <maratn566ek@gmail.com>",
+  "author": "zm <maratn566ek@gmail.com>",
   "description": "stock story",
   "build": {
     "appId": "stock",
-    "productName":"stock",
-    "asar":"false",
-    "directories":{
-      "output":"dist"
+    "productName": "stock",
+    "asar": "false",
+    "directories": {
+      "output": "dist"
     },
     "win": {
       "target": "squirrel",
       "icon": "build/icon.ico"
     },
     "linux": {
-      "category":"X-Office",
-      "target":[
+      "category": "X-Office",
+      "target": [
         "AppImage",
         "deb"
       ]
