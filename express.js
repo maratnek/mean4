@@ -17,14 +17,15 @@ app.use(compression());
 console.log('Convert image');
 function convertImage(inputStream) {
   // console.log(inputStream);
-  console.log(gm);
-	return gm(inputStream)
-		.crop(3456, 3456, 0, 0)
-		.resize(180, 180)
-		.contrast(-2)
-		.map('pebble_colors_64.gif')
-		.dither()
-		.stream();
+  // console.log(gm);
+  return inputStream;
+	// return gm(inputStream)
+	// 	.crop(3456, 3456, 0, 0)
+	// 	.resize(180, 180)
+	// 	.contrast(-2)
+	// 	.map('pebble_colors_64.gif')
+	// 	.dither()
+	// 	.stream();
 }
 app.get('/assets/img/:fileName', (req, res) => {
 	let url = './' +  publicName + req.originalUrl;
