@@ -16,7 +16,8 @@ app.use(compression());
 // Image Magic for the image optimize
 console.log('Convert image');
 function convertImage(inputStream) {
-  console.log(inputStream);
+  // console.log(inputStream);
+  console.log(gm);
 	return gm(inputStream)
 		.crop(3456, 3456, 0, 0)
 		.resize(180, 180)
