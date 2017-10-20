@@ -27,7 +27,7 @@ function convertImage(inputStream) {
 		.stream();
 }
 app.get('/assets/img/:fileName', (req, res) => {
-	let url = '../' +  publicName + req.originalUrl;
+	let url = './' +  publicName + req.originalUrl;
 	res.set('Content-Type', req.originalUrl);
   console.log(req.originalUrl);
   const readStream = fs.createReadStream(url);
