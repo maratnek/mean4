@@ -7,15 +7,15 @@
       </button>
       <mat-toolbar class="my-toolbar">
         <mat-toolbar-row class="my-toolbar-row" (click)="menuToolbarActive = 1">
-          <span>Склад</span>
+          <span i18n="@@stock">Stock</span>
         </mat-toolbar-row>
 
         <mat-toolbar-row class="my-toolbar-row" (click)="menuToolbarActive = 2;">
-          <span>Приход</span>
+          <span i18n="@@income">Income</span>
         </mat-toolbar-row>
 
         <mat-toolbar-row class="my-toolbar-row" (click)="menuToolbarActive = 3;">
-          <span>Выписка</span>
+          <span i18n="@@expense">Expense</span>
         </mat-toolbar-row>
       </mat-toolbar>
 
@@ -27,7 +27,6 @@
 
     <div class="my-container">
       <div [style.display]="menuToolbarActive === 1 ? '' : 'none'" class="">
-        <!-- <product-table [change]="menuToolbarActive === 1"  (onEdit)="catalog = $event; menuToolbarActive = 2; edit = true;"></product-table> -->
         <stock-table></stock-table>
       </div>
 

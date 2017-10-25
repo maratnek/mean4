@@ -1,103 +1,106 @@
 <mat-card>
-  <h2 align=center>Приход деталей</h2>
+  <h2 align=center i18n="@@arrivalParts">Arrival of parts </h2>
   <mat-grid-list cols="2">
     <!-- Catalog -->
     <mat-grid-tile>
       <div class="">
-        <h4>Выбрать деталь из каталога или добавить новый</h4>
+        <h4 i18n="@@incSelectGoods">
+          Select a part from the catalog or add a new one
+        </h4>
         <div class="my-container mat-elevation-z8">
 
           <div class="example-header" [style.display]="selection.isEmpty() ? '' : 'none'">
             <mat-form-field floatPlaceholder="never">
-              <input matInput #filter placeholder="Filter">
+              <input matInput #filter i18n-placeholder="@@filter" placeholder="Filter">
             </mat-form-field>
           </div>
           <div class="example-header example-selection-header"
-            *ngIf="!selection.isEmpty()">
-            {{selection.selected.length}}
-            {{selection.selected.length == 1 ? 'element' : 'elements'}}
-            selected
-          </div>
+          *ngIf="!selection.isEmpty()">
+          {{selection.selected.length}}
+          {{selection.selected.length == 1 ? 'element' : 'elements'}}
+          selected
+        </div>
 
-          <mat-table #table [dataSource]="dataSource" matSort>
+        <mat-table #table [dataSource]="dataSource" matSort>
 
           <!-- Checkbox Column -->
           <ng-container matColumnDef="select">
             <mat-header-cell *matHeaderCellDef  [style.flex]="'0 0 30px'">
               <mat-checkbox (change)="$event ? masterToggle() : null"
-                           [checked]="isAllSelected()"
-                           [indeterminate]="selection.hasValue() && !isAllSelected()">
-              </mat-checkbox>
-            </mat-header-cell>
-            <mat-cell *matCellDef ="let row"  [style.flex]="'0 0 30px'">
-              <mat-checkbox (click)="$event.stopPropagation()"
-                           (change)="$event ? changeSelected(row) : null"
-                           [checked]="selection.isSelected(row.name)">
-              </mat-checkbox>
-            </mat-cell>
-          </ng-container>
+              [checked]="isAllSelected()"
+              [indeterminate]="selection.hasValue() && !isAllSelected()">
+            </mat-checkbox>
+          </mat-header-cell>
+          <mat-cell *matCellDef ="let row"  [style.flex]="'0 0 30px'">
+            <mat-checkbox (click)="$event.stopPropagation()"
+            (change)="$event ? changeSelected(row) : null"
+            [checked]="selection.isSelected(row.name)">
+          </mat-checkbox>
+        </mat-cell>
+      </ng-container>
 
-          <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Имя </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
-          </ng-container>
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@name"> Name </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
+      </ng-container>
 
-          <ng-container matColumnDef="count">
-            <mat-header-cell *matHeaderCellDef mat-sort-header [style.flex]="'0 0 60px'">Кол-во. </mat-header-cell>
-            <mat-cell *matCellDef="let row" [style.flex]="'0 0 60px'">
-              <mat-form-field  [style.display]="selection.isSelected(row.name) ? '': 'none'"
-              [style.width]="'60px'">
-                <input matInput
-                type="number" min=0 max=1000 value="0" name="count" [(ngModel)]="row.count">
-              </mat-form-field>
-            </mat-cell>
-          </ng-container>
+      <ng-container matColumnDef="count">
+        <mat-header-cell *matHeaderCellDef mat-sort-header [style.flex]="'0 0 60px'" i18n="@@qty">Quantity</mat-header-cell>
+        <mat-cell *matCellDef="let row" [style.flex]="'0 0 60px'">
+          <mat-form-field  [style.display]="selection.isSelected(row.name) ? '': 'none'"
+          [style.width]="'60px'">
+          <input matInput
+          type="number" min=0 max=1000 value="0" name="count" [(ngModel)]="row.count">
+        </mat-form-field>
+      </mat-cell>
+    </ng-container>
 
-          <ng-container matColumnDef="price">
-            <mat-header-cell *matHeaderCellDef mat-sort-header [style.flex]="'0 0 60px'">Цена </mat-header-cell>
-            <mat-cell *matCellDef="let row" [style.flex]="'0 0 60px'">
-              <mat-form-field  [style.display]="selection.isSelected(row.name) ? '': 'none'"
-              [style.width]="'60px'">
-                <input matInput
-                type="number" value="0" requierd name="price" [(ngModel)]="row.price">
-              </mat-form-field>
-            </mat-cell>
-          </ng-container>
+    <ng-container matColumnDef="price">
+      <mat-header-cell *matHeaderCellDef mat-sort-header [style.flex]="'0 0 60px'" i18n="@@price"> Price </mat-header-cell>
+      <mat-cell *matCellDef="let row" [style.flex]="'0 0 60px'">
+        <mat-form-field  [style.display]="selection.isSelected(row.name) ? '': 'none'"
+        [style.width]="'60px'">
+        <input matInput
+        type="number" value="0" requierd name="price" [(ngModel)]="row.price">
+      </mat-form-field>
+    </mat-cell>
+  </ng-container>
 
 
-          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-      </mat-table>
-        <div class="example-no-results"
-             [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
-             Нет данных по данному фильтру.
-        </div>
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
 
-        <mat-paginator #paginator
-                      [length]="dataSource.filteredData.length"
-                      [pageIndex]="0"
-                      [pageSize]="10"
-                      [pageSizeOptions]="[5, 10, 25, 100]">
-        </mat-paginator>
+<div class="example-no-results"
+[style.display]="dataSource.renderedData.length == 0 ? '' : 'none'" i18n="@@filtMesNotGoods">
+There are no goods matching this filter.
+</div>
 
-      </div>
+<mat-paginator #paginator
+[length]="dataSource.filteredData.length"
+[pageIndex]="0"
+[pageSize]="10"
+[pageSizeOptions]="[5, 10, 25, 100]">
+</mat-paginator>
 
-      </div>
+</div>
 
-    </mat-grid-tile>
+</div>
 
-    <!-- Form -->
-    <mat-grid-tile>
-      <form #incomeGoods="ngForm" (ngSubmit)="onSubmit(incomeGoods)" >
-        <mat-card-actions>
-          <button  mat-raised-button [disabled]="!incomeGoods.form.valid"  type="submit">
-            Добавить в склад
-          </button>
-          <button  mat-raised-button  type="reset" (click)="reset()">Очистить</button>
-        </mat-card-actions>
-      </form>
-    </mat-grid-tile>
-  </mat-grid-list>
+</mat-grid-tile>
 
-  <!-- <product-create [product]="isSubmit" (getDataFromCatalog)="dataTable = $event"></product-create>  -->
+<!-- Form -->
+<mat-grid-tile>
+  <form #incomeGoods="ngForm" (ngSubmit)="onSubmit(incomeGoods)" >
+    <mat-card-actions>
+      <button  mat-raised-button [disabled]="!incomeGoods.form.valid"  type="submit">
+        Добавить в склад
+      </button>
+      <button  mat-raised-button  type="reset" (click)="reset()">Очистить</button>
+    </mat-card-actions>
+  </form>
+</mat-grid-tile>
+</mat-grid-list>
+
+<!-- <product-create [product]="isSubmit" (getDataFromCatalog)="dataTable = $event"></product-create>  -->
 </mat-card>

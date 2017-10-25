@@ -1,12 +1,10 @@
   <div class="my-container">
-    <div class="my-card  my-height my-overflow">
-      <mat-card *ngIf="!success">
+    <div class="my-card  my-height my-overflow"> <mat-card *ngIf="!success">
 
         <h1 i18n="@@createOrChooseStock">Create stock or choose exist.</h1>
         <!-- Создайте склад или выберите из существующего -->
-
         <mat-card-actions>
-          <a mat-raised-button *ngIf="stockName" (keyup.enter)="createStockName(stockName)" (click)="createStockName(stockName)">Создать</a>
+          <a mat-raised-button *ngIf="stockName" (keyup.enter)="createStockName(stockName)" (click)="createStockName(stockName)" i18n="@@Create">Create</a>
         </mat-card-actions>
         <mat-grid-list cols="2">
           <mat-grid-tile>
@@ -36,7 +34,7 @@
           </p>
         </mat-card-content>
         <mat-card-actions>
-          <a mat-raised-button (keyup.enter)='createStockConfig()' (click)='createStockConfig()'>По умолчанию</a>
+          <a mat-raised-button (keyup.enter)='createStockConfig()' (click)='createStockConfig()' i18n="@@Default">Default</a>
         </mat-card-actions>
       </mat-card>
 

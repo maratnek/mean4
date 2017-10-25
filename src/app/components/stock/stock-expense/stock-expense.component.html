@@ -1,12 +1,14 @@
 <mat-card>
-  <h2>Выписать комплектующие</h2>
+  <h2 i18n="@@partsDetail">
+    Write out the parts detail
+  </h2>
   <!-- <button mat-raised-button>По продукции</button> -->
   <form #expense="ngForm" (ngSubmit)="onSubmit(expense)" >
     <mat-card-actions>
-      <button  mat-raised-button [disabled]="!expense.form.valid"  type="submit">
-        Выписать
+      <button  mat-raised-button [disabled]="!expense.form.valid"  type="submit" i18n="@@getGoods">
+        Get goods
       </button>
-      <button  mat-raised-button (click)="reset()">Очистить</button>
+      <button  mat-raised-button (click)="reset()" i18n="@@clear">Clear</button>
     </mat-card-actions>
   </form>
 
@@ -14,7 +16,7 @@
 
     <div class="example-header" [style.display]="selection.isEmpty() ? '' : 'none'">
       <mat-form-field floatPlaceholder="never">
-        <input matInput #filter placeholder="Filter">
+        <input matInput #filter i18n-placeholder="@@filter" placeholder="Filter">
       </mat-form-field>
     </div>
     <div class="example-header example-selection-header"
@@ -43,12 +45,12 @@
     </ng-container>
 
       <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Имя </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@name"> Name </mat-header-cell>
         <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="count">
-        <mat-header-cell *matHeaderCellDef mat-sort-header [style.flex]="'0 0 60px'">Кол-во. </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header [style.flex]="'0 0 60px'" i18n="@@qty">Quantity </mat-header-cell>
         <mat-cell *matCellDef="let row" [style.flex]="'0 0 60px'">
           <mat-form-field  [style.display]="selection.isSelected(row.name) ? '': 'none'"
           [style.width]="'60px'">
@@ -59,22 +61,22 @@
       </ng-container>
 
       <ng-container matColumnDef="measure">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Ед.Изм. </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@measure"> Measure </mat-header-cell>
         <mat-cell *matCellDef="let row"> {{row.measure}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="price">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Цена </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@price"> Price </mat-header-cell>
         <mat-cell *matCellDef="let row"> {{row.price}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="storePlace">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Место Хр. </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@storePlace"> Store place </mat-header-cell>
         <mat-cell *matCellDef="let row"> {{row.storePlace}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="date">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Дата пр. </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@dateIncome"> Date income </mat-header-cell>
         <mat-cell *matCellDef="let row"> {{row.publishedDate | date:'short'}} </mat-cell>
       </ng-container>
 
@@ -83,9 +85,9 @@
     </mat-table>
 
     <div class="example-no-results"
-    [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
-    Нет данных по данному фильтру.
-  </div>
+         [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'" i18n="@@filtMesNotGoods">
+        There are no goods matching this filter.
+    </div>
 
   <mat-paginator #paginator
                 [length]="dataSource.filteredData.length"

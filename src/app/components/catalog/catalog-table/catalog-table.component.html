@@ -1,5 +1,5 @@
 <div class="">
-  <h1>Каталог товаров</h1>
+  <h1 i18n="@@catalogDetails">Catalog of details</h1>
   <div class="my-container mat-elevation-z8">
     <div class="example-loading-shade" *ngIf="dataSource.isLoadingResults || dataSource.isRateLimitReached">
       <mat-spinner *ngIf="dataSource.isLoadingResults"></mat-spinner>
@@ -9,24 +9,16 @@
             <mat-spinner></mat-spinner>
           </mat-grid-tile>
         </mat-grid-list>
-        GitHub's API rate limit has been reached. It will be reset in one minute.
       </div>
     </div>
 
     <div class="example-header" [style.display]="selection.isEmpty() ? '' : 'none'">
       <mat-form-field floatPlaceholder="never">
-        <input matInput #filter placeholder="Filter users">
+        <input matInput #filter i18n-placeholder="@@filter" placeholder="Filter">
       </mat-form-field>
     </div>
-    <!-- <div class="example-header example-selection-header"
-      *ngIf="!selection.isEmpty()">
-      {{selection.selected.length}}
-      {{selection.selected.length == 1 ? 'user' : 'users'}}
-      selected
-    </div> -->
 
     <mat-table #table [dataSource]="dataSource" matSort>
-    <!-- matSortActive="created" matSortDisableClear matSortDirection="asc"> -->
 
     <!-- Checkbox Column -->
     <ng-container matColumnDef="select">
@@ -45,22 +37,22 @@
     </ng-container>
 
     <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Имя </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@name"> Name </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="measure">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Ед.Изм. </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@measure"> Measure </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.measure}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="price">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Цена </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@price"> Price </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.price}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="storePlace">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Место Хр. </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@storePlace"> Store place </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.storePlace}} </mat-cell>
     </ng-container>
 
@@ -91,8 +83,8 @@
     </mat-row>
 </mat-table>
   <div class="example-no-results"
-       [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
-       Нет данных по данному фильтру.
+       [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'"i18n="@@filtMesNotGoods">
+    There are no goods matching this filter.
   </div>
 
   <mat-paginator #paginator

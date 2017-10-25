@@ -36,6 +36,23 @@
           <source>Determine the configuration for the warehouse</source>
           <target>Determine the configuration for the warehouse</target>
         </trans-unit>
+        <!-- Button -->
+        <trans-unit id="Create" datatype="html">
+          <source>
+            Create
+          </source>
+          <target>
+            Create
+          </target>
+        </trans-unit>
+        <trans-unit id="Default" datatype="html">
+          <source>
+            Default
+          </source>
+          <target>
+            Default
+          </target>
+        </trans-unit>
         <trans-unit id="crStIdP1" datatype="html">
           <source>
             A new warehouse is created. The configuration of the main table.
@@ -44,6 +61,195 @@
           <target>
             A new warehouse is created. The configuration of the main table.
             Or choose the default configuration
+          </target>
+        </trans-unit>
+        <!-- Configuration DB -->
+        <trans-unit id="DBConfig" datatype="html">
+          <source>
+            Database Configuration
+          </source>
+          <target>
+            Database Configuration
+          </target>
+        </trans-unit>
+        <trans-unit id="DrafStage" datatype="html">
+          <source>
+            At the drafting stage
+          </source>
+          <target>
+            At the drafting stage
+          </target>
+        </trans-unit>
+        <!-- Stock -->
+        <trans-unit id="income" datatype="html">
+          <source>
+            Income
+          </source>
+          <target>
+            Income
+          </target>
+        </trans-unit>
+        <trans-unit id="expence" datatype="html">
+          <source>
+            Expense
+          </source>
+          <target>
+            Expense
+          </target>
+        </trans-unit>
+        <!-- Table -->
+        <trans-unit id="filter" datatype="html">
+          <source>
+            Filter
+          </source>
+          <target>
+            Filter
+          </target>
+        </trans-unit>
+        <trans-unit id="price" datatype="html">
+          <source>
+            Price
+          </source>
+          <target>
+            Price
+            <!-- Цена -->
+          </target>
+        </trans-unit>
+        <trans-unit id="name" datatype="html">
+          <source>
+            Name
+          </source>
+          <target>
+            Name
+          </target>
+        </trans-unit>
+        <trans-unit id="qty" datatype="html">
+          <source>
+            Quantity
+          </source>
+          <target>
+            Qty.
+            <!-- Кол-во -->
+          </target>
+        </trans-unit>
+        <trans-unit id="measure" datatype="html">
+          <source>
+            Measure
+          </source>
+          <target>
+            Measure
+            <!-- Ед.Изм. -->
+          </target>
+        </trans-unit>
+        <trans-unit id="avgPrice" datatype="html">
+          <source>
+            Average price
+          </source>
+          <target>
+            Avg.price
+         <!-- Cр. Цена -->
+          </target>
+        </trans-unit>
+        <trans-unit id="storePlace" datatype="html">
+          <source>
+            Store place
+          </source>
+          <target>
+            St.place
+        <!-- Место Хр. -->
+          </target>
+        </trans-unit>
+        <trans-unit id="dateIncome" datatype="html">
+          <source>
+            Date income
+          </source>
+          <target>
+            Date inc.
+            <!-- Дата пр.  -->
+          </target>
+        </trans-unit>
+        <trans-unit id="filtMesNotGoods" datatype="html">
+          <source>
+            There are no goods matching this filter.
+          </source>
+          <target>
+            There are no goods matching this filter.
+            <!-- Нет товаров, соответствующих этому фильтру. -->
+          </target>
+        </trans-unit>
+        <!-- Income -->
+        <trans-unit id="arrivalParts" datatype="html">
+          <source>
+            Arrival of parts
+          </source>
+          <target>
+            Arrival of parts
+            <!-- Приход деталей -->
+          </target>
+        </trans-unit>
+        <trans-unit id="incSelectGoods" datatype="html">
+          <source>
+            Select a part from the catalog or add a new one
+          </source>
+          <target>
+            Select a part from the catalog or add a new one
+            <!-- Выбрать деталь из каталога или добавить новый -->
+          </target>
+        </trans-unit>
+        <!-- Expense -->
+        <trans-unit id="partsDetail" datatype="html">
+          <source>
+            Write out the parts detail
+          </source>
+          <target>
+            Write out the parts detail
+            <!-- Выписать комплектующие детали -->
+          </target>
+        </trans-unit>
+        <trans-unit id="getGoods" datatype="html">
+          <source>
+            Get goods
+          </source>
+          <target>
+            Get goods
+            <!-- Выписать -->
+          </target>
+        </trans-unit>
+        <trans-unit id="clear" datatype="html">
+          <source>
+            Clear
+          </source>
+          <target>
+            Clear
+            <!-- Очистить -->
+          </target>
+        </trans-unit>
+        <!-- Catalog -->
+        <trans-unit id="accessoriesCatalog" datatype="html">
+          <source>
+            Accessories сatalog
+          </source>
+          <target>
+            Accessories сatalog
+            <!-- Каталог комплектующих -->
+          </target>
+        </trans-unit>
+        <trans-unit id="catalogDetails" datatype="html">
+          <source>
+            Catalog of details
+          </source>
+          <target>
+            Catalog of details
+            <!-- Каталог комплектующих деталей -->
+          </target>
+        </trans-unit>
+        <trans-unit id="addCatalog" datatype="html">
+          <source>
+            Add Catalog
+          </source>
+          <target>
+            Add Catalog
+            <!-- Добавить каталог -->
           </target>
         </trans-unit>
     </body>

@@ -1,4 +1,5 @@
 <h1>{{edit? 'Редактировать':'Добавить'}} элемент {{catalog.name}}</h1>
+<h1 i18n="AddOrEdit">{{edit? 'Edit':'Add'}} элемент {{catalog.name}}</h1>
 <mat-card>
   <form #addNewCatalog="ngForm" (ngSubmit)="onSubmit(addNewCatalog)" align="">
     <mat-form-field >
