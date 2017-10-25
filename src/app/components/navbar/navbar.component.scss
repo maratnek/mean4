@@ -1,11 +1,15 @@
+$main-color: #583123;
+
 .right {
   float: right;
 }
+
 .navbar {
-  background-color: #583123;
+  background-color: $main-color;
   width: 100%;
   color:white;
   position: fixed;
+  z-index: 3;
   top: 0;
   left: 0;
   .min-menu {
@@ -13,21 +17,54 @@
     @media screen and (min-width: 699px) {
       display: none;
     }
+    .min-sub-menu {
+      ul {
+        opacity: 0;
+        height: 0;
+        position: fixed;
+        li {
+          float: none;
+          display: inline;
+        }
+      }
+      &:hover > ul {
+        transition: all 1s ease-out;
+        background-color: $main-color;
+        opacity: 1;
+        height: auto;
+      }
+    }
   }
   ul {
     width: 100%;
     list-style-type: none;
     overflow: hidden;
     margin: 0;
-    // margin: auto;
     padding: 0;
     li {
+      float: left;
       @media screen and (max-width: 700px) {
         display: none;
       }
-      float: left;
+      &.sub-menu {
+        ul {
+          opacity: 0;
+          height: 0;
+          position: absolute;
+          li {
+            float: none;
+            display: inline;
+          }
+        }
+        &:hover > ul {
+          transition: all 1s ease-out;
+          background-color: $main-color;
+          opacity: 1;
+          height: auto;
+        }
+      }
       a {
-        text-align: center;
+        // text-align: center;
         display: block;
         color: white;
         text-decoration: none;
@@ -36,7 +73,7 @@
         &:hover {
           transition: 0.3s linear;
           background-color: white;
-          color: #583123;
+          color: $main-color;
           cursor: pointer;
         }
       }
@@ -46,7 +83,7 @@
 
 .active {
   background-color: white;
-  color: #583123 !important;
+  color: $main-color !important;
 }
 
 .pad-top {

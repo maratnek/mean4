@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="createStock" datatype="html">
+        <source>Create stock</source>
+        <target>Cоздание склада</target>
+      </trans-unit>
+      <trans-unit id="stock" datatype="html">
+        <source>Stock</source>
+        <target>Склад</target>
+      </trans-unit>
+      <trans-unit id="catalog" datatype="html">
+        <source>Catalog</source>
+        <target>Каталог</target>
+      </trans-unit>
+      <trans-unit id="production" datatype="html">
+        <source>Production</source>
+        <target>Производство</target>
+      </trans-unit>
+      <trans-unit id="english" datatype="html">
+        <source>English</source>
+        <target>Английский</target>
+      </trans-unit>
+      <trans-unit id="russian" datatype="html">
+        <source>Russian</source>
+        <target>Русский</target>
+      </trans-unit>
+
+    <!-- Create Stock   -->
+      <trans-unit id="createOrChooseStock" datatype="html">
+        <source>Create stock or choose exist.</source>
+        <target>Создайте склад или выберите из существующего</target>
+      </trans-unit>
+      <trans-unit id="DetermineWarehouse" datatype="html">
+        <source>Determine the configuration for the warehouse</source>
+        <target>Определите конфигурацию для склада</target>
+      </trans-unit>
+      <trans-unit id="crStIdP1" datatype="html">
+        <source>
+          A new warehouse is created. The configuration of the main table.
+          Or choose the default configuration
+        </source>
+        <target>
+          Создается новый склад. Конфигурация основной таблицы.
+          Или выберети конфигурацию по умолчанию
+        </target>
+      </trans-unit>
+
+
+    </body>
+  </file>
+</xliff>

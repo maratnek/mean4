@@ -48,8 +48,7 @@ app.use('/api', api);
 
 //Send all other requests to the Angular app
 app.get('*', (req, res) => {
-  console.log('next');
-    res.sendFile(path.join(__dirname, publicName + '/index.html'));
+  res.sendFile(path.join(__dirname, publicName + '/index.html'));
 });
 
 module.exports = app;

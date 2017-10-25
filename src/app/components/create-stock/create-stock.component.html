@@ -2,7 +2,8 @@
     <div class="my-card  my-height my-overflow">
       <mat-card *ngIf="!success">
 
-        <h1>Создайте склад или выберите из существующего</h1>
+        <h1 i18n="@@createOrChooseStock">Create stock or choose exist.</h1>
+        <!-- Создайте склад или выберите из существующего -->
 
         <mat-card-actions>
           <a mat-raised-button *ngIf="stockName" (keyup.enter)="createStockName(stockName)" (click)="createStockName(stockName)">Создать</a>
@@ -11,7 +12,7 @@
           <mat-grid-tile>
             <mat-card-content>
               <mat-form-field>
-                <input type="text" matInput [(ngModel)]="stockName" #ctrl ="ngModel"  required placeholder="Название склада">
+                <input type="text" matInput [(ngModel)]="stockName" #ctrl ="ngModel" i18n-placeholder="@@stockName"  required placeholder="Stock name">
               </mat-form-field>
               <h1>{{stockName}}</h1>
             </mat-card-content>
@@ -27,11 +28,11 @@
       </mat-card>
 
       <mat-card *ngIf="success">
-        <h1>Определите конфигурацию для склада: {{stockName}}</h1>
+        <h1><ng-container i18n="@@DetermineWarehouse">Determine the configuration for the warehouse</ng-container>: {{stockName}}</h1>
         <mat-card-content>
-          <p>
-            Создается новый склад. Конфигурация основной таблицы.
-            Или выберети конфигурацию по умолчанию
+          <p i18n="@@crStIdP1">
+            A new warehouse is created. The configuration of the main table.
+            Or choose the default configuration
           </p>
         </mat-card-content>
         <mat-card-actions>

@@ -1,23 +1,37 @@
 <nav class="navbar">
   <ul>
-    <!-- <li><a routerLink='/main' routerLinkActive="active">Склад</a></li> -->
-    <li *ngIf="!stockService.IsExistStock()"><a routerLink='/create' routerLinkActive="active">Cоздание склада</a></li>
-    <li *ngIf="stockService.IsExistStock()"><a routerLink='/stock' routerLinkActive="active">Склад</a></li>
-    <li *ngIf="stockService.IsExistStock()"><a routerLink='/catalog' routerLinkActive="active">Каталог товаров</a></li>
-    <li *ngIf="stockService.IsExistStock()"><a routerLink='/production' routerLinkActive="active">Производство</a></li>
+    <li *ngIf="!stockService.IsExistStock()"><a i18n="@@createStock" routerLink='/create' routerLinkActive="active">Create stock</a></li>
+    <li *ngIf="stockService.IsExistStock()"><a i18n="@@stock" routerLink='/stock' routerLinkActive="active">Stock</a></li>
+    <li *ngIf="stockService.IsExistStock()"><a i18n="@@catalog" routerLink='/catalog' routerLinkActive="active">Catalog</a></li>
+    <li *ngIf="stockService.IsExistStock()"><a i18n="@@production" routerLink='/production' routerLinkActive="active">Production</a></li>
     <div class="right">
       <li *ngIf="stockService.IsExistStock()"><a routerLink='/config' routerLinkActive="active"><fa name="cog" size="lg"></fa></a></li>
+      <li *ngIf="stockService.IsExistStock()" class="sub-menu">
+        <a><fa name="language" size="lg"></fa></a>
+        <ul>
+          <li><a i18n="@@english" href="/">English</a></li>
+          <li><a i18n="@@russian" href="/ru">Russian</a></li>
+        </ul>
+      </li>
       <li *ngIf="stockService.IsExistStock()"><a (click)="onResetStock()"><span>{{stockService.getCurrentStock()}}</span> <fa name="external-link" size="lg"></fa></a></li>
       <div class="min-menu">
         <button mat-icon-button [matMenuTriggerFor]="menu">
           <fa name=bars size=lg></fa>
         </button>
         <mat-menu #menu="matMenu">
-          <!-- <a mat-menu-item routerLink='/main' routerLinkActive="active">Склад</a> -->
-          <a *ngIf="!stockService.IsExistStock()" mat-menu-item routerLink='/create' routerLinkActive="active">Создание склада</a>
-          <a *ngIf="stockService.IsExistStock()" mat-menu-item routerLink='/stock' routerLinkActive="active">Склад</a>
-          <a *ngIf="stockService.IsExistStock()" mat-menu-item routerLink='/catalog' routerLinkActive="active">Каталог товаров</a>
-          <a *ngIf="stockService.IsExistStock()" mat-menu-item routerLink='/production' routerLinkActive="active">Производство</a>
+          <a *ngIf="!stockService.IsExistStock()" i18n="@@createStock" mat-menu-item routerLink='/create' routerLinkActive="active">Create stock</a>
+          <a *ngIf="stockService.IsExistStock()" i18n="@@stock" mat-menu-item routerLink='/stock' routerLinkActive="active">Stock</a>
+          <a *ngIf="stockService.IsExistStock()" i18n="@@catalog" mat-menu-item routerLink='/catalog' routerLinkActive="active">Catalog товаров</a>
+          <a *ngIf="stockService.IsExistStock()" i18n="@@production" mat-menu-item routerLink='/production' routerLinkActive="active">Production</a>
+          <a *ngIf="stockService.IsExistStock()" mat-menu-item>
+            <div class="min-sub-menu">
+              <a><fa name="language" size="lg"></fa></a>
+              <ul>
+                <li><a i18n="@@english" href="/">English</a></li>
+                <li><a i18n="@@russian" href="/ru">Russian</a></li>
+              </ul>
+            </div>
+          </a>
           <a *ngIf="stockService.IsExistStock()" mat-menu-item routerLink='/config' routerLinkActive="active"><fa name="cog" size="lg"></fa></a>
           <a *ngIf="stockService.IsExistStock()" mat-menu-item (click)="onResetStock()"><span>{{stockService.getCurrentStock()}}</span> <fa name="external-link" size="lg"></fa></a>
         </mat-menu>
