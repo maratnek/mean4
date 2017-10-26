@@ -55,12 +55,10 @@
         </trans-unit>
         <trans-unit id="crStIdP1" datatype="html">
           <source>
-            A new warehouse is created. The configuration of the main table.
-            Or choose the default configuration
+            A new warehouse is created. The configuration of the main table Or choose the default configuration
           </source>
           <target>
-            A new warehouse is created. The configuration of the main table.
-            Or choose the default configuration
+            A new warehouse is created. The configuration of the main table Or choose the default configuration
           </target>
         </trans-unit>
         <!-- Configuration DB -->
@@ -132,6 +130,15 @@
             <!-- Кол-во -->
           </target>
         </trans-unit>
+        <trans-unit id="qty2" datatype="html">
+          <source>
+            Quantity
+          </source>
+          <target>
+            Quantity
+            <!-- Количество -->
+          </target>
+        </trans-unit>
         <trans-unit id="measure" datatype="html">
           <source>
             Measure
@@ -139,6 +146,15 @@
           <target>
             Measure
             <!-- Ед.Изм. -->
+          </target>
+        </trans-unit>
+        <trans-unit id="measure2" datatype="html">
+          <source>
+            Measure
+          </source>
+          <target>
+            Measure
+            <!-- Единица измерения -->
           </target>
         </trans-unit>
         <trans-unit id="avgPrice" datatype="html">
@@ -196,6 +212,15 @@
             <!-- Выбрать деталь из каталога или добавить новый -->
           </target>
         </trans-unit>
+        <trans-unit id="addWarehouse" datatype="html">
+          <source>
+            Add to Warehouse
+          </source>
+          <target>
+            Add to Warehouse
+            <!-- Добавить в склад -->
+          </target>
+        </trans-unit>
         <!-- Expense -->
         <trans-unit id="partsDetail" datatype="html">
           <source>
@@ -250,6 +275,163 @@
           <target>
             Add Catalog
             <!-- Добавить каталог -->
+          </target>
+        </trans-unit>
+        <!-- Catalog Form -->
+        <trans-unit id="AddOrEdit" datatype="html">
+          <source>
+            {{edit? 'Edit':'Add'}}
+          </source>
+          <target>
+            {{edit? 'Edit':'Add'}}
+            <!-- {{edit? 'Редактировать':'Добавить'}} -->
+          </target>
+        </trans-unit>
+        <trans-unit id="detail" datatype="html">
+          <source>
+            detail
+          </source>
+          <target>
+            detail
+            <!-- элемент -->
+          </target>
+        </trans-unit>
+        <trans-unit id="detail2" datatype="html">
+          <source>
+            Detail
+          </source>
+          <target>
+            Detail
+            <!-- Деталь -->
+          </target>
+        </trans-unit>
+        <trans-unit id="nameDetail" datatype="html">
+          <source>
+            Name
+          </source>
+          <target>
+            Name
+            <!-- Наименование -->
+          </target>
+        </trans-unit>
+        <trans-unit id="measureMs" datatype="html">
+          <source>
+            { measure.ms, select, kg. {kilogramm} metr {metr} piece {piece}  }
+          </source>
+          <target>
+            { measure.ms, select, kg. {kilogramm} metr {metr} piece {piece}  }
+            <!-- { measure.ms, select, kg. {кг.} metr {метр} piece {шт.}  } -->
+          </target>
+        </trans-unit>
+        <trans-unit id="per" datatype="html">
+          <source>
+            per
+          </source>
+          <target>
+            per
+            <!-- за -->
+          </target>
+        </trans-unit>
+        <trans-unit id="currencyIcon" datatype="html">
+          <source>
+            usd
+          </source>
+          <target>
+            usd
+            <!-- rub -->
+          </target>
+        </trans-unit>
+        <trans-unit id="storageSectore" datatype="html">
+          <source>
+            Storage sector
+          </source>
+          <target>
+            Storage sector
+            <!-- Сектор хранения -->
+          </target>
+        </trans-unit>
+        <trans-unit id="addVendor" datatype="html">
+          <source>
+            Add vendor
+          </source>
+          <target>
+            Add vendor
+            <!-- Добавить поставщика -->
+          </target>
+        </trans-unit>
+        <trans-unit id="vendorName" datatype="html">
+          <source>
+            Vendor name
+          </source>
+          <target>
+            Vendor name
+            <!-- Имя поставщика -->
+          </target>
+        </trans-unit>
+        <trans-unit id="telephone" datatype="html">
+          <source>
+            Telephone
+          </source>
+          <target>
+            Telephone
+            <!-- Телефон -->
+          </target>
+        </trans-unit>
+        <trans-unit id="barcode" datatype="html">
+          <source>
+            barcode
+          </source>
+          <target>
+            barcode
+            <!-- штрих-код -->
+          </target>
+        </trans-unit>
+
+        <!-- Production -->
+        <trans-unit id="products" datatype="html">
+          <source>
+            Products
+          </source>
+          <target>
+            Products
+            <!-- Продукты -->
+          </target>
+        </trans-unit>
+        <trans-unit id="createProduct" datatype="html">
+          <source>
+            Create product
+          </source>
+          <target>
+            Create product
+            <!-- Создать продукт -->
+          </target>
+        </trans-unit>
+        <!-- Product create Table -->
+        <trans-unit id="createPrUseCat" datatype="html">
+          <source>
+            Create a product using the catalog
+          </source>
+          <target>
+            Create a product using the catalog
+            <!-- Создайте продукт, используя каталог -->
+          </target>
+        </trans-unit>
+        <trans-unit id="productName" datatype="html">
+          <source>
+            Product name
+          </source>
+          <target>
+            Product name
+            <!-- Название продукта -->
+          </target>
+        </trans-unit>
+        <trans-unit id="chooseComponents" datatype="html">
+          <source>
+            Choose components
+          </source>
+          <target>
+            Choose components
+            <!-- Выбрать комплектующие -->
           </target>
         </trans-unit>
     </body>

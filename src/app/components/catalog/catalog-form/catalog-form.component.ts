@@ -6,6 +6,10 @@ import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
 
 import 'rxjs';
 
+interface InterfaceCatalogForm {
+
+}
+
 @Component({
   selector: 'catalog-form',
   templateUrl: './catalog-form.component.html',
@@ -15,10 +19,12 @@ export class CatalogFormComponent implements OnInit {
   @Input() catalog: any = {};
   @Input() edit: boolean = false;
 
+  // t_measure: string = '';
+
   measures = [
-    {name: "Вес", ms: "кг."},
-    {name: "Длина", ms: "метр"},
-    {name: "Количество", ms: "шт."}
+    {name: "weight", ms: "kg."},
+    {name: "length", ms: "metr"},
+    {name: "quantity", ms:   "piece"}
   ];
   // catalog: any = {};
 

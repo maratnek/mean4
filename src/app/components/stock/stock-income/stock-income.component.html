@@ -45,7 +45,7 @@
       </ng-container>
 
       <ng-container matColumnDef="count">
-        <mat-header-cell *matHeaderCellDef mat-sort-header [style.flex]="'0 0 60px'" i18n="@@qty">Quantity</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header [style.flex]="'0 0 60px'" i18n="@@qty"> Quantity </mat-header-cell>
         <mat-cell *matCellDef="let row" [style.flex]="'0 0 60px'">
           <mat-form-field  [style.display]="selection.isSelected(row.name) ? '': 'none'"
           [style.width]="'60px'">
@@ -93,14 +93,13 @@ There are no goods matching this filter.
 <mat-grid-tile>
   <form #incomeGoods="ngForm" (ngSubmit)="onSubmit(incomeGoods)" >
     <mat-card-actions>
-      <button  mat-raised-button [disabled]="!incomeGoods.form.valid"  type="submit">
-        Добавить в склад
+      <button  mat-raised-button [disabled]="!incomeGoods.form.valid"  type="submit" i18n="@@addWarehouse">
+        Add to warehouse
       </button>
-      <button  mat-raised-button  type="reset" (click)="reset()">Очистить</button>
+      <button  mat-raised-button  type="reset" (click)="reset()" i18n="@@clear">Clear</button>
     </mat-card-actions>
   </form>
 </mat-grid-tile>
 </mat-grid-list>
 
-<!-- <product-create [product]="isSubmit" (getDataFromCatalog)="dataTable = $event"></product-create>  -->
 </mat-card>

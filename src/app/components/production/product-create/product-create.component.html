@@ -1,25 +1,25 @@
 <div class="">
-  
+
   <mat-card>
-    <h1 align=center>Создать продукт</h1>
+    <h1 align=center i18n="@@createProduct">Create product</h1>
     <form #createProduct="ngForm" (ngSubmit)="onSubmit(createProduct)" >
       <mat-form-field>
-        <input matInput type="text" name="name" [(ngModel)]="product.name" required placeholder="Название продукта">
+        <input matInput type="text" name="name" [(ngModel)]="product.name" required i18n-placeholder="productName" placeholder="Product name">
       </mat-form-field>
       <!-- <mat-card-actions> -->
-        <button  mat-raised-button [disabled]="!createProduct.form.valid"  type="submit">
-          Cоздать продукт
+        <button  mat-raised-button [disabled]="!createProduct.form.valid"  type="submit" i18n="@@createProduct">
+          Create product
         </button>
-        <button  mat-raised-button  type="reset">Очистить</button>
+        <button  mat-raised-button  type="reset" i18n="@@clear">Clear</button>
       <!-- </mat-card-actions> -->
     </form>
 
-    <h2>Выбрать комплектующие</h2>
+    <h2 i18n="@@chooseComponents">Choose components</h2>
     <div class="my-container mat-elevation-z8">
 
       <div class="example-header" [style.display]="selection.isEmpty() ? '' : 'none'">
         <mat-form-field floatPlaceholder="never">
-          <input matInput #filter placeholder="Filter">
+          <input matInput #filter i18n-placeholder="@@filter" placeholder="Filter">
         </mat-form-field>
       </div>
       <div class="example-header example-selection-header"
@@ -30,7 +30,6 @@
       </div>
 
       <mat-table #table [dataSource]="dataSource" matSort>
-      <!-- matSortActive="created" matSortDisableClear matSortDirection="asc"> -->
 
       <!-- Checkbox Column -->
       <ng-container matColumnDef="select">
@@ -49,12 +48,12 @@
       </ng-container>
 
       <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Имя </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@name"> Name </mat-header-cell>
         <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="count">
-        <mat-header-cell *matHeaderCellDef mat-sort-header [style.flex]="'0 0 60px'">Кол-во. </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header [style.flex]="'0 0 60px'" i18n="@@qty"> Quantity </mat-header-cell>
         <mat-cell *matCellDef="let row" [style.flex]="'0 0 60px'">
           <mat-form-field  [style.display]="selection.isSelected(row.name) ? '': 'none'"
           [style.width]="'60px'">
@@ -68,9 +67,10 @@
       <mat-row *matRowDef="let row; columns: displayedColumns;">
       </mat-row>
     </mat-table>
+
     <div class="example-no-results"
-         [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
-         Нет данных по данному фильтру.
+         [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'" i18n="@@filtMesNotGoods">
+        There are no goods matching this filter.
     </div>
 
       <mat-paginator #paginator

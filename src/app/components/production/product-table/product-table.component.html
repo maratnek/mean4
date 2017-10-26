@@ -4,9 +4,11 @@
   </mat-grid-tile>
 </mat-grid-list>
 <ng-container *ngIf="!load">
-  <h3 *ngIf="!products.length">Создайте продукт используя каталог</h3>
+  <h3 *ngIf="!products.length" i18n="@@createPrUseCat">
+    Create a product using the catalog
+  </h3>
   <div *ngIf="products.length">
-    <h3>Продукты</h3>
+    <h3 i18n="@@products">Products</h3>
     <ng-container  *ngFor="let product of products; let ind = index;">
       <mat-card>
         <mat-card-header>
@@ -21,8 +23,8 @@
         <mat-card-content *ngIf="products[ind].show">
           <table>
             <tr>
-              <th>Деталь</th>
-              <th>Кол-во</th>
+              <th i18n="@@detail">Detail</th>
+              <th i18n="@@qty">Quantity</th>
             </tr>
 
             <tr *ngFor="let elem of product.dataTable">

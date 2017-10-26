@@ -1,30 +1,37 @@
-<h1>{{edit? 'Редактировать':'Добавить'}} элемент {{catalog.name}}</h1>
-<h1 i18n="AddOrEdit">{{edit? 'Edit':'Add'}} элемент {{catalog.name}}</h1>
+<!-- <h1 i18n="@@editCatForm">{{edit? 'Редактировать':'Добавить'}} элемент {{catalog.name}}</h1> -->
+<h1>
+  <ng-container i18n="@@AddOrEdit">{{edit? 'Edit':'Add'}}</ng-container>
+  <ng-container i18n="@@detail">detail</ng-container> {{catalog.name}}
+</h1>
 <mat-card>
   <form #addNewCatalog="ngForm" (ngSubmit)="onSubmit(addNewCatalog)" align="">
     <mat-form-field >
-      <input matInput type="text" name="name" [(ngModel)]="catalog.name" required placeholder="Наименование товара">
+      <input matInput type="text" name="name" [(ngModel)]="catalog.name" required i18n-placeholder="@@nameDetail" placeholder="Name">
     </mat-form-field>
     <br>
 
-    <mat-select name="measure" [(ngModel)]="catalog.measure" required placeholder="Единица измерения">
-      <mat-option *ngFor="let measure of measures" [value]="measure.ms">
-        {{measure.ms}}
-      </mat-option>
-    </mat-select>
+    <mat-form-field>
+      <mat-select name="measure" [(ngModel)]="catalog.measure" [value]="measures[0].ms" required i18n-placeholder="@@measure2" placeholder="Measure">
+        <mat-option *ngFor="let measure of measures" [value]={{measure.ms}} i18n="@@measureMs">
+          { measure.ms, select, kg. {kilogramm} metr {metr} piece {piece}  }
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
     <br>
 
     <mat-form-field align="center">
-      <span matPrefix style="padding-right: 20px"><fa name='rub'></fa></span>
-      <input matInput type="number" name="price" [(ngModel)]="catalog.price" required placeholder="Цена" align="">
-      <span matSuffix>за {{catalog.measure}}</span>
+      <span matPrefix style="padding-right: 20px"><fa  i18n-name="@@currencyIcon" name='usd'></fa></span>
+      <input matInput type="number" name="price" [(ngModel)]="catalog.price" required i18n-placeholder="@@price" placeholder="Price" align="">
+      <span matSuffix>
+        <ng-container i18n="@@per">per</ng-container>
+        {{catalog.measure}}</span>
     </mat-form-field>
     <br>
 
     <mat-form-field>
       <input matInput type="text" [matAutocomplete]=auto
-      [(ngModel)]="catalog.storePlace" [formControl]="stateControl" pattern="[A-Z]"
-      placeholder="Сектор хранения">
+      [(ngModel)]="catalog.storePlace" [formControl]="stateControl" pattern="[A-Z]" i18n-placeholder="@@storageSector"
+      placeholder="Storage sector">
     </mat-form-field>
     <mat-autocomplete #auto="matAutocomplete">
       <mat-option *ngFor="let state of states" [value]="state">
@@ -33,7 +40,7 @@
     </mat-autocomplete>
     <br>
 
-    <label for="suppliers">Добавить поставщика  </label>
+    <label for="suppliers" i18n="@@addVendor">Add vendor</label>
     <button type="button" mat-raised-button name="suppliers" (click)="isSuppliersCheck=!isSuppliersCheck">
       <fa name="truck"></fa>
       <fa *ngIf="!isSuppliersCheck" name="plus"></fa>
@@ -42,24 +49,24 @@
     <br>
     <ng-container *ngIf="isSuppliersCheck">
       <mat-form-field>
-        <input matInput type="text" name="suppliersName" [(ngModel)]="catalog.suppliersName" placeholder="Имя поставщика">
+        <input matInput type="text" name="suppliersName" [(ngModel)]="catalog.suppliersName" i18n-placeholder="@@vendorName" placeholder="Vendor name">
       </mat-form-field>
       <mat-form-field>
-        <input matInput type="tel" name="suppliersTel" [(ngModel)]="catalog.suppliersTel" placeholder="Телефон">
+        <input matInput type="tel" name="suppliersTel" [(ngModel)]="catalog.suppliersTel" i18n-placeholder="@@telephone" placeholder="Telephone">
       </mat-form-field>
     </ng-container>
     <br>
 
     <mat-form-field>
-      <input matInput #postalCode maxlength="10" type="number" disabled placeholder="Штрих код" value="0000000000">
+      <input matInput #postalCode maxlength="10" type="number" disabled i18n-placeholder="@@barcode" placeholder="barcode" value="0000000000">
       <mat-hint align="end">{{postalCode.value.length}} / 10</mat-hint>
     </mat-form-field>
 
     <mat-card-actions>
-      <button  mat-raised-button [disabled]="!addNewCatalog.form.valid"  type="submit"  name="button">
-        {{edit? 'Редактировать':'Добавить'}}
+      <button  mat-raised-button [disabled]="!addNewCatalog.form.valid"  type="submit"  name="button" i18n="@@AddOrEdit">
+        {{edit? 'Edit':'Add'}}
       </button>
-      <button  mat-raised-button  type="reset"  name="button">Очистить</button>
+      <button  mat-raised-button  type="reset" name="button" i18n="@@clear">Clear</button>
     </mat-card-actions>
   </form>
 </mat-card>
