@@ -19,14 +19,13 @@ export class CatalogFormComponent implements OnInit {
   @Input() catalog: any = {};
   @Input() edit: boolean = false;
 
-  // t_measure: string = '';
+  tMeasure: any = null;
 
   measures = [
     {name: "weight", ms: "kg."},
     {name: "length", ms: "metr"},
     {name: "quantity", ms:   "piece"}
   ];
-  // catalog: any = {};
 
   stateControl: FormControl;
   isSuppliersCheck: boolean = false;

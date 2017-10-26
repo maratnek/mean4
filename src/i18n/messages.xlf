@@ -319,10 +319,20 @@
             { measure.ms, select, kg. {kilogramm} metr {metr} piece {piece}  }
           </source>
           <target>
-            { measure.ms, select, kg. {kilogramm} metr {metr} piece {piece}  }
+            { measure.ms, select, kg. {kg.} metr {metr} piece {piece}  }
             <!-- { measure.ms, select, kg. {кг.} metr {метр} piece {шт.}  } -->
           </target>
         </trans-unit>
+        <trans-unit id="measureMs2" datatype="html">
+          <source>
+            { catalog.measure, select, kg. {kilogramm} metr {metr} piece {piece}  }
+          </source>
+          <target>
+            { catalog.measure, select, kg. {kg.} metr {metr} piece {piece}  }
+            <!-- { catalog.measure, select, kg. {кг.} metr {метр} piece {шт.}  } -->
+          </target>
+        </trans-unit>
+
         <trans-unit id="per" datatype="html">
           <source>
             per

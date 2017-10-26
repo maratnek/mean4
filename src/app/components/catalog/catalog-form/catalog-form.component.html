@@ -11,8 +11,8 @@
     <br>
 
     <mat-form-field>
-      <mat-select name="measure" [(ngModel)]="catalog.measure" [value]="measures[0].ms" required i18n-placeholder="@@measure2" placeholder="Measure">
-        <mat-option *ngFor="let measure of measures" [value]={{measure.ms}} i18n="@@measureMs">
+      <mat-select name="measure" [(ngModel)]="catalog.measure" required i18n-placeholder="@@measure2" placeholder="Measure">
+        <mat-option *ngFor="let measure of measures" [value]="measure.ms" i18n="@@measureMs">
           { measure.ms, select, kg. {kilogramm} metr {metr} piece {piece}  }
         </mat-option>
       </mat-select>
@@ -20,18 +20,20 @@
     <br>
 
     <mat-form-field align="center">
-      <span matPrefix style="padding-right: 20px"><fa  i18n-name="@@currencyIcon" name='usd'></fa></span>
+      <span matPrefix style="padding-right: 20px"><fa i18n-name="@@currencyIcon"name="usd"></fa></span>
       <input matInput type="number" name="price" [(ngModel)]="catalog.price" required i18n-placeholder="@@price" placeholder="Price" align="">
       <span matSuffix>
         <ng-container i18n="@@per">per</ng-container>
-        {{catalog.measure}}</span>
+        <ng-container i18n="@@measureMs2">
+          { catalog.measure, select, kg. {kilogramm} metr {metr} piece {piece}  }
+        </ng-container>
+      </span>
     </mat-form-field>
     <br>
 
     <mat-form-field>
       <input matInput type="text" [matAutocomplete]=auto
-      [(ngModel)]="catalog.storePlace" [formControl]="stateControl" pattern="[A-Z]" i18n-placeholder="@@storageSector"
-      placeholder="Storage sector">
+      [(ngModel)]="catalog.storePlace" [formControl]="stateControl" pattern="[A-Z]" i18n-placeholder="@@storageSectore" placeholder="Storage sector">
     </mat-form-field>
     <mat-autocomplete #auto="matAutocomplete">
       <mat-option *ngFor="let state of states" [value]="state">
