@@ -396,7 +396,6 @@
             <!-- штрих-код -->
           </target>
         </trans-unit>
-
         <!-- Production -->
         <trans-unit id="products" datatype="html">
           <source>
