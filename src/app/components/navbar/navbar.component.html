@@ -6,7 +6,7 @@
     <li *ngIf="stockService.IsExistStock()"><a i18n="@@production" routerLink='/production' routerLinkActive="active">Production</a></li>
     <div class="right">
       <li *ngIf="stockService.IsExistStock()"><a routerLink='/config' routerLinkActive="active"><fa name="cog" size="lg"></fa></a></li>
-      <li *ngIf="stockService.IsExistStock()" class="sub-menu">
+      <li class="sub-menu">
         <a><fa name="language" size="lg"></fa></a>
         <ul>
           <li><a i18n="@@english" href="/">English</a></li>
@@ -23,7 +23,7 @@
           <a *ngIf="stockService.IsExistStock()" i18n="@@stock" mat-menu-item routerLink='/stock' routerLinkActive="active">Stock</a>
           <a *ngIf="stockService.IsExistStock()" i18n="@@catalog" mat-menu-item routerLink='/catalog' routerLinkActive="active">Catalog товаров</a>
           <a *ngIf="stockService.IsExistStock()" i18n="@@production" mat-menu-item routerLink='/production' routerLinkActive="active">Production</a>
-          <a *ngIf="stockService.IsExistStock()" mat-menu-item>
+          <a mat-menu-item>
             <div class="min-sub-menu">
               <a><fa name="language" size="lg"></fa></a>
               <ul>
