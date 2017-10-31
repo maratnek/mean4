@@ -3,9 +3,9 @@
   <div class="my-container mat-elevation-z8">
 
     <div class="example-header">
-      <mat-form-field floatPlaceholder="never">
+      <!-- <mat-form-field floatPlaceholder="never"> -->
         <input matInput #filter i18n-placeholder="@@filter"  placeholder="Filter">
-      </mat-form-field>
+      <!-- </mat-form-field> -->
     </div>
 
     <mat-table #table [dataSource]="dataSource" matSort>
@@ -17,12 +17,14 @@
 
       <ng-container matColumnDef="count">
         <mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@qty">Quantity</mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row.count}} </mat-cell>
+        <mat-cell *matCellDef="let row" align="center"> {{row.count}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="measure">
         <mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@measure">Measure</mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row.measure}} </mat-cell>
+        <mat-cell *matCellDef="let row" i18n="@@measureMs">
+          { row.measure, select, kg. {kilogramm} metr {metr} piece {piece}  }
+        </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="price">

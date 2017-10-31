@@ -286,6 +286,14 @@
             Деталь
           </target>
         </trans-unit>
+        <trans-unit id="detail3" datatype="html">
+          <source>
+            Details
+          </source>
+          <target>
+            Элементы
+          </target>
+        </trans-unit>
         <trans-unit id="nameDetail" datatype="html">
           <source>
             Name
@@ -296,10 +304,10 @@
         </trans-unit>
         <trans-unit id="measureMs" datatype="html">
           <source>
-            { measure.ms, select, kg. {kilogramm} metr {metr} piece {piece}  }
+            { row.measure, select, kg. {kilogramm} metr {metr} piece {piece}  }
           </source>
           <target>
-            { measure.ms, select, kg. {кг.} metr {метр} piece {шт.}  }
+            { row.measure, select, kg. {кг.} metr {метр} piece {шт.}  }
           </target>
         </trans-unit>
         <trans-unit id="measureMs2" datatype="html">

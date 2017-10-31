@@ -124,7 +124,7 @@ export class StockService {
   }
   getProducts(){
     return this._http.get("/api/products?stockName="+this.stockName)
-      .map(result => this.result = result.json().data);
+      .map(result => result.json().data);
   }
 
 }

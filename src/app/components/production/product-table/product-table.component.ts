@@ -25,12 +25,15 @@ export class ProductTableComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._dataService.getProducts().subscribe(
+    this._dataService.getProducts()
+    // .map(data => data.map(res => res.stockPrice='$22'))
+    .subscribe(
       data => {
         this.products = data;
+
         console.log(this.products);
         setTimeout(()=>{this.load=false}, 500);
-        this.products.map(data => data.show = false);
+        this.products.map(data =>{ data.show = false; data.stockPrice='$22'});
        }
     );
     console.log(this.products);

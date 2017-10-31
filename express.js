@@ -21,7 +21,7 @@ function convertImage(inputStream) {
   // return inputStream;
 	return gm(inputStream)
 		.crop(3456, 3456, 0, 0)
-		.resize(180, 180)
+		// .resize(180, 180)
 		.contrast(-2)
 		.map('pebble_colors_64.gif')
 	// 	.dither()

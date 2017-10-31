@@ -28,7 +28,7 @@ export class StockExpenseComponent implements OnInit {
 
   @Output() onEdit = new EventEmitter<Data>();
 
-  displayedColumns = ['select','name','count','measure', 'price', 'storePlace','date'];
+  displayedColumns = ['select','name','count','measure', 'price', 'storePlace'];
   selection = new SelectionModel<string>(true, []);
   dataSource: GenericDataSource<Data, "name"> | null;
   catalog: BehaviorSubject<Data[]> = new BehaviorSubject<Data[]>([]);

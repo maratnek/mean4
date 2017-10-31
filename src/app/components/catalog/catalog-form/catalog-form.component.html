@@ -12,15 +12,15 @@
 
     <mat-form-field>
       <mat-select name="measure" [(ngModel)]="catalog.measure" required i18n-placeholder="@@measure2" placeholder="Measure">
-        <mat-option *ngFor="let measure of measures" [value]="measure.ms" i18n="@@measureMs">
-          { measure.ms, select, kg. {kilogramm} metr {metr} piece {piece}  }
+        <mat-option *ngFor="let row of measures" [value]="row.measure" i18n="@@measureMs">
+          { row.measure, select, kg. {kilogramm} metr {metr} piece {piece}  }
         </mat-option>
       </mat-select>
     </mat-form-field>
     <br>
 
-    <mat-form-field align="center">
-      <span matPrefix style="padding-right: 20px"><fa i18n-name="@@currencyIcon"name="usd"></fa></span>
+    <mat-form-field>
+      <span matPrefix style="padding-right: 20px"><fa i18n-name="@@currencyIcon"  name="usd"></fa></span>
       <input matInput type="number" name="price" [(ngModel)]="catalog.price" required i18n-placeholder="@@price" placeholder="Price" align="">
       <span matSuffix>
         <ng-container i18n="@@per">per</ng-container>

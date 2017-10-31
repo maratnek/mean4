@@ -22,9 +22,9 @@ export class CatalogFormComponent implements OnInit {
   tMeasure: any = null;
 
   measures = [
-    {name: "weight", ms: "kg."},
-    {name: "length", ms: "metr"},
-    {name: "quantity", ms:   "piece"}
+    {name: "weight", measure: "kg."},
+    {name: "length", measure: "metr"},
+    {name: "quantity", measure: "piece"}
   ];
 
   stateControl: FormControl;
