@@ -109,76 +109,67 @@ router.get('/stock', (req,res)=>{
   }
 });
 
+let getGoodsAggregate = (db, stockName, cb)=>{
+  cb(
+    db.collection('goods')
+    .aggregate([
+      {$match:{stockName: stockName}}
+      ,{$lookup:{
+        from: "catalog",
+        localField: "_id",
+        foreignField: "_id",
+        as: "catalog"
+      }}
+      ,{$lookup:{
+        from: "statist-goods",
+        localField: "_id",
+        foreignField: "catalogId",
+        as: "statist"
+      }}
+      ,{$unwind:"$catalog"}
+      ,{$match:{"statist.del": false}}
+      ,{$project: {
+        id: "$_id",
+        count: "$count",
+        name: "$catalog.name",
+        storePlace: "$catalog.storePlace",
+        measure: "$catalog.measure",
+        stat_count: "$statist.count",
+        stat_price: "$statist.price",
+        stat_inc: {$eq: ["$statist.action","INCOME"]},
+        stat_date: "$statist.publicDate",
+        stat: "$statist",
+        sum: {$sum: "$statist.count"},
+        price: { $divide: [{
+          $reduce: {
+            input: "$statist",
+            initialValue: "",
+            in: { $sum:["$$value", {$multiply:["$$this.balance","$$this.price"]}]}
+          }
+        }, "$count"]},
+      }}
+      ,{$sort:{stat_date:-1}}
+    ])
+    .toArray()
+  );
+}
+
 // GOODS COLLECTION
 router.get('/stock-goods', (req, res) => {
   console.log(req.query.name);
   if (req.query.name.length)
   {
     connection((db) => {
-      db.collection('goods')
-      .aggregate([
-        {$match:{stockName: req.query.name}}
-        ,{$lookup:{
-          from: "catalog",
-          localField: "_id",
-          foreignField: "_id",
-          as: "catalog"
-        }}
-        ,{$lookup:{
-          from: "statist-goods",
-          localField: "_id",
-          foreignField: "catalogId",
-          as: "statist"
-        }}
-        ,{$unwind:"$catalog"}
-        // ,{$unwind:"$statist"}
-        // ,{$group:{
-        //   _id: "$statist.publicDate",
-          // count: "$count",
-          // name: "$catalog.name"
-        // }}
-        ,{$match:{"statist.del": false}}
-        ,{$project: {
-          id: "$_id",
-          count: "$count",
-          name: "$catalog.name",
-          storePlace: "$catalog.storePlace",
-          measure: "$catalog.measure",
-          stat_count: "$statist.count",
-          stat_price: "$statist.price",
-          stat_inc: {$eq: ["$statist.action","INCOME"]},
-          stat_date: "$statist.publicDate",
-          stat: "$statist",
-          sum: {$sum: "$statist.count"},
-          // sum_price: {$sum: "$statist.price"},
-          // sum_p_m: {$sum: {$multiply:["$statist.count", "statist.price"]}},
-          price: { $divide: [{
-            $reduce: {
-              input: "$statist",
-              initialValue: "",
-              in: { $sum:["$$value", {$multiply:["$$this.balance","$$this.price"]}]}
-            }
-          }, "$count"]},
-          // sum_balance_price: "$sum_p_r",
-          // finalPrice: {
-          //   $let: {
-          //     vars: {
-          //       a:{$multiply:["$statist.count", "statist.price"]}
-          //     },
-          //     in:{}
-          //   }
-          // }
-        }}
-        ,{$sort:{stat_date:-1}}
-      ])
-      .toArray()
-      .then( goods => {
-        console.log(goods);
-        response.data = goods;
-        res.json(response);
-      })
-      .catch((err) => {
-        sendError(err, res);
+      getGoodsAggregate(db,req.query.name, (promise)=>{
+          promise
+          .then( goods => {
+            console.log(goods);
+            response.data = goods;
+            res.json(response);
+          })
+          .catch((err) => {
+            sendError(err, res);
+          });
       });
     });
   }
@@ -444,16 +435,18 @@ router.post('/create-product',(req,res) => {
     console.log('create-product', req.body.dataTable)
     if (!req.body.name.length)
       res.sendStatus(500);
-    db.collection('product').insert(req.body, (err, r) => {
-      if (err)
-          sendError(err, res);
-      else {
-        db.collection('product').find({stockName:req.body.stockName}).toArray().then((data)=>{
-          console.log('find product %j', data);
-          res.sendStatus(200);
-        })
-      }
-    });
+    else {
+      db.collection('product').insert(req.body, (err, r) => {
+        if (err)
+            sendError(err, res);
+        else {
+          db.collection('product').find({stockName:req.body.stockName}).toArray().then((data)=>{
+            console.log('find product %j', data);
+            res.sendStatus(200);
+          })
+        }
+      });
+    }
 
   })
 });
@@ -462,12 +455,44 @@ router.get('/products', (req,res) => {
   connection((db)=>{
     query = {stockName:req.query.stockName};
     console.log(query);
-    db.collection('product').find(query).toArray().then((data)=>{
-      console.log(data);
-      response.data = data;
-      res.json(response);
+    db.collection('product').find(query).toArray().then(products =>{
+      // Add declaration average price for the product
+      getGoodsAggregate(db,req.query.stockName, (promise)=>{
+          promise
+          .then( goods => {
+            console.log('Good price', goods);
+            products.map(element => {
+              element.dataTable.map(item => {
+                // console.log(item);
+                let good = goods.find((good)=>{
+                  // console.log('good', good);
+                  // console.log('item',item);
+                  return good.id == item._id;
+                });
+                if (good){
+                  console.log('GOOD find', good);
+                  item.existInStock = true;
+                }
+                else {
+                  console.log('For this item ', item, ' dont found good');
+                  item.existInStock = false;
+                }
+                console.log(item);
+                // return item;
+              });
+              // return element;
+            });
+            console.log(products);
+            response.data = products;
+            res.json(response);
+          })
+          .catch((err) => {
+            sendError(err, res);
+            console.log('Error get goods aggregate!');
+          });
+      });
     })
-    .catch( err => sendError(err,res) );
+    .catch( err => console.log('Error find product in collection') );  //sendError(err,res) );
   });
 });
 

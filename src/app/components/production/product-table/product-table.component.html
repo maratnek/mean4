@@ -11,11 +11,16 @@
     <h3 i18n="@@products">Products</h3>
     <ng-container  *ngFor="let product of products; let ind = index;">
       <mat-card>
-        <mat-card-header>
-          <h3>{{product.name}}</h3>
-          <br>
-          <h4 *ngIf="product.stockPrice" i18n="@@costPrice">Cost Price: {{product.stockPrice}}</h4>
-        </mat-card-header>
+        <!-- <mat-card-header> -->
+          <div class="row">
+            <div class="col s5">
+              <h3>{{product.name}}</h3>
+            </div>
+            <div class="col s3">
+              <h4 *ngIf="product.stockPrice" i18n="@@costPrice">Cost Price: {{product.stockPrice}}</h4>
+            </div>
+          </div>
+        <!-- </mat-card-header> -->
         <mat-card-actions>
           <div align="left" (click)="products[ind].show = !products[ind].show">
             <fa name="minus-square" size="lg" [hidden]="!products[ind].show"></fa>
@@ -27,11 +32,20 @@
             <tr>
               <th i18n="@@detail3">Details</th>
               <th i18n="@@qty">Quantity</th>
+              <th i18n="@@inStock">In Stock</th>
             </tr>
 
             <tr *ngFor="let elem of product.dataTable">
               <td>{{elem.name}}</td>
-              <td align="center"><mat-chip [style.display]="'block'" color="primary" selected="true">{{elem.count}}</mat-chip></td>
+              <td align="center"><mat-chip [style.display]="'block'" color="prime" selected="true">{{elem.count}}</mat-chip></td>
+              <td align="center" color="cyan">
+                <ng-container *ngIf="elem?.existInStock else noExistInStock">
+                  <fa name="check"></fa>
+                </ng-container>
+                <ng-template #noExistInStock>
+                  <fa name="exit"></fa>
+                </ng-template>
+              </td>
             </tr>
           </table>
         </mat-card-content>
