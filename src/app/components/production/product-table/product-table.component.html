@@ -33,18 +33,22 @@
               <th i18n="@@detail3">Details</th>
               <th i18n="@@qty">Quantity</th>
               <th i18n="@@inStock">In Stock</th>
+              <th i18n="@@notEnough">Not Enough</th>
             </tr>
 
             <tr *ngFor="let elem of product.dataTable">
               <td>{{elem.name}}</td>
               <td align="center"><mat-chip [style.display]="'block'" color="prime" selected="true">{{elem.count}}</mat-chip></td>
-              <td align="center" color="cyan">
-                <ng-container *ngIf="elem?.existInStock else noExistInStock">
+              <td align="center">
+                <div *ngIf="elem?.existInStock; else noExistInStock">
                   <fa name="check"></fa>
-                </ng-container>
+                </div>
                 <ng-template #noExistInStock>
                   <fa name="exit"></fa>
                 </ng-template>
+              </td>
+              <td align="center">
+                {{elem.not_enough}}
               </td>
             </tr>
           </table>

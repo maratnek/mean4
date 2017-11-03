@@ -463,24 +463,28 @@ router.get('/products', (req,res) => {
             console.log('Good price', goods);
             products.map(element => {
               element.dataTable.map(item => {
-                // console.log(item);
                 let good = goods.find((good)=>{
-                  // console.log('good', good);
-                  // console.log('item',item);
                   return good.id == item._id;
                 });
+                // console.log('Element count',good.count);
+                // console.log('Product item nesseray',item.count);
                 if (good){
                   console.log('GOOD find', good);
                   item.existInStock = true;
+                  item.not_enough = good.count - item.count;
+                  if (item.not_enough < 0)
+                    item.not_enough = -(item.not_enough);
+                  else {
+                    item.not_enough = 0;
+                  }
                 }
                 else {
                   console.log('For this item ', item, ' dont found good');
                   item.existInStock = false;
+                  item.not_enough = item.count;
                 }
                 console.log(item);
-                // return item;
               });
-              // return element;
             });
             console.log(products);
             response.data = products;
