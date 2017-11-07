@@ -462,19 +462,22 @@ router.get('/products', (req,res) => {
           .then( goods => {
             console.log('Good price', goods);
             products.map(element => {
+              let possible = true;
+              let avg_price = 0;
               element.dataTable.map(item => {
-                let good = goods.find((good)=>{
-                  return good.id == item._id;
-                });
+                let good = goods.find(good => good.id == item._id);
                 // console.log('Element count',good.count);
                 // console.log('Product item nesseray',item.count);
                 if (good){
                   console.log('GOOD find', good);
                   item.existInStock = true;
                   item.not_enough = good.count - item.count;
-                  if (item.not_enough < 0)
+                  if (item.not_enough < 0){
                     item.not_enough = -(item.not_enough);
+                    possible = false;
+                  }
                   else {
+                    avg_price += item.count * good.price;
                     item.not_enough = 0;
                   }
                 }
@@ -482,9 +485,12 @@ router.get('/products', (req,res) => {
                   console.log('For this item ', item, ' dont found good');
                   item.existInStock = false;
                   item.not_enough = item.count;
+                  possible = false;
                 }
                 console.log(item);
               });
+              if (possible)
+                element.stockPrice = avg_price;
             });
             console.log(products);
             response.data = products;

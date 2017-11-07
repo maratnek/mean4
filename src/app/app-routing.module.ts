@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import {AppComponent} from './app.component';
 import {CreateStockComponent} from './components/create-stock/create-stock.component';
 import {StockComponent} from './components/stock/stock.component';
+import {StockTableInfoComponent} from './components/stock/stock-table/stock-table-info/stock-table-info.component';
 import {CatalogComponent} from './components/catalog/catalog.component';
 import {ProductionComponent} from './components/production/production.component';
 import {ConfigComponent} from './components/config/config.component';
@@ -14,6 +15,7 @@ const routes: Routes = [
   {path: 'catalog', component: CatalogComponent, canActivate:[StockGuard]},
   {path: 'production', component: ProductionComponent, canActivate:[StockGuard]},
   {path: 'stock', component: StockComponent, canActivate:[StockGuard]},
+  {path: 'stock/:id', component: StockTableInfoComponent, canActivate:[StockGuard]},
   {path: 'config', component: ConfigComponent, canActivate:[StockGuard]},
   // {path: 'stock', redirectTo: '/main', pathMatch: 'full'},
 ];

@@ -33,7 +33,6 @@ export class ProductTableComponent implements OnInit {
         setTimeout(()=>{this.load=false}, 300);
         this.products.map(data =>{
           data.show = false;
-          data.stockPrice='$22';
         });
        }
     );

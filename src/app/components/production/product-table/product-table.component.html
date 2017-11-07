@@ -16,8 +16,8 @@
             <div class="col s5">
               <h3>{{product.name}}</h3>
             </div>
-            <div class="col s3">
-              <h4 *ngIf="product.stockPrice" i18n="@@costPrice">Cost Price: {{product.stockPrice}}</h4>
+            <div class="col s5">
+              <h5 *ngIf="product.stockPrice" class="teal-text" i18n="@@costPrice">Cost Price: {{product.stockPrice}}</h5>
             </div>
           </div>
         <!-- </mat-card-header> -->
@@ -29,28 +29,33 @@
         </mat-card-actions>
         <mat-card-content *ngIf="products[ind].show">
           <table>
-            <tr>
-              <th i18n="@@detail3">Details</th>
-              <th i18n="@@qty">Quantity</th>
-              <th i18n="@@inStock">In Stock</th>
-              <th i18n="@@notEnough">Not Enough</th>
-            </tr>
+            <thead>
+              <tr>
+                  <th i18n="@@detail3">Details</th>
+                  <th i18n="@@qty">Quantity</th>
+                  <th i18n="@@inStock">In Stock</th>
+                  <th i18n="@@notEnough">Not Enough</th>
+              </tr>
+            </thead>
 
-            <tr *ngFor="let elem of product.dataTable">
-              <td>{{elem.name}}</td>
-              <td align="center"><mat-chip [style.display]="'block'" color="prime" selected="true">{{elem.count}}</mat-chip></td>
-              <td align="center">
-                <div *ngIf="elem?.existInStock; else noExistInStock">
-                  <fa name="check"></fa>
-                </div>
-                <ng-template #noExistInStock>
-                  <fa name="exit"></fa>
-                </ng-template>
-              </td>
-              <td align="center">
-                {{elem.not_enough}}
-              </td>
-            </tr>
+            <tbody>
+              <tr *ngFor="let elem of product.dataTable" [class]="elem?.existInStock ? teal-text : red-text">
+                <td><span class="teal-text red-text" [class.teal-text]="elem?.existInStock" [class.red-text]="!elem?.existInStock">{{elem.name}}</span></td>
+                <!-- <td>{{elem.name}}</td> -->
+                <td align="center"><mat-chip [style.display]="'block'" color="prime" selected="true">{{elem.count}}</mat-chip></td>
+                <td align="center">
+                  <div *ngIf="elem?.existInStock; else noExistInStock">
+                    <fa name="check"></fa>
+                  </div>
+                  <ng-template #noExistInStock>
+                    <fa name="times"></fa>
+                  </ng-template>
+                </td>
+                <td align="center">
+                  {{elem.not_enough}}
+                </td>
+              </tr>
+            </tbody>
           </table>
         </mat-card-content>
       </mat-card>

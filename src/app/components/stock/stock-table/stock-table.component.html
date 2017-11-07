@@ -37,6 +37,23 @@
         <mat-cell *matCellDef="let row"> {{row.storePlace}} </mat-cell>
       </ng-container>
 
+      <ng-container matColumnDef="info">
+        <mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@info"> Info </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+
+          <a mat-icon-button
+          [routerLink]="['/stock', row.id]"
+           >
+            <fa class="blue-text" name="info-circle"></fa>
+          </a>
+          <!-- <button mat-icon-button
+           (click)="getInfo(row.name)"
+           >
+            <fa class="blue-text" name="info-circle"></fa>
+          </button> -->
+        </mat-cell>
+      </ng-container>
+
       <ng-container matColumnDef="date">
         <mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@dateIncome"> Date income </mat-header-cell>
         <mat-cell *matCellDef="let row"> {{row.publishedDate | date:'short'}} </mat-cell>

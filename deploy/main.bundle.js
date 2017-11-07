@@ -26,10 +26,11 @@ webpackEmptyAsyncContext.id = "../../../../../src/$$_gendir lazy recursive";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_create_stock_create_stock_component__ = __webpack_require__("../../../../../src/app/components/create-stock/create-stock.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_stock_stock_component__ = __webpack_require__("../../../../../src/app/components/stock/stock.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_catalog_catalog_component__ = __webpack_require__("../../../../../src/app/components/catalog/catalog.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_production_production_component__ = __webpack_require__("../../../../../src/app/components/production/production.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_config_config_component__ = __webpack_require__("../../../../../src/app/components/config/config.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__guards_stock_guard__ = __webpack_require__("../../../../../src/app/guards/stock.guard.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_stock_stock_table_stock_table_info_stock_table_info_component__ = __webpack_require__("../../../../../src/app/components/stock/stock-table/stock-table-info/stock-table-info.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_catalog_catalog_component__ = __webpack_require__("../../../../../src/app/components/catalog/catalog.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_production_production_component__ = __webpack_require__("../../../../../src/app/components/production/production.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_config_config_component__ = __webpack_require__("../../../../../src/app/components/config/config.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__guards_stock_guard__ = __webpack_require__("../../../../../src/app/guards/stock.guard.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -44,21 +45,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
 var routes = [
     { path: '', redirectTo: '/create', pathMatch: 'full' },
     { path: 'create', component: __WEBPACK_IMPORTED_MODULE_2__components_create_stock_create_stock_component__["a" /* CreateStockComponent */] },
-    { path: 'catalog', component: __WEBPACK_IMPORTED_MODULE_4__components_catalog_catalog_component__["a" /* CatalogComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_7__guards_stock_guard__["a" /* StockGuard */]] },
-    { path: 'production', component: __WEBPACK_IMPORTED_MODULE_5__components_production_production_component__["a" /* ProductionComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_7__guards_stock_guard__["a" /* StockGuard */]] },
-    { path: 'stock', component: __WEBPACK_IMPORTED_MODULE_3__components_stock_stock_component__["a" /* StockComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_7__guards_stock_guard__["a" /* StockGuard */]] },
-    { path: 'config', component: __WEBPACK_IMPORTED_MODULE_6__components_config_config_component__["a" /* ConfigComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_7__guards_stock_guard__["a" /* StockGuard */]] },
+    { path: 'catalog', component: __WEBPACK_IMPORTED_MODULE_5__components_catalog_catalog_component__["a" /* CatalogComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_8__guards_stock_guard__["a" /* StockGuard */]] },
+    { path: 'production', component: __WEBPACK_IMPORTED_MODULE_6__components_production_production_component__["a" /* ProductionComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_8__guards_stock_guard__["a" /* StockGuard */]] },
+    { path: 'stock', component: __WEBPACK_IMPORTED_MODULE_3__components_stock_stock_component__["a" /* StockComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_8__guards_stock_guard__["a" /* StockGuard */]] },
+    { path: 'stock/:id', component: __WEBPACK_IMPORTED_MODULE_4__components_stock_stock_table_stock_table_info_stock_table_info_component__["a" /* StockTableInfoComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_8__guards_stock_guard__["a" /* StockGuard */]] },
+    { path: 'config', component: __WEBPACK_IMPORTED_MODULE_7__components_config_config_component__["a" /* ConfigComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_8__guards_stock_guard__["a" /* StockGuard */]] },
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
     }
     AppRoutingModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* NgModule */])({
-            imports: [__WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* RouterModule */].forRoot(routes)],
-            exports: [__WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* RouterModule */]]
+            imports: [__WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* RouterModule */].forRoot(routes)],
+            exports: [__WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* RouterModule */]]
         })
     ], AppRoutingModule);
     return AppRoutingModule;
@@ -160,6 +163,7 @@ var AppComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__components_config_config_component__ = __webpack_require__("../../../../../src/app/components/config/config.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__guards_stock_guard__ = __webpack_require__("../../../../../src/app/guards/stock.guard.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__components_stock_stock_expense_stock_expense_component__ = __webpack_require__("../../../../../src/app/components/stock/stock-expense/stock-expense.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__components_stock_stock_table_stock_table_info_stock_table_info_component__ = __webpack_require__("../../../../../src/app/components/stock/stock-table/stock-table-info/stock-table-info.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -197,6 +201,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -217,6 +222,7 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_22__components_stock_stock_income_stock_income_component__["a" /* StockIncomeComponent */],
                 __WEBPACK_IMPORTED_MODULE_23__components_config_config_component__["a" /* ConfigComponent */],
                 __WEBPACK_IMPORTED_MODULE_25__components_stock_stock_expense_stock_expense_component__["a" /* StockExpenseComponent */],
+                __WEBPACK_IMPORTED_MODULE_26__components_stock_stock_table_stock_table_info_stock_table_info_component__["a" /* StockTableInfoComponent */],
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_9_angular_font_awesome_angular_font_awesome__["a" /* AngularFontAwesomeModule */],
@@ -498,7 +504,7 @@ var CatalogFormComponent = /** @class */ (function () {
             template: __webpack_require__("../../../../../src/app/components/catalog/catalog-form/catalog-form.component.html"),
             styles: [__webpack_require__("../../../../../src/app/components/catalog/catalog-form/catalog-form.component.scss")]
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__services_stock_service__["a" /* StockService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_stock_service__["a" /* StockService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]) === "function" && _b || Object])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__services_stock_service__["a" /* StockService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_stock_service__["a" /* StockService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _b || Object])
     ], CatalogFormComponent);
     return CatalogFormComponent;
     var _a, _b;
@@ -915,7 +921,7 @@ var CreateStockComponent = /** @class */ (function () {
             template: __webpack_require__("../../../../../src/app/components/create-stock/create-stock.component.html"),
             styles: [__webpack_require__("../../../../../src/app/components/create-stock/create-stock.component.scss")]
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__services_stock_service__["a" /* StockService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_stock_service__["a" /* StockService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]) === "function" && _b || Object])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__services_stock_service__["a" /* StockService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_stock_service__["a" /* StockService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _b || Object])
     ], CreateStockComponent);
     return CreateStockComponent;
     var _a, _b;
@@ -994,7 +1000,7 @@ var NavbarComponent = /** @class */ (function () {
             template: __webpack_require__("../../../../../src/app/components/navbar/navbar.component.html"),
             styles: [__webpack_require__("../../../../../src/app/components/navbar/navbar.component.scss")]
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__services_stock_service__["a" /* StockService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_stock_service__["a" /* StockService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]) === "function" && _b || Object])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__services_stock_service__["a" /* StockService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_stock_service__["a" /* StockService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _b || Object])
     ], NavbarComponent);
     return NavbarComponent;
     var _a, _b;
@@ -1193,7 +1199,7 @@ var ProductCreateComponent = /** @class */ (function () {
 /***/ "../../../../../src/app/components/production/product-table/product-table.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<mat-grid-list *ngIf=\"load\" cols=\"1\" rowHeight=\"3:2\">\n  <mat-grid-tile>\n    <mat-spinner></mat-spinner>\n  </mat-grid-tile>\n</mat-grid-list>\n<ng-container *ngIf=\"!load\">\n  <h3 *ngIf=\"!products.length\" i18n=\"@@createPrUseCat\">\n    Create a product using the catalog\n  </h3>\n  <div *ngIf=\"products.length\">\n    <h3 i18n=\"@@products\">Products</h3>\n    <ng-container  *ngFor=\"let product of products; let ind = index;\">\n      <mat-card>\n        <!-- <mat-card-header> -->\n          <div class=\"row\">\n            <div class=\"col s5\">\n              <h3>{{product.name}}</h3>\n            </div>\n            <div class=\"col s3\">\n              <h4 *ngIf=\"product.stockPrice\" i18n=\"@@costPrice\">Cost Price: {{product.stockPrice}}</h4>\n            </div>\n          </div>\n        <!-- </mat-card-header> -->\n        <mat-card-actions>\n          <div align=\"left\" (click)=\"products[ind].show = !products[ind].show\">\n            <fa name=\"minus-square\" size=\"lg\" [hidden]=\"!products[ind].show\"></fa>\n            <fa name=\"plus-square\" size=\"lg\" [hidden]=\"products[ind].show\"></fa>\n          </div>\n        </mat-card-actions>\n        <mat-card-content *ngIf=\"products[ind].show\">\n          <table>\n            <tr>\n              <th i18n=\"@@detail3\">Details</th>\n              <th i18n=\"@@qty\">Quantity</th>\n              <th i18n=\"@@inStock\">In Stock</th>\n              <th i18n=\"@@notEnough\">Not Enough</th>\n            </tr>\n\n            <tr *ngFor=\"let elem of product.dataTable\">\n              <td>{{elem.name}}</td>\n              <td align=\"center\"><mat-chip [style.display]=\"'block'\" color=\"prime\" selected=\"true\">{{elem.count}}</mat-chip></td>\n              <td align=\"center\">\n                <div *ngIf=\"elem?.existInStock; else noExistInStock\">\n                  <fa name=\"check\"></fa>\n                </div>\n                <ng-template #noExistInStock>\n                  <fa name=\"exit\"></fa>\n                </ng-template>\n              </td>\n              <td align=\"center\">\n                {{elem.not_enough}}\n              </td>\n            </tr>\n          </table>\n        </mat-card-content>\n      </mat-card>\n      <br>\n    </ng-container>\n  </div>\n</ng-container>\n"
+module.exports = "<mat-grid-list *ngIf=\"load\" cols=\"1\" rowHeight=\"3:2\">\n  <mat-grid-tile>\n    <mat-spinner></mat-spinner>\n  </mat-grid-tile>\n</mat-grid-list>\n<ng-container *ngIf=\"!load\">\n  <h3 *ngIf=\"!products.length\" i18n=\"@@createPrUseCat\">\n    Create a product using the catalog\n  </h3>\n  <div *ngIf=\"products.length\">\n    <h3 i18n=\"@@products\">Products</h3>\n    <ng-container  *ngFor=\"let product of products; let ind = index;\">\n      <mat-card>\n        <!-- <mat-card-header> -->\n          <div class=\"row\">\n            <div class=\"col s5\">\n              <h3>{{product.name}}</h3>\n            </div>\n            <div class=\"col s5\">\n              <h5 *ngIf=\"product.stockPrice\" class=\"teal-text\" i18n=\"@@costPrice\">Cost Price: {{product.stockPrice}}</h5>\n            </div>\n          </div>\n        <!-- </mat-card-header> -->\n        <mat-card-actions>\n          <div align=\"left\" (click)=\"products[ind].show = !products[ind].show\">\n            <fa name=\"minus-square\" size=\"lg\" [hidden]=\"!products[ind].show\"></fa>\n            <fa name=\"plus-square\" size=\"lg\" [hidden]=\"products[ind].show\"></fa>\n          </div>\n        </mat-card-actions>\n        <mat-card-content *ngIf=\"products[ind].show\">\n          <table>\n            <thead>\n              <tr>\n                  <th i18n=\"@@detail3\">Details</th>\n                  <th i18n=\"@@qty\">Quantity</th>\n                  <th i18n=\"@@inStock\">In Stock</th>\n                  <th i18n=\"@@notEnough\">Not Enough</th>\n              </tr>\n            </thead>\n\n            <tbody>\n              <tr *ngFor=\"let elem of product.dataTable\" [class]=\"elem?.existInStock ? teal-text : red-text\">\n                <td><span class=\"teal-text red-text\" [class.teal-text]=\"elem?.existInStock\" [class.red-text]=\"!elem?.existInStock\">{{elem.name}}</span></td>\n                <!-- <td>{{elem.name}}</td> -->\n                <td align=\"center\"><mat-chip [style.display]=\"'block'\" color=\"prime\" selected=\"true\">{{elem.count}}</mat-chip></td>\n                <td align=\"center\">\n                  <div *ngIf=\"elem?.existInStock; else noExistInStock\">\n                    <fa name=\"check\"></fa>\n                  </div>\n                  <ng-template #noExistInStock>\n                    <fa name=\"times\"></fa>\n                  </ng-template>\n                </td>\n                <td align=\"center\">\n                  {{elem.not_enough}}\n                </td>\n              </tr>\n            </tbody>\n          </table>\n        </mat-card-content>\n      </mat-card>\n      <br>\n    </ng-container>\n  </div>\n</ng-container>\n"
 
 /***/ }),
 
@@ -1261,7 +1267,6 @@ var ProductTableComponent = /** @class */ (function () {
             setTimeout(function () { _this.load = false; }, 300);
             _this.products.map(function (data) {
                 data.show = false;
-                data.stockPrice = '$22';
             });
         });
         console.log(this.products);
@@ -1713,10 +1718,88 @@ var StockIncomeComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "../../../../../src/app/components/stock/stock-table/stock-table-info/stock-table-info.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<p>\n  stock-table-info works!\n</p>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/stock/stock-table/stock-table-info/stock-table-info.component.scss":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/stock/stock-table/stock-table-info/stock-table-info.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return StockTableInfoComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_switchMap__ = __webpack_require__("../../../../rxjs/_esm5/add/operator/switchMap.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_stock_service__ = __webpack_require__("../../../../../src/app/services/stock.service.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var StockTableInfoComponent = /** @class */ (function () {
+    function StockTableInfoComponent(route, router, service) {
+        this.route = route;
+        this.router = router;
+        this.service = service;
+    }
+    StockTableInfoComponent.prototype.ngOnInit = function () {
+        var id = this.route.snapshot.paramMap.get('id');
+        // this.good = this.route.paramMap
+        //   .switchMap((params: ParamMap) =>
+        //       this.service.getStoreGood(params.get('id'))
+        //   );
+        this.service.getStoreGood(id);
+        console.log(this.good);
+    };
+    StockTableInfoComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["o" /* Component */])({
+            selector: 'app-stock-table-info',
+            template: __webpack_require__("../../../../../src/app/components/stock/stock-table/stock-table-info/stock-table-info.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/components/stock/stock-table/stock-table-info/stock-table-info.component.scss")]
+        }),
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__services_stock_service__["a" /* StockService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__services_stock_service__["a" /* StockService */]) === "function" && _c || Object])
+    ], StockTableInfoComponent);
+    return StockTableInfoComponent;
+    var _a, _b, _c;
+}());
+
+//# sourceMappingURL=stock-table-info.component.js.map
+
+/***/ }),
+
 /***/ "../../../../../src/app/components/stock/stock-table/stock-table.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"\">\n  <h1><ng-container i18n=\"@@stock\">Stock</ng-container> {{_dataService.getCurrentStock()}}</h1>\n  <div class=\"my-container mat-elevation-z8\">\n\n    <div class=\"example-header\">\n      <!-- <mat-form-field floatPlaceholder=\"never\"> -->\n        <input matInput #filter i18n-placeholder=\"@@filter\"  placeholder=\"Filter\">\n      <!-- </mat-form-field> -->\n    </div>\n\n    <mat-table #table [dataSource]=\"dataSource\" matSort>\n\n      <ng-container matColumnDef=\"name\">\n        <mat-header-cell *matHeaderCellDef mat-sort-header i18n=\"@@name\">Name</mat-header-cell>\n        <mat-cell *matCellDef=\"let row\"> {{row.name}} </mat-cell>\n      </ng-container>\n\n      <ng-container matColumnDef=\"count\">\n        <mat-header-cell *matHeaderCellDef mat-sort-header i18n=\"@@qty\">Quantity</mat-header-cell>\n        <mat-cell *matCellDef=\"let row\" align=\"center\"> {{row.count}} </mat-cell>\n      </ng-container>\n\n      <ng-container matColumnDef=\"measure\">\n        <mat-header-cell *matHeaderCellDef mat-sort-header i18n=\"@@measure\">Measure</mat-header-cell>\n        <mat-cell *matCellDef=\"let row\" i18n=\"@@measureMs\">\n          { row.measure, select, kg. {kilogramm} metr {metr} piece {piece}  }\n        </mat-cell>\n      </ng-container>\n\n      <ng-container matColumnDef=\"price\">\n        <mat-header-cell *matHeaderCellDef mat-sort-header i18n=\"@@avgPrice\">Average price </mat-header-cell>\n        <mat-cell *matCellDef=\"let row\"> {{row.price | number: '1.1-3'}} </mat-cell>\n      </ng-container>\n\n      <ng-container matColumnDef=\"storePlace\">\n        <mat-header-cell *matHeaderCellDef mat-sort-header i18n=\"@@storePlace\"> Store place </mat-header-cell>\n        <mat-cell *matCellDef=\"let row\"> {{row.storePlace}} </mat-cell>\n      </ng-container>\n\n      <ng-container matColumnDef=\"date\">\n        <mat-header-cell *matHeaderCellDef mat-sort-header i18n=\"@@dateIncome\"> Date income </mat-header-cell>\n        <mat-cell *matCellDef=\"let row\"> {{row.publishedDate | date:'short'}} </mat-cell>\n      </ng-container>\n\n      <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n      <mat-row *matRowDef=\"let row; columns: displayedColumns;\"></mat-row>\n    </mat-table>\n\n    <div class=\"example-no-results\"\n         [style.display]=\"dataSource.renderedData.length == 0 ? '' : 'none'\" i18n=\"@@filtMesNotGoods\">\n        There are no goods matching this filter.\n    </div>\n\n    <mat-paginator #paginator\n    [length]=\"dataSource.filteredData.length\"\n    [pageIndex]=\"0\"\n    [pageSize]=\"5\"\n    [pageSizeOptions]=\"[5, 10, 25, 100]\">\n  </mat-paginator>\n\n</div>\n\n</div>\n"
+module.exports = "<div class=\"\">\n  <h1><ng-container i18n=\"@@stock\">Stock</ng-container> {{_dataService.getCurrentStock()}}</h1>\n  <div class=\"my-container mat-elevation-z8\">\n\n    <div class=\"example-header\">\n      <!-- <mat-form-field floatPlaceholder=\"never\"> -->\n        <input matInput #filter i18n-placeholder=\"@@filter\"  placeholder=\"Filter\">\n      <!-- </mat-form-field> -->\n    </div>\n\n    <mat-table #table [dataSource]=\"dataSource\" matSort>\n\n      <ng-container matColumnDef=\"name\">\n        <mat-header-cell *matHeaderCellDef mat-sort-header i18n=\"@@name\">Name</mat-header-cell>\n        <mat-cell *matCellDef=\"let row\"> {{row.name}} </mat-cell>\n      </ng-container>\n\n      <ng-container matColumnDef=\"count\">\n        <mat-header-cell *matHeaderCellDef mat-sort-header i18n=\"@@qty\">Quantity</mat-header-cell>\n        <mat-cell *matCellDef=\"let row\" align=\"center\"> {{row.count}} </mat-cell>\n      </ng-container>\n\n      <ng-container matColumnDef=\"measure\">\n        <mat-header-cell *matHeaderCellDef mat-sort-header i18n=\"@@measure\">Measure</mat-header-cell>\n        <mat-cell *matCellDef=\"let row\" i18n=\"@@measureMs\">\n          { row.measure, select, kg. {kilogramm} metr {metr} piece {piece}  }\n        </mat-cell>\n      </ng-container>\n\n      <ng-container matColumnDef=\"price\">\n        <mat-header-cell *matHeaderCellDef mat-sort-header i18n=\"@@avgPrice\">Average price </mat-header-cell>\n        <mat-cell *matCellDef=\"let row\"> {{row.price | number: '1.1-3'}} </mat-cell>\n      </ng-container>\n\n      <ng-container matColumnDef=\"storePlace\">\n        <mat-header-cell *matHeaderCellDef mat-sort-header i18n=\"@@storePlace\"> Store place </mat-header-cell>\n        <mat-cell *matCellDef=\"let row\"> {{row.storePlace}} </mat-cell>\n      </ng-container>\n\n      <ng-container matColumnDef=\"info\">\n        <mat-header-cell *matHeaderCellDef mat-sort-header i18n=\"@@info\"> Info </mat-header-cell>\n        <mat-cell *matCellDef=\"let row\">\n\n          <a mat-icon-button\n          [routerLink]=\"['/stock', row.id]\"\n           >\n            <fa class=\"blue-text\" name=\"info-circle\"></fa>\n          </a>\n          <!-- <button mat-icon-button\n           (click)=\"getInfo(row.name)\"\n           >\n            <fa class=\"blue-text\" name=\"info-circle\"></fa>\n          </button> -->\n        </mat-cell>\n      </ng-container>\n\n      <ng-container matColumnDef=\"date\">\n        <mat-header-cell *matHeaderCellDef mat-sort-header i18n=\"@@dateIncome\"> Date income </mat-header-cell>\n        <mat-cell *matCellDef=\"let row\"> {{row.publishedDate | date:'short'}} </mat-cell>\n      </ng-container>\n\n      <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n      <mat-row *matRowDef=\"let row; columns: displayedColumns;\"></mat-row>\n    </mat-table>\n\n    <div class=\"example-no-results\"\n         [style.display]=\"dataSource.renderedData.length == 0 ? '' : 'none'\" i18n=\"@@filtMesNotGoods\">\n        There are no goods matching this filter.\n    </div>\n\n    <mat-paginator #paginator\n    [length]=\"dataSource.filteredData.length\"\n    [pageIndex]=\"0\"\n    [pageSize]=\"5\"\n    [pageSizeOptions]=\"[5, 10, 25, 100]\">\n  </mat-paginator>\n\n</div>\n\n</div>\n"
 
 /***/ }),
 
@@ -1770,7 +1853,7 @@ var StockTableComponent = /** @class */ (function () {
     function StockTableComponent(_dataService) {
         this._dataService = _dataService;
         this.onEdit = new __WEBPACK_IMPORTED_MODULE_2__angular_core__["x" /* EventEmitter */]();
-        this.displayedColumns = ['name', 'count', 'measure', 'price', 'storePlace'];
+        this.displayedColumns = ['name', 'count', 'measure', 'price', 'storePlace', 'info'];
         this.catalog = new __WEBPACK_IMPORTED_MODULE_5_rxjs_BehaviorSubject__["a" /* BehaviorSubject */]([]);
     }
     StockTableComponent.prototype.ngOnInit = function () {
@@ -1923,7 +2006,7 @@ var StockGuard = /** @class */ (function () {
     };
     StockGuard = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__services_stock_service__["a" /* StockService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_stock_service__["a" /* StockService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]) === "function" && _b || Object])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__services_stock_service__["a" /* StockService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_stock_service__["a" /* StockService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _b || Object])
     ], StockGuard);
     return StockGuard;
     var _a, _b;
@@ -2019,6 +2102,12 @@ var StockService = /** @class */ (function () {
     // Service for Goods
     StockService.prototype.getStockGoods = function () {
         var _this = this;
+        return this._http.get("/api/stock-goods?name=" + this.stockName)
+            .map(function (result) { return _this.result = result.json().data; });
+    };
+    StockService.prototype.getStoreGood = function (id) {
+        var _this = this;
+        console.log('StoreGood!!! ' + id);
         return this._http.get("/api/stock-goods?name=" + this.stockName)
             .map(function (result) { return _this.result = result.json().data; });
     };

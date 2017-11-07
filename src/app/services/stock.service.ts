@@ -82,6 +82,12 @@ export class StockService {
     .map(result => this.result = result.json().data);
   }
 
+  getStoreGood(id){
+    console.log('StoreGood!!! ' + id);
+    return this._http.get("/api/stock-goods?name=" + this.stockName)
+    .map(result => this.result = result.json().data);
+  }
+
   incomeGoods(goods, callback){
     this._http.post("/api/income-goods", goods)
       .subscribe(result => callback(!result.ok));
