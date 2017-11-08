@@ -109,6 +109,60 @@ router.get('/stock', (req,res)=>{
   }
 });
 
+// connection((db)=>{
+//   // let catalogId = ;
+//   console.log(query);
+//   db.collection('statist-goods')
+//   .aggregate([
+//     {$match:query}
+//   ]).toArray().then(data => console.log(data));
+// })
+
+let getStatisticGoodById = (db, query, cb)=>{
+  cb(
+    db.collection('statist-goods')
+    .aggregate([
+      {$match:query}
+      // ,{$lookup:{
+      //   from: "catalog",
+      //   localField: "_id",
+      //   foreignField: "_id",
+      //   as: "catalog"
+      // }}
+      // ,{$lookup:{
+      //   from: "statist-goods",
+      //   localField: "_id",
+      //   foreignField: "catalogId",
+      //   as: "statist"
+      // }}
+      // ,{$unwind:"$catalog"}
+      // ,{$match:{"statist.del": false}}
+      // ,{$project: {
+      //   id: "$_id",
+      //   count: "$count",
+      //   name: "$catalog.name",
+      //   storePlace: "$catalog.storePlace",
+      //   measure: "$catalog.measure",
+      //   stat_count: "$statist.count",
+      //   stat_price: "$statist.price",
+      //   stat_inc: {$eq: ["$statist.action","INCOME"]},
+      //   stat_date: "$statist.publicDate",
+      //   stat: "$statist",
+      //   sum: {$sum: "$statist.count"},
+      //   price: { $divide: [{
+      //     $reduce: {
+      //       input: "$statist",
+      //       initialValue: "",
+      //       in: { $sum:["$$value", {$multiply:["$$this.balance","$$this.price"]}]}
+      //     }
+      //   }, "$count"]},
+      // }}
+      // ,{$sort:{stat_date:-1}}
+    ])
+    .toArray()
+  );
+}
+
 let getGoodsAggregate = (db, stockName, cb)=>{
   cb(
     db.collection('goods')
@@ -174,6 +228,29 @@ router.get('/stock-goods', (req, res) => {
     });
   }
 });
+
+router.get('/stock-store-goods', (req, res)=>{
+  console.log(req.query.stockName);
+  if (req.query.stockName && req.query.stockName.length)
+  {
+    connection((db) => {
+      let nObjId = new ObjectID(req.query.id);
+      let query = {stockName:req.query.stockName, catalogId: nObjId};
+      console.log('Stock Store Goods', query);
+      getStatisticGoodById(db, query, (promise)=>{
+          promise
+          .then( goods => {
+            console.log(goods);
+            response.data = goods;
+            res.json(response);
+          })
+          .catch((err) => {
+            sendError(err, res);
+          });
+      });
+    });
+  }
+})
 
 router.post('/income-goods', (req,res) => {
   connection((db)=> {

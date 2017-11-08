@@ -83,8 +83,8 @@ export class StockService {
   }
 
   getStoreGood(id){
-    console.log('StoreGood!!! ' + id);
-    return this._http.get("/api/stock-goods?name=" + this.stockName)
+    console.log('Get id ' + id);
+    return this._http.get("/api/stock-store-goods?id="+id+"&stockName="+this.stockName)
     .map(result => this.result = result.json().data);
   }
 
