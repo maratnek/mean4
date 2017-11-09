@@ -1721,7 +1721,7 @@ var StockIncomeComponent = /** @class */ (function () {
 /***/ "../../../../../src/app/components/stock/stock-table/stock-table-info/stock-table-info.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"my-container\">\n  <div class=\"my-height\">\n    <mat-card>\n      <a mat-raised-button\n      [routerLink]=\"['/stock']\"\n       >\n       <fa class=\"blue-text\" name=\"undo\"></fa>\n       Go Back\n      </a>\n      <div class=\"container\">\n        <h2>Analitic exp&inc</h2>\n        <!-- <div class=\"chart-container\" style=\"position: relative; height:40vh; width:80vw\"> -->\n        <div>\n          <canvas id=\"myChart\"></canvas>\n        </div>\n      </div>\n    </mat-card>\n  </div>\n</div>\n"
+module.exports = "<div class=\"my-container\">\n  <div class=\"my-height\">\n    <mat-card>\n      <a mat-raised-button\n      [routerLink]=\"['/stock']\"\n       >\n       <fa class=\"blue-text\" name=\"undo\"></fa>\n       Go Back\n      </a>\n      <div class=\"container\">\n        <h2>Analitic exp&inc</h2>\n        <!-- <div class=\"chart-container\" style=\"position: relative; height:40vh; width:80vw\"> -->\n        <div>\n          <canvas id=\"myChart\"></canvas>\n        </div>\n        <div class=\"container\">\n          <mat-form-field>\n            <mat-select placeholder=\"Axis X change\" [(ngModel)]=\"selectedFormat\" name=\"date\" (change)=\"ChangeSelect()\">\n              <mat-option *ngFor=\"let format of dateFormats\" [value]=\"format.value\">\n                {{format.viewValue}}\n              </mat-option>\n            </mat-select>\n          </mat-form-field>\n          <p> Selected value: {{selectedFormat}} </p>\n        </div>\n      </div>\n    </mat-card>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -1773,8 +1773,24 @@ var StockTableInfoComponent = /** @class */ (function () {
         this.route = route;
         this.router = router;
         this.service = service;
+        this.borderC = '#4a148c';
+        this.config = {};
+        // Date format
+        this.selectedFormat = 'month';
+        this.dateFormats = [
+            // {value: 'millisecond',viewValue: 'millisecond'},
+            { value: 'second', viewValue: 'second' },
+            { value: 'minute', viewValue: 'minute' },
+            { value: 'hour', viewValue: 'hour' },
+            { value: 'day', viewValue: 'day' },
+            { value: 'week', viewValue: 'week' },
+            { value: 'month', viewValue: 'month' },
+            { value: 'quarter', viewValue: 'quarter' },
+            { value: 'year', viewValue: 'year' }
+        ];
     }
     StockTableInfoComponent.prototype.ngOnInit = function () {
+        var _this = this;
         var id = this.route.snapshot.paramMap.get('id');
         // this.good = this.route.paramMap
         //   .switchMap((params: ParamMap) =>
@@ -1790,24 +1806,69 @@ var StockTableInfoComponent = /** @class */ (function () {
                     data.push(iter.price);
                 }
             });
+            _this.createChart(labels, data);
         });
-        // console.log(this.);
-        var ctx = document.getElementById("myChart");
-        var myChart = new __WEBPACK_IMPORTED_MODULE_4_chart_js__["Chart"](ctx, {
-            type: 'line',
-            data: {
-                labels: labels,
-                datasets: [{
-                        label: '# of Votes',
-                        data: data,
-                    }]
-            },
-            options: {
-                scales: {
-                    xAxes: [{}]
+    };
+    StockTableInfoComponent.prototype.createChart = function (labels, data) {
+        if (labels && labels.length && data && data.length && data.length == labels.length) {
+            console.log(data, labels);
+            var timeFormat = 'MM/DD/YYYY HH:mm';
+            var ctx = document.getElementById("myChart");
+            this.config = {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                            label: '# of Price',
+                            data: data,
+                            type: 'line',
+                            fill: false,
+                            // lineTension: 0,
+                            borderWidth: 2,
+                            borderColor: this.borderC,
+                            pointRadius: 5,
+                            pointHoverRadius: 10,
+                        }]
+                },
+                options: {
+                    scales: {
+                        xAxes: [{
+                                type: "time",
+                                time: {
+                                    // format: timeFormat,
+                                    // round: 'day'
+                                    // tooltipFormat: 'll HH:mm'
+                                    // unit:'month'
+                                    unit: this.selectedFormat
+                                },
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'Date'
+                                }
+                            },],
+                        yAxes: [{
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'value'
+                                }
+                            }]
+                    },
                 }
-            }
-        });
+            };
+            this.myChart = new __WEBPACK_IMPORTED_MODULE_4_chart_js__["Chart"](ctx, this.config);
+        }
+    };
+    StockTableInfoComponent.prototype.ChangeSelect = function () {
+        console.log(this.selectedFormat);
+        this.config.options.scales.xAxes[0].time.unit = this.selectedFormat;
+        this.myChart.update();
+    };
+    StockTableInfoComponent.prototype.ChangeColor = function () {
+        console.log('Go teal !');
+        this.config.data.datasets[0].borderColor = '#009688';
+        console.log(this.config.options.scales.xAxes);
+        // this.borderC = '#009688';
+        this.myChart.update();
     };
     StockTableInfoComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["o" /* Component */])({

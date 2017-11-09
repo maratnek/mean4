@@ -13,6 +13,16 @@
         <div>
           <canvas id="myChart"></canvas>
         </div>
+        <div class="container">
+          <mat-form-field>
+            <mat-select placeholder="Axis X change" [(ngModel)]="selectedFormat" name="date" (change)="ChangeSelect()">
+              <mat-option *ngFor="let format of dateFormats" [value]="format.value">
+                {{format.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <p> Selected value: {{selectedFormat}} </p>
+        </div>
       </div>
     </mat-card>
   </div>
