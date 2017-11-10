@@ -18,17 +18,18 @@ console.log('Convert image');
 function convertImage(inputStream) {
   // console.log(inputStream);
   // console.log(gm);
-  // return inputStream;
-	return gm(inputStream)
-		.crop(3456, 3456, 0, 0)
+  return inputStream;
+	// return gm(inputStream)
+		// .crop(3456, 3456, 0, 0)
 		// .resize(180, 180)
-		.contrast(-2)
-		.map('pebble_colors_64.gif')
+		// .contrast(-2)
+		// .map('pebble_colors_64.gif')
 	// 	.dither()
-		.stream();
+		// .stream();
 }
 app.get('/assets/img/:fileName', (req, res) => {
-	let url = './' +  publicName + req.originalUrl;
+	let url = path.join(__dirname,  publicName + req.originalUrl);
+	console.log('express assets use for the Image', url);
 	res.set('Content-Type', req.originalUrl);
   console.log(req.originalUrl);
   const readStream = fs.createReadStream(url);
